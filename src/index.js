@@ -1,12 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import { BrowserRouter as Router } from "react-router-dom";
 
+import './index.css';
+import BrewMore from './components/BrewMore';
+import BrandCard from './components/brands/BrandCard'
+import * as serviceWorker from './serviceWorker';
+// Importing the Bootstrap CSS
+import 'bootstrap/dist/css/bootstrap.min.css';
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+  <Router>
+    <BrewMore />
+    </Router>
   </React.StrictMode>,
   document.getElementById('root')
 );
