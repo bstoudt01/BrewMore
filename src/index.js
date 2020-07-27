@@ -9,11 +9,11 @@ import * as serviceWorker from './serviceWorker';
 // Importing the Bootstrap CSS
 import 'bootstrap/dist/css/bootstrap.min.css';
 ReactDOM.render(
-  <React.StrictMode>
+  //<React.StrictMode>
   <Router>
     <BrewMore />
-    </Router>
-  </React.StrictMode>,
+    </Router>,
+  //</React.StrictMode>,
   document.getElementById('root')
 );
 

@@ -6,14 +6,14 @@ import Button from 'react-bootstrap/Button'
 import Media from 'react-bootstrap/Media'
 import Card from 'react-bootstrap/Card'
 import InputGroup from 'react-bootstrap/InputGroup'
-import "./BrewMore.css"
+
 import { Form } from 'react-bootstrap';
 const NewBrand = () => {
 
     
     return (
 <Container fluid >
-    <Row>
+    {/* <Row>
         <Navbar bg="light" expand="lg">
             <Navbar.Brand href="#home">BrewMore - Inovating Craft Beer Tools for Everyone</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -35,7 +35,7 @@ const NewBrand = () => {
                 </Nav>
             </Navbar.Collapse>
         </Navbar>
-    </Row>
+    </Row> */}
     <Card>
         <Card.Body>
             <Row>

@@ -15,7 +15,7 @@ const BrandList = (props) => {
 
     useEffect(() => {
         getBrands()
-    })
+    },[])
     return (
         <>
         <ListGroup horizontal>
