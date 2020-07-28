@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect} from 'react'
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/CardColumns';
@@ -6,40 +6,70 @@ import Button from 'react-bootstrap/Button'
 import Media from 'react-bootstrap/Media'
 import Card from 'react-bootstrap/Card'
 import InputGroup from 'react-bootstrap/InputGroup'
-
+import $ from 'jquery'
+import { counter } from 'react'
 import { Form } from 'react-bootstrap';
+
+import GrainManager from '../../modules/GrainManager';
+import BrandManager from '../../modules/BrandManager';
+  
 const NewBrand = () => {
 
+    const [grainSelects, setGrainSelects] = useState([])
+    const [grainFieldsArray, setGrainFieldsArray] = useState([])
+    const [usedGrains, setUsedGrains] = useState([{grainId:"", weight:""}])
+
+
+    const handleAdd = () => {
+        const values = [...grainFieldsArray ];
+        values.push({ value: grainFieldsArray.id });
+        setGrainFieldsArray(values);
+      }
+
+      const handleRemove = index => {
+        const list = [...grainFieldsArray];
+        list.splice(index, 1);
+        setGrainFieldsArray(list);
+      };
+    // const handleRemove = (i) => {
+
+    //     const newList = grainFieldsArray.filter((grainFields) => grainFields.id !== i);
+    //     setGrainFieldsArray(newList);
     
+    //     // const values = [...grainFieldsArray];
+    //     // values.splice(i, 1);
+    //     // setGrainFieldsArray(values);
+    //   }
+
+      const handleChange=(i, event)  => {
+        const values = [...grainFieldsArray];
+        values[i].value = event.target.value;
+        setGrainFieldsArray(values);
+      }
+    // const addNewGrainInput = () => {
+    //     //setGrainSelects(grainSelects=> grainSelects += className="mb+map");
+    //   };
+    // const handleChange = (e) => {
+    //     if(["grainId", "weightId"].includes(e.target.className))
+    //     let grains = {...grains}
+    // }
+    
+    // const handleSubmit = (e) => {
+    //     e.preventDefault();
+    // }
+
+    useEffect(() => {
+        GrainManager.getAll().then(grains => {
+            setGrainSelects(grains)
+        })
+    },[])
+
     return (
 <Container fluid >
-    {/* <Row>
-        <Navbar bg="light" expand="lg">
-            <Navbar.Brand href="#home">BrewMore - Inovating Craft Beer Tools for Everyone</Navbar.Brand>
-            <Navbar.Toggle aria-controls="basic-navbar-nav" />
-            <Navbar.Collapse id="basic-navbar-nav">
-                <Nav className="mr-auto">
-                    <Nav.Link href="#home">Home</Nav.Link>
-                    <Nav.Link href="#link">Brew House</Nav.Link>
-                    <Nav.Link href="#link">Design a Beer</Nav.Link>
-                    <NavDropdown title="Wall of Beers" id="basic-nav-dropdown">
-                        <NavDropdown.Item href="#action/3.1">All the Beers</NavDropdown.Item>
-                        <NavDropdown.Item href="#action/3.2">Staple Beers</NavDropdown.Item>
-                        <NavDropdown.Item href="#action/3.3">Seasonal Beers</NavDropdown.Item>
-                        <NavDropdown.Item href="#action/3.3">Experimental Beers</NavDropdown.Item>
-                        <NavDropdown.Item href="#action/3.3">Dead Beers</NavDropdown.Item>
-                        
-                        <NavDropdown.Divider />
-                        <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
-                    </NavDropdown>
-                </Nav>
-            </Navbar.Collapse>
-        </Navbar>
-    </Row> */}
     <Card>
         <Card.Body>
             <Row>
-                <h2>NEW BRAND BUILDER KIT</h2>
+                <h2>NEW BRAND FROM THE BREW MEISTER</h2>
             </Row>
             <Row>
             <Form>
@@ -74,6 +104,7 @@ const NewBrand = () => {
                         </Form.Control>
                     </InputGroup>
                 </Col>
+                
                 <Col>
                     <InputGroup className="mb-3">
                         <InputGroup.Prepend>
@@ -82,18 +113,19 @@ const NewBrand = () => {
                         <Form.Control type="text" placeholder="Yeast Strain" />
                     </InputGroup>
                 </Col>
-                <Col>
-                    <InputGroup className="mb-3">
+
+                {grainFieldsArray.map((grainFields, idx) => {
+                return (
+                <Col key={`${grainFields}-${idx}`}>
+                    <InputGroup className="mb-3" >
                         <InputGroup.Prepend>
                             <InputGroup.Text id="basic-newBrandForm">Grain:</InputGroup.Text>
                         </InputGroup.Prepend>
-                        <Form.Control as="select">
-                            <option>Choice 1</option>
-                            <option>Rahr - 2 Row</option>
-                            <option>Rahr - Pilsner </option>
-                            <option>Briess - Crystal 30L</option>
-                            <option>Crisp - Crystal 45L</option>
-                            <option>Wyerman - Acid Malt</option>
+                        <Form.Control as="select" onChange= {e => handleChange(idx, e)}>
+                        <option> Choose grain</option>
+                        {grainSelects.map(grain => 
+                            <option key={grain.id} value={grain.name}>{grain.name}</option>
+                        )}
                         </Form.Control>
                     </InputGroup>
                     <InputGroup className="mb-3">
@@ -102,7 +134,33 @@ const NewBrand = () => {
                         </InputGroup.Prepend>
                         <Form.Control type="text" placeholder="Numbers Only" />
                     </InputGroup>
+                    <button type="button" onClick={() => handleRemove(idx)}>X</button>
                 </Col>
+                )
+                })}
+
+                <Col>
+                    <InputGroup className="mb-3">
+                        <InputGroup.Prepend>
+                            <InputGroup.Text id="basic-newBrandForm">Grain:</InputGroup.Text>
+                        </InputGroup.Prepend>
+                      
+                        <Form.Control as="select" className="grainId">
+                        <option >Choice 1</option>
+                        {grainSelects.map(item => 
+                            <option key={item.id} value={item.name}>{item.name}</option>
+                        )}
+                        </Form.Control>
+                        
+                        <InputGroup.Prepend>
+                            <InputGroup.Text id="basic-newBrandForm">Weight</InputGroup.Text>
+                        </InputGroup.Prepend>
+                        <Form.Control type="text" placeholder="Numbers Only" className="weightId" />
+                    </InputGroup>
+                </Col>
+                    
+                
+                <Button variant="outline-primary"  id="addGrainButton" onClick={handleAdd}>Add Another Grain</Button>
 
                 <Col>
                     <InputGroup className="mb-3">
