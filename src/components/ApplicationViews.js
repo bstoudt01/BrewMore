@@ -1,7 +1,13 @@
-import { Route, Redirect } from "react-router-dom";
+import { Route } from "react-router-dom";
 import React from "react";
 import BrandList from './brands/BrandList'
 import NewBrand from './brands/NewBrand'
+
+
+//import NewBrandStart from './brands/NewBrandStart'
+
+//import Redirect from "react-router-dom";
+
 const ApplicationViews = (props) => {
 	// Check if credentials are in session storage returns true/false (credentials are there or its not) based on the props. hasUser & setUser from Application Views (parent component)
 

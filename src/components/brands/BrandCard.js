@@ -1,15 +1,15 @@
 import React from 'react';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/CardColumns';
-import Navbar from 'react-bootstrap/Navbar';
-import Nav from 'react-bootstrap/Nav'
-import NavDropdown from 'react-bootstrap/NavDropdown'
+//import Container from 'react-bootstrap/Container';
+//import Row from 'react-bootstrap/Row';
+//import Col from 'react-bootstrap/CardColumns';
+//import Navbar from 'react-bootstrap/Navbar';
+//import Nav from 'react-bootstrap/Nav'
+//import NavDropdown from 'react-bootstrap/NavDropdown'
 import Button from 'react-bootstrap/Button'
-import Media from 'react-bootstrap/Media'
+//import Media from 'react-bootstrap/Media'
 import Card from 'react-bootstrap/Card'
-import InputGroup from 'react-bootstrap/InputGroup'
-import { Form } from 'react-bootstrap';
+//import InputGroup from 'react-bootstrap/InputGroup'
+//import { Form } from 'react-bootstrap';
 const BrandCard = (props) => {
     const brand= props.brand;
 

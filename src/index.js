@@ -4,7 +4,6 @@ import { BrowserRouter as Router } from "react-router-dom";
 
 import './index.css';
 import BrewMore from './components/BrewMore';
-import BrandCard from './components/brands/BrandCard'
 import * as serviceWorker from './serviceWorker';
 // Importing the Bootstrap CSS
 import 'bootstrap/dist/css/bootstrap.min.css';
