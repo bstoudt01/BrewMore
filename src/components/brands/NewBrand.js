@@ -5,15 +5,14 @@ import Col from 'react-bootstrap/CardColumns';
 import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card'
 import InputGroup from 'react-bootstrap/InputGroup'
-
 import { Form } from 'react-bootstrap';
-
 import GrainManager from '../../modules/GrainManager';
 import BrandManager from '../../modules/BrandManager';
 import IngredientManager from '../../modules/IngredientManager';
 import StatusManager from '../../modules/StatusManager';
 import StyleManager from '../../modules/StyleManager';
   
+//Creates a new brand to be stored in the database (brand table & ingredients table)
 const NewBrand = () => {
 
 
@@ -29,40 +28,32 @@ const NewBrand = () => {
     //holds an array of grain (select) & weight (txt input) objects, inputsset by handleAddGrainElement & controlled by handleIngredients
     const [grainFieldsArray, setGrainFieldsArray] = useState([])
 
+    //holds the ingredients objects after the brandId has been added, set & used inside createNewBrand
     const [completeIngredient, setCompleteIngredient] = useState([])
 
+    //holds all the styles from database as array, used to place each style into an option of a select element, set during useEffect
     const [styleSelects, setStyleSelects] = useState([])
+    
+    //holds all the statuses from database as array, used to place each status into an option of a select element, set during useEffect
     const [statusSelects, setStatusSelects] = useState([])
 
     //Listens for click on "add more grain" button and creates a new instance of grain selection options and a weight input
     const handleAddGrainElements = () => {
         const values = [...grainFieldsArray ];
         values.push({});
-        //values.push({});
-
         setGrainFieldsArray(values);
       }
 
       //Removes grain / weight instance from brand form
-      //NOT WORKING, still only deletes the last item in the array
+      //should not be using index number, I need to create a unique variable to set as a key for each object made, maybe a timestamp? or i++?
       const handleRemove = idx => {
           console.log(idx)
         const list = [...grainFieldsArray];
         list.splice(idx, 1);
         setGrainFieldsArray(list);
       };
-      //ANOTHER APPROACH TO DELETE
-    // const handleRemove = (i) => {
-
-    //     const newList = grainFieldsArray.filter((grainFields) => grainFields.id !== i);
-    //     setGrainFieldsArray(newList);
-    
-    //     // const values = [...grainFieldsArray];
-    //     // values.splice(i, 1);
-    //     // setGrainFieldsArray(values);
-    //   }
-    
- //Handle USer Inputs on Form FOR GRAIN AND WEIGHT ONLY sets into state to hold 1 object....
+   
+ //Handle User Inputs on Form FOR GRAIN AND WEIGHT ONLY sets into state to hold 1 object....
  const handleIngredients = evt => {
     const value = evt.target.value;
     const idx= evt.target.id
@@ -76,35 +67,34 @@ const NewBrand = () => {
         add[splitIdx]={...add[splitIdx],...singleIngredient};
         console.log(add)
     setGrainFieldsArray(add)
-
 }
-    //Handle Change of Inputs on Form EXCEPT GRAIN AND WEIGHT
+
+    //Handle Change of Inputs on Form EXCEPT GRAIN AND WEIGHT ONLY
     const handleFieldChange = evt => {
         console.log("what is the evt", evt)
         //anytime you have an event all of the stuff is passed along 
         //state to change set equal to value and pass it in
-        // brred and name are inside our state, so any change to those values causes setAnimal to run with stateToChange passed through
-        // it watches you type into the input and holds onto that as stateToChange and then when you hit enter it subbmits those and creates a new database item.
+        //  brand is  inside our state, so any change to those values causes setBrand to run with stateToChange passed through
+        // it watches you type into the input and holds onto that as stateToChange within brand useState.
         const stateToChange = { ...brand };
         console.log("stateToChange brand", stateToChange);
         stateToChange[evt.target.id] = evt.target.value;
         setBrand(stateToChange);
     };
 
-    const freshBrand = brand
-    
+    //creates new object in brand table from all element except grain and weight
+    //creates new object(s) in ingredients table after the response is returned from brand.post using the brand.id , grain, and weight
     const constructNewBrand = (event) => {
         event.preventDefault();
         if (brand.name === "") {
             window.alert("Please input an brand name to continue");
         } else {
             setIsLoading(true);
-            // Create the brand and redirect user to brand list
+            // Create the brand and then grabs the id from the response 
+            //and adds that to each object as they are redeclared within another set state
             BrandManager.post(brand)
-
             .then((brand) => { 
                 console.log(brand)
-              //  console.log(parseInt(brand.id))
                 let completeIngredient = [...grainFieldsArray]
                 const BI = { brandId:`${brand.id}` }
                 let i= 0
@@ -115,8 +105,7 @@ const NewBrand = () => {
                 console.log("ci",completeIngredient)
                 console.log("gf",grainFieldsArray)
                 completeIngredient.map(singleIngredientRelationship => IngredientManager.post(singleIngredientRelationship))
-                
-
+//have not redirected from page yet, nor have i reset the input fields(if i need to...)
             }).then(() => setBrand(""))
         }
     }

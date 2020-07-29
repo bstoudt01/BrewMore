@@ -12,7 +12,7 @@ const Navigationbar = () => {
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">
-                    <Nav.Link href="#Dashboard">Home</Nav.Link>
+                    <Nav.Link href="/home">Home</Nav.Link>
                     <Nav.Link href="#BrewHouse">Brew House</Nav.Link>
                     <Nav.Link href="NewBrand"> Design a Beer</Nav.Link>
                     <NavDropdown title="Wall of Beers" id="basic-nav-dropdown">
