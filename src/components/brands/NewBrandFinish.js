@@ -3,48 +3,34 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/CardColumns';
 import Button from 'react-bootstrap/Button'
+import Media from 'react-bootstrap/Media'
 import Card from 'react-bootstrap/Card'
 import InputGroup from 'react-bootstrap/InputGroup'
-
+import $ from 'jquery'
+import { counter } from 'react'
 import { Form } from 'react-bootstrap';
 
 import GrainManager from '../../modules/GrainManager';
 import BrandManager from '../../modules/BrandManager';
   
 const NewBrand = () => {
-
-
-    //holds brand key : values as an object, set by handleFieldChange
-    const [brand, setBrand] = useState({name: ""})
-
-    //declares loading state to keep buttons from working during load time set by functions and button
-    const [isLoading, setIsLoading] = useState(false);
-
-    //holds all the grains from database as array, used to place each grain into an option of a select element, set during useEffect
+    const [brand, setBrand] = useState([])
     const [grainSelects, setGrainSelects] = useState([])
-
-    //holds an array of grain (select) & weight (txt input) objects, inputsset by handleAddGrainElement & controlled by handleIngredients
     const [grainFieldsArray, setGrainFieldsArray] = useState([])
+    const [usedGrains, setUsedGrains] = useState([{grainId:"", weight:""}])
 
 
-    //Listens for click on "add more grain" button and creates a new instance of grain selection options and a weight input
-    const handleAddGrainElements = () => {
+    const handleAdd = () => {
         const values = [...grainFieldsArray ];
-        values.push({});
-        //values.push({});
-
+        values.push({ grainId: grainFieldsArray.id, weight: grainFieldsArray.weight });
         setGrainFieldsArray(values);
       }
 
-      //Removes grain / weight instance from brand form
-      //NOT WORKING, still only deletes the last item in the array
-      const handleRemove = idx => {
-          console.log(idx)
+      const handleRemove = index => {
         const list = [...grainFieldsArray];
-        list.splice(idx, 1);
+        list.splice(index, 1);
         setGrainFieldsArray(list);
       };
-      //ANOTHER APPROACH TO DELETE
     // const handleRemove = (i) => {
 
     //     const newList = grainFieldsArray.filter((grainFields) => grainFields.id !== i);
@@ -56,60 +42,41 @@ const NewBrand = () => {
     //   }
     
 
-    // //Handle USer Inputs on Form FOR GRAIN AND WEIGHT ONLY sets into state to hold 1 object....
-    // const handleIngredients = evt => {
-    //     const value = evt.target.value;
-    //     setIngredients({
-    //         ...ingredients,
-    //         [evt.target.name]: value
-    //     });
-    // }
- //Handle USer Inputs on Form FOR GRAIN AND WEIGHT ONLY sets into state to hold 1 object....
- const handleIngredients = evt => {
-    const value = evt.target.value;
-    const idx= evt.target.id
-    const splitIdx=idx.split("-")[1]
-    const splitName=idx.split("-")[0]
-    const singleIngredient = {
-      //...grainFieldsArray,
-        [splitName]: value
-    };
-    console.log(singleIngredient)
-    const add = [...grainFieldsArray ];
-        add[splitIdx]={...add[splitIdx],...singleIngredient};
-        console.log(add)
-    setGrainFieldsArray(add)
-        //attempt to set grainId and weight inside the grainFieldsArray useState
-        //      setGrainFieldsArray(idx(singleIngredient))
-
-}
-    //Handle Change of Inputs on Form EXCEPT GRAIN AND WEIGHT
-    const handleFieldChange = evt => {
-        console.log("what is the evt", evt)
+        //Handle Change of Inputs on Form
         //anytime you have an event all of the stuff is passed along 
         //state to change set equal to value and pass it in
         // brred and name are inside our state, so any change to those values causes setAnimal to run with stateToChange passed through
         // it watches you type into the input and holds onto that as stateToChange and then when you hit enter it subbmits those and creates a new database item.
-        const stateToChange = { ...brand };
-        console.log("stateToChange brand", stateToChange);
-        stateToChange[evt.target.id] = evt.target.value;
-        setBrand(stateToChange);
+      const handleGrainChange=(i, event)  => {
+        console.log("what is evt", event)
+        console.log("what is i?", i)
+        const stateToChange = [...grainFieldsArray];
+        console.log("stateToChange", stateToChange);
+        stateToChange[i].grainId = event.target.value;
+        stateToChange[i].weight = event.target.value;
+        setGrainFieldsArray(stateToChange);
+      }
+
+      const handleFieldChange = evt => {
+    
+        console.log("what is evt", evt)
+        //anytime you have an event all of the stuff is passed along 
+        //state to change set equal to value and pass it in
+        // brred and name are inside our state, so any change to those values causes setAnimal to run with stateToChange passed through
+        // it watches you type into the input and holds onto that as stateToChange and then when you hit enter it subbmits those and creates a new database item.
+      const stateToChange = { ...brand };
+      console.log("stateToChange", stateToChange);
+      console.log("stateToChange", stateToChange);
+      stateToChange[evt.target.id] = evt.target.value;
+      setBrand(stateToChange);
     };
-
-    const constructNewBrand = (event) => {
-        event.preventDefault();
-        if (brand.name === "") {
-            window.alert("Please input an brand name to continue");
-        } else {
-            setIsLoading(true);
-            // Create the animal and redirect user to animal list
-            BrandManager.post(brand)
-
-            .then(() => setBrand(brand));
-            console.log(setBrand)
-
-        }
-    }
+    // const addNewGrainInput = () => {
+    //     //setGrainSelects(grainSelects=> grainSelects += className="mb+map");
+    //   };
+    // const handleChange = (e) => {
+    //     if(["grainId", "weightId"].includes(e.target.className))
+    //     let grains = {...grains}
+    // }
     
     // const handleSubmit = (e) => {
     //     e.preventDefault();
@@ -178,10 +145,10 @@ const NewBrand = () => {
                         <InputGroup.Prepend>
                             <InputGroup.Text id="basic-newBrandForm">Grain:</InputGroup.Text>
                         </InputGroup.Prepend>
-                        <Form.Control as="select" id={`grainId-${idx}`} name="grainId" onChange={handleIngredients}>
+                        <Form.Control as="select" id={`grain-${idx}`} onChange={handleFieldChange}>
                         <option> Choose grain</option>
                         {grainSelects.map(grain => 
-                            <option key={grain.id} value={grain.id} id={grain.id}>{grain.maltster} - {grain.name}</option>
+                            <option key={grain.id} value={grain.id}>{grain.maltster} - {grain.name}</option>
                         )}
                         </Form.Control>
                     </InputGroup>
@@ -189,13 +156,55 @@ const NewBrand = () => {
                         <InputGroup.Prepend>
                             <InputGroup.Text id="basic-newBrandForm">Weight:</InputGroup.Text>
                         </InputGroup.Prepend>
-                        <Form.Control type="text" name="weight" placeholder="Numbers Only" id={`weight-${idx}`}  key={idx} onChange={handleIngredients}/>
+                        <Form.Control type="text" placeholder="Numbers Only" id={`grain-${idx}Weight`}  key={idx} onChange= {handleFieldChange}/>
                     </InputGroup>
                     <button type="button" onClick={() => handleRemove(idx)}>X</button>
                 </Col>
                 )
                 })}
-                <Button variant="outline-primary"  id="addGrainButton" onClick={handleAddGrainElements}>Add Another Grain</Button>
+
+                <Col>
+                    <InputGroup className="mb-3">
+                        <InputGroup.Prepend>
+                            <InputGroup.Text id="basic-newBrandForm">Grain:</InputGroup.Text>
+                        </InputGroup.Prepend>
+                      
+                        <Form.Control as="select" className="grainId">
+                        <option >Choice 1</option>
+                        {grainSelects.map(item => 
+                            <option key={item.id} value={item.name}>{item.name}</option>
+                        )}
+                        </Form.Control>
+                        
+                        <InputGroup.Prepend>
+                            <InputGroup.Text id="basic-newBrandForm">Weight</InputGroup.Text>
+                        </InputGroup.Prepend>
+                        <Form.Control type="text" placeholder="Numbers Only" className="weightId" />
+                    </InputGroup>
+                </Col>
+                    
+                
+                <Button variant="outline-primary"  id="addGrainButton" onClick={handleAdd}>Add Another Grain</Button>
+
+                <Col>
+                    <InputGroup className="mb-3">
+                        <InputGroup.Prepend>
+                            <InputGroup.Text id="basic-newBrandForm">Grain:</InputGroup.Text>
+                        </InputGroup.Prepend>
+                        <Form.Control as="select">
+                            <option>Choice 2</option>
+                            <option>Rahr - 2 Row</option>
+                            <option>Rahr - Pilsner </option>
+                            <option>Briess - Crystal 30L</option>
+                            <option>Crisp - Crystal 45L</option>
+                            <option>Wyerman - Acid Malt</option>
+                        </Form.Control>
+                        <InputGroup.Prepend>
+                            <InputGroup.Text id="basic-newBrandForm">Weight:</InputGroup.Text>
+                        </InputGroup.Prepend>
+                        <Form.Control type="text" placeholder="Numbers Only" />
+                    </InputGroup>
+                </Col>
                 <Col>
                     <InputGroup className="mb-3">
                         <InputGroup.Prepend>
@@ -232,7 +241,7 @@ const NewBrand = () => {
              </Row>
              
         </Card.Body>
-        <Button variant="warning" disabled={isLoading} onClick={constructNewBrand}>Submit New Brew</Button>{' '}
+        <Button variant="warning">Submit New Brew</Button>{' '}
 
     </Card>
 
