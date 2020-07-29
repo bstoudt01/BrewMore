@@ -10,6 +10,9 @@ import { Form } from 'react-bootstrap';
 
 import GrainManager from '../../modules/GrainManager';
 import BrandManager from '../../modules/BrandManager';
+import IngredientManager from '../../modules/IngredientManager';
+import StatusManager from '../../modules/StatusManager';
+import StyleManager from '../../modules/StyleManager';
   
 const NewBrand = () => {
 
@@ -27,6 +30,9 @@ const NewBrand = () => {
     const [grainFieldsArray, setGrainFieldsArray] = useState([])
 
     const [completeIngredient, setCompleteIngredient] = useState([])
+
+    const [styleSelects, setStyleSelects] = useState([])
+    const [statusSelects, setStatusSelects] = useState([])
 
     //Listens for click on "add more grain" button and creates a new instance of grain selection options and a weight input
     const handleAddGrainElements = () => {
@@ -85,6 +91,8 @@ const NewBrand = () => {
         setBrand(stateToChange);
     };
 
+    const freshBrand = brand
+    
     const constructNewBrand = (event) => {
         event.preventDefault();
         if (brand.name === "") {
@@ -96,15 +104,7 @@ const NewBrand = () => {
 
             .then((brand) => { 
                 console.log(brand)
-                console.log(parseInt(brand.id))
-                // const completeIngredient = {
-                //     brandId: parseInt(brand.id),
-                //     grainId: grainFieldsArray.grainId,
-                //     weight: grainFieldsArray.weight
-                // }
-
-                
-                //
+              //  console.log(parseInt(brand.id))
                 let completeIngredient = [...grainFieldsArray]
                 const BI = { brandId:`${brand.id}` }
                 let i= 0
@@ -114,8 +114,10 @@ const NewBrand = () => {
                 setCompleteIngredient(grainFieldsArray)
                 console.log("ci",completeIngredient)
                 console.log("gf",grainFieldsArray)
+                completeIngredient.map(singleIngredientRelationship => IngredientManager.post(singleIngredientRelationship))
+                
 
-            })
+            }).then(() => setBrand(""))
         }
     }
     
@@ -126,6 +128,12 @@ const NewBrand = () => {
     useEffect(() => {
         GrainManager.getAll().then(grains => {
             setGrainSelects(grains)
+        })
+        StyleManager.getAll().then(styles => {
+            setStyleSelects(styles)
+        })
+        StatusManager.getAll().then(statuses => {
+            setStatusSelects(statuses)
         })
     },[])
 
@@ -159,13 +167,11 @@ const NewBrand = () => {
                         <InputGroup.Prepend>
                             <InputGroup.Text id="basic-newBrandForm">Style:</InputGroup.Text>
                         </InputGroup.Prepend>
-                        <Form.Control as="select" id="style" onChange={handleFieldChange}>
-                            <option>Pick One:</option>
-                            <option>American I.P.A.</option>
-                            <option>American Pale Ale</option>
-                            <option>German Lager</option>
-                            <option>Wheat Ale</option>
-                            <option>English Brown Ale</option>
+                            <Form.Control as="select" id="style" onChange={handleFieldChange}>
+                        <option> Choose style</option>
+                        {styleSelects.map(style => 
+                            <option key={style.id} value={style.id} id={style.id}>{style.style}</option>
+                        )}
                         </Form.Control>
                     </InputGroup>
                 </Col>
@@ -186,7 +192,7 @@ const NewBrand = () => {
                         <InputGroup.Prepend>
                             <InputGroup.Text id="basic-newBrandForm">Grain:</InputGroup.Text>
                         </InputGroup.Prepend>
-                        <Form.Control as="select" id={`grainId-${idx}`} name="grainId" onChange={handleIngredients}>
+                        <Form.Control as="select" id={`grainId-${idx}`} name="grainId" key={idx} onChange={handleIngredients}>
                         <option> Choose grain</option>
                         {grainSelects.map(grain => 
                             <option key={grain.id} value={grain.id} id={grain.id}>{grain.maltster} - {grain.name}</option>
@@ -227,12 +233,10 @@ const NewBrand = () => {
                             <InputGroup.Text id="basic-newBrandForm">Production Status:</InputGroup.Text>
                         </InputGroup.Prepend>
                         <Form.Control as="select" id="status" onChange={handleFieldChange}>
-                            <option>Pick One:</option>
-                            <option>Staple</option>
-                            <option>Seasonal</option>
-                            <option>Experimental</option>
-                            <option>One Off</option>
-                            <option>Unicorn (never actually seen it)</option>
+                            <option> Choose status</option>
+                            {statusSelects.map(status => 
+                                <option key={status.id} value={status.id} id={status.id}>{status.status}</option>
+                            )}
                         </Form.Control>
                     </InputGroup>
                 </Col>

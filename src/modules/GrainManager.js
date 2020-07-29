@@ -5,5 +5,5 @@ const remoteURL = "http://localhost:8088"
 export default {
 getAll() {
     return fetch(`${remoteURL}/grains`).then(result => result.json())
-  },
+  }
 }
