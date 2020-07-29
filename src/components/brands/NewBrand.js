@@ -109,7 +109,7 @@ const NewBrand = () => {
                 const BI = { brandId:`${brand.id}` }
                 let i= 0
                 for(i=0;i<grainFieldsArray.length; i++) {
-                    grainFieldsArray[i].completeIngredient = {BI}
+                    grainFieldsArray[i].brandId = brand.id
                 }
                 setCompleteIngredient(grainFieldsArray)
                 console.log("ci",completeIngredient)
