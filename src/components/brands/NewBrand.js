@@ -23,17 +23,14 @@ const NewBrand = () => {
     //holds all the grains from database as array, used to place each grain into an option of a select element, set during useEffect
     const [grainSelects, setGrainSelects] = useState([])
 
-    //holds an array of grain (select) & weight (txt input) objects, set by handleAddGrainElement
+    //holds an array of grain (select) & weight (txt input) objects, inputsset by handleAddGrainElement & controlled by handleIngredients
     const [grainFieldsArray, setGrainFieldsArray] = useState([])
-
-    //hands ingredients key : values as an object to be 
-    const [ingredients, setIngredients] = useState([])
 
 
     //Listens for click on "add more grain" button and creates a new instance of grain selection options and a weight input
     const handleAddGrainElements = () => {
         const values = [...grainFieldsArray ];
-        values.push({ grainId: grainFieldsArray.id});
+        values.push({});
         //values.push({});
 
         setGrainFieldsArray(values);
@@ -41,9 +38,10 @@ const NewBrand = () => {
 
       //Removes grain / weight instance from brand form
       //NOT WORKING, still only deletes the last item in the array
-      const handleRemove = index => {
+      const handleRemove = idx => {
+          console.log(idx)
         const list = [...grainFieldsArray];
-        list.splice(index, 1);
+        list.splice(idx, 1);
         setGrainFieldsArray(list);
       };
       //ANOTHER APPROACH TO DELETE
@@ -69,12 +67,21 @@ const NewBrand = () => {
  //Handle USer Inputs on Form FOR GRAIN AND WEIGHT ONLY sets into state to hold 1 object....
  const handleIngredients = evt => {
     const value = evt.target.value;
+    const idx= evt.target.id
+    const splitIdx=idx.split("-")[1]
+    const splitName=idx.split("-")[0]
     const singleIngredient = {
-        ...ingredients,
-        [evt.target.id]: value
+      //...grainFieldsArray,
+        [splitName]: value
     };
     console.log(singleIngredient)
-    setIngredients(singleIngredient)
+    const add = [...grainFieldsArray ];
+        add[splitIdx]={...add[splitIdx],...singleIngredient};
+        console.log(add)
+    setGrainFieldsArray(add)
+        //attempt to set grainId and weight inside the grainFieldsArray useState
+        //      setGrainFieldsArray(idx(singleIngredient))
+
 }
     //Handle Change of Inputs on Form EXCEPT GRAIN AND WEIGHT
     const handleFieldChange = evt => {
@@ -171,7 +178,7 @@ const NewBrand = () => {
                         <InputGroup.Prepend>
                             <InputGroup.Text id="basic-newBrandForm">Grain:</InputGroup.Text>
                         </InputGroup.Prepend>
-                        <Form.Control as="select" id="grainId" name="grainId" onChange={handleIngredients}>
+                        <Form.Control as="select" id={`grainId-${idx}`} name="grainId" onChange={handleIngredients}>
                         <option> Choose grain</option>
                         {grainSelects.map(grain => 
                             <option key={grain.id} value={grain.id} id={grain.id}>{grain.maltster} - {grain.name}</option>
@@ -182,7 +189,7 @@ const NewBrand = () => {
                         <InputGroup.Prepend>
                             <InputGroup.Text id="basic-newBrandForm">Weight:</InputGroup.Text>
                         </InputGroup.Prepend>
-                        <Form.Control type="text" name="weight" placeholder="Numbers Only" id="weight"  key={idx} onChange={handleIngredients}/>
+                        <Form.Control type="text" name="weight" placeholder="Numbers Only" id={`weight-${idx}`}  key={idx} onChange={handleIngredients}/>
                     </InputGroup>
                     <button type="button" onClick={() => handleRemove(idx)}>X</button>
                 </Col>
