@@ -26,6 +26,7 @@ const NewBrand = () => {
     //holds an array of grain (select) & weight (txt input) objects, inputsset by handleAddGrainElement & controlled by handleIngredients
     const [grainFieldsArray, setGrainFieldsArray] = useState([])
 
+    const [completeIngredient, setCompleteIngredient] = useState([])
 
     //Listens for click on "add more grain" button and creates a new instance of grain selection options and a weight input
     const handleAddGrainElements = () => {
@@ -55,15 +56,6 @@ const NewBrand = () => {
     //     // setGrainFieldsArray(values);
     //   }
     
-
-    // //Handle USer Inputs on Form FOR GRAIN AND WEIGHT ONLY sets into state to hold 1 object....
-    // const handleIngredients = evt => {
-    //     const value = evt.target.value;
-    //     setIngredients({
-    //         ...ingredients,
-    //         [evt.target.name]: value
-    //     });
-    // }
  //Handle USer Inputs on Form FOR GRAIN AND WEIGHT ONLY sets into state to hold 1 object....
  const handleIngredients = evt => {
     const value = evt.target.value;
@@ -71,7 +63,6 @@ const NewBrand = () => {
     const splitIdx=idx.split("-")[1]
     const splitName=idx.split("-")[0]
     const singleIngredient = {
-      //...grainFieldsArray,
         [splitName]: value
     };
     console.log(singleIngredient)
@@ -79,8 +70,6 @@ const NewBrand = () => {
         add[splitIdx]={...add[splitIdx],...singleIngredient};
         console.log(add)
     setGrainFieldsArray(add)
-        //attempt to set grainId and weight inside the grainFieldsArray useState
-        //      setGrainFieldsArray(idx(singleIngredient))
 
 }
     //Handle Change of Inputs on Form EXCEPT GRAIN AND WEIGHT
@@ -102,12 +91,31 @@ const NewBrand = () => {
             window.alert("Please input an brand name to continue");
         } else {
             setIsLoading(true);
-            // Create the animal and redirect user to animal list
+            // Create the brand and redirect user to brand list
             BrandManager.post(brand)
 
-            .then(() => setBrand(brand));
-            console.log(setBrand)
+            .then((brand) => { 
+                console.log(brand)
+                console.log(parseInt(brand.id))
+                // const completeIngredient = {
+                //     brandId: parseInt(brand.id),
+                //     grainId: grainFieldsArray.grainId,
+                //     weight: grainFieldsArray.weight
+                // }
 
+                
+                //
+                let completeIngredient = [...grainFieldsArray]
+                const BI = { brandId:`${brand.id}` }
+                let i= 0
+                for(i=0;i<grainFieldsArray.length; i++) {
+                    grainFieldsArray[i].completeIngredient = {BI}
+                }
+                setCompleteIngredient(grainFieldsArray)
+                console.log("ci",completeIngredient)
+                console.log("gf",grainFieldsArray)
+
+            })
         }
     }
     
@@ -135,7 +143,7 @@ const NewBrand = () => {
                         <InputGroup.Prepend>
                             <InputGroup.Text id="basic-newBrandForm">Name:</InputGroup.Text>
                         </InputGroup.Prepend>
-                        <Form.Control type="text" id="name" placeholder="New Brand Name" onChange={handleFieldChange}/>
+                        <Form.Control type="text" id="name" placeholder="New Brand Name"  onChange={handleFieldChange}/>
                     </InputGroup>
                 </Col>
                 <Col>
