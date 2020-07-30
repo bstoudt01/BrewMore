@@ -3,7 +3,7 @@ import React from "react";
 import BrandList from './brands/BrandList'
 import NewBrand from './brands/NewBrand'
 
-
+import Home from '../home/Home'
 //import NewBrandStart from './brands/NewBrandStart'
 
 //import Redirect from "react-router-dom";
@@ -17,9 +17,9 @@ const ApplicationViews = (props) => {
 
 			<Route
 				exact
-				path="/"
+				path="/home"
 				render={props => {
-					return <BrandList />;
+					return <Home />;
 				}}
 			/>
 			{/* Make sure you add the `exact` attribute here  and pass through ...props so animal list can accept a paramater of props to use later in the code (for adding a new animal) */}
