@@ -9,6 +9,11 @@ export default {
   get(brandId) {
     return fetch(`${remoteURL}/ingredients/${brandId}`).then(result => result.json())
   },
+  delete(id) {
+    return fetch(`${remoteURL}/ingredients/${id}`, {
+      method: "DELETE"
+    }).then(result => result.json())
+  },
   post(newIngredient) {
     return fetch(`${remoteURL}/ingredients`, {
         method: "POST",
@@ -21,6 +26,7 @@ export default {
   getIngredientsData: (currentBrandId) => {
   return fetch(`${remoteURL}/ingredients?brandId=${currentBrandId}&_expand=grain`)
       .then(response => response.json())
-  }
+  },
+  
 
 }
