@@ -11,19 +11,35 @@ import Card from 'react-bootstrap/Card'
 //import InputGroup from 'react-bootstrap/InputGroup'
 //import { Form } from 'react-bootstrap';
 import IngredientManager from '../../modules/IngredientManager';
-
+import BrandManager from '../../modules/BrandManager'
 
 const BrandCard = (props) => {
     const [ingredients, setIngredients]=useState([])
     const brand= props.brand;
+    
+
+    //Gather all ingredients objects for this brand based on brandId, invoked in useEffect
     const brandId = brand.id
-    const getIngredients = (brandId) => {
+    const getIngredients = () => {
         IngredientManager.getIngredientsData(brandId)
         .then(allIngredients => {
             setIngredients(allIngredients);
         });
     }
+
+    //Delete All ingredient objects and brand object when button is clicked
     let i = 1;
+    const handleDelete = () => {
+        // for(let i=0;i<ingredients.length; i++) {
+        //     IngredientManager.delete(ingredients.id).then(() => {
+        //         BrandManager.delete(brandId)  
+        //     })
+        // }
+                BrandManager.delete(brandId)  
+           
+
+
+    }
     useEffect(() => {
         getIngredients(brandId)
     }, []);
@@ -39,7 +55,7 @@ const BrandCard = (props) => {
                 <Card.Text>Rotation Status: {brand.status.status}</Card.Text>
                 <Card.Text>{brand.tastingNote}</Card.Text>
                 {ingredients.map(ingredient => <><Card.Text key={ingredient.id++}> Grain:{i++} {ingredient.grain.name}</Card.Text><Card.Text>Weight:{ingredient.weight}</Card.Text></>)}
-                <Button variant="primary">Go somewhere</Button>
+                <Button variant="primary"  onClick={() => handleDelete(props.brand.id)}>Delete</Button>
             </Card.Body>
         </Card>
     )

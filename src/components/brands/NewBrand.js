@@ -79,8 +79,13 @@ const NewBrand = () => {
         const stateToChange = { ...brand };
         console.log("stateToChange brand", stateToChange);
         stateToChange[evt.target.id] = evt.target.value;
+        // if (Number(stateToChange) === stateToChange ) {
+        //     Number(stateToChange)
+        //     setBrand(stateToChange)
+        // } else {
         setBrand(stateToChange);
-    };
+    //}
+};
 
     //creates new object in brand table from all element except grain and weight
     //creates new object(s) in ingredients table after the response is returned from brand.post using the brand.id , grain, and weight
@@ -152,7 +157,7 @@ const NewBrand = () => {
                         <InputGroup.Prepend>
                             <InputGroup.Text id="basic-newBrandForm">Style:</InputGroup.Text>
                         </InputGroup.Prepend>
-                            <Form.Control as="select" id="style" onChange={handleFieldChange}>
+                            <Form.Control as="select" id="styleId" onChange={handleFieldChange}>
                         <option> Choose style</option>
                         {styleSelects.map(style => 
                             <option key={style.id} value={style.id} id={style.id}>{style.style}</option>
@@ -217,7 +222,7 @@ const NewBrand = () => {
                         <InputGroup.Prepend>
                             <InputGroup.Text id="basic-newBrandForm">Production Status:</InputGroup.Text>
                         </InputGroup.Prepend>
-                        <Form.Control as="select" id="status" onChange={handleFieldChange}>
+                        <Form.Control as="select" id="statusId" onChange={handleFieldChange}>
                             <option> Choose status</option>
                             {statusSelects.map(status => 
                                 <option key={status.id} value={status.id} id={status.id}>{status.status}</option>

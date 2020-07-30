@@ -3,6 +3,7 @@ import BrandCard from './BrandCard';
 import ListGroup from 'react-bootstrap/ListGroup';
 
 import BrandManager from '../../modules/BrandManager'
+import IngredientManager from '../../modules/IngredientManager';
 //import IngredientManager from '../../modules/IngredientManager';
 //import GrainManager from '../../modules/GrainManager';
 
@@ -25,12 +26,6 @@ const BrandList = (props) => {
     //         setGrains(allGrains)
     //     })
     // }
-    const handleDelete = (id) => {
-        BrandManager.delete(id)
-
-
-
-    }
 
 
     useEffect(() => {
@@ -40,7 +35,7 @@ const BrandList = (props) => {
         <>
         <ListGroup horizontal>
         <>
-        {brands.map(brand => <BrandCard key={brand.id} brand={brand} {...props} handleDelete={handleDelete} />)}
+        {brands.map(brand => <BrandCard key={brand.id} brand={brand} {...props} statusId={parseInt(brand.statusId)} styleId={parseInt(brand.styleId)} />)}
         </>
         </ListGroup>
         </>
