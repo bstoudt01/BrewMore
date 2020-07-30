@@ -110,10 +110,6 @@ const NewBrand = () => {
         }
     }
     
-    // const handleSubmit = (e) => {
-    //     e.preventDefault();
-    // }
-
     useEffect(() => {
         GrainManager.getAll().then(grains => {
             setGrainSelects(grains)

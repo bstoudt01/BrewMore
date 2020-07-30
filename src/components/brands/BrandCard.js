@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect }from 'react';
 //import Container from 'react-bootstrap/Container';
 //import Row from 'react-bootstrap/Row';
 //import Col from 'react-bootstrap/CardColumns';
@@ -10,9 +10,23 @@ import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card'
 //import InputGroup from 'react-bootstrap/InputGroup'
 //import { Form } from 'react-bootstrap';
-const BrandCard = (props) => {
-    const brand= props.brand;
+import IngredientManager from '../../modules/IngredientManager';
 
+
+const BrandCard = (props) => {
+    const [ingredients, setIngredients]=useState([])
+    const brand= props.brand;
+    const brandId = brand.id
+    const getIngredients = (brandId) => {
+        IngredientManager.getIngredientsData(brandId)
+        .then(allIngredients => {
+            setIngredients(allIngredients);
+        });
+    }
+    let i = 1;
+    useEffect(() => {
+        getIngredients(brandId)
+    }, []);
     return (
         <Card style={{ width: '20rem' }}>
             <Card.Img variant="top" src="holder.js/100px180" />
@@ -24,7 +38,7 @@ const BrandCard = (props) => {
                 <Card.Text>Batch Size: {brand.batchSize}</Card.Text>
                 <Card.Text>Rotation Status: {brand.status.status}</Card.Text>
                 <Card.Text>{brand.tastingNote}</Card.Text>
-                
+                {ingredients.map(ingredient => <><Card.Text key={ingredient.id++}> Grain:{i++} {ingredient.grain.name}</Card.Text><Card.Text>Weight:{ingredient.weight}</Card.Text></>)}
                 <Button variant="primary">Go somewhere</Button>
             </Card.Body>
         </Card>
