@@ -13,7 +13,9 @@ const BrandList = (props) => {
 
     const getBrands = () => {
         return BrandManager.getWithStyleStatus().then((allBrands) =>{
+            console.log(allBrands)
             setBrands(allBrands)
+          
         })
     }
     // const getIngredients = () => {
@@ -34,9 +36,9 @@ const BrandList = (props) => {
     return (
         <>
         <ListGroup horizontal>
-        <>
+        
         {brands.map(brand => <BrandCard key={brand.id} brand={brand} {...props} statusId={parseInt(brand.statusId)} styleId={parseInt(brand.styleId)} />)}
-        </>
+        
         </ListGroup>
         </>
     )

@@ -2,7 +2,7 @@ import { Route } from "react-router-dom";
 import React from "react";
 import BrandList from './brands/BrandList'
 import NewBrand from './brands/NewBrand'
-
+import EditBrand from './brands/EditBrand'
 import Home from '../home/Home'
 //import NewBrandStart from './brands/NewBrandStart'
 
@@ -36,9 +36,18 @@ const ApplicationViews = (props) => {
 				exact
 				path="/BrandList"
 				render={props => {
-					return <BrandList />;
+					return <BrandList {...props} />;
 				}}
 			/>
+
+			{/* colon ":" lets route know its a dynamic path and (\d+) lets it know to only look at integer of id passed in */}
+			<Route 
+				path="/brands/:brandId(\d+)/edit" 
+				render={props => {
+					return <EditBrand {...props} />
+				}} 
+			/>
+			
         </React.Fragment>
 
     )
