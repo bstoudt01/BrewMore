@@ -34,13 +34,11 @@ const BrandList = (props) => {
         getBrands()
     },[])
     return (
-        <>
+        
         <ListGroup horizontal>
-        
         {brands.map(brand => <BrandCard key={brand.id} brand={brand} {...props} statusId={parseInt(brand.statusId)} styleId={parseInt(brand.styleId)} />)}
-        
         </ListGroup>
-        </>
+        
     )
 }
 

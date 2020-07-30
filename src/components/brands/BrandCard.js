@@ -55,7 +55,7 @@ const BrandCard = (props) => {
                 <Card.Text>Rotation Status: {brand.status.status}</Card.Text>
                 <Card.Text>{brand.tastingNote}</Card.Text>
                 {ingredients.map(ingredient => <><Card.Text key={ingredient.id++}> Grain:{i++} {ingredient.grain.name}</Card.Text><Card.Text>Weight:{ingredient.weight}</Card.Text></>)}
-                <Button variant="primary"  onClick={() => handleDelete(props.brand.id)}>Delete</Button>
+                <Button variant="primary"  onClick={() => handleDelete(props.brand.id)} >Delete</Button>
                 <Button variant="secondary" onClick={() => props.history.push(`/brands/${brand.id}/edit`)}>Edit</Button>
             </Card.Body>
         </Card>
