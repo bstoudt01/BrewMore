@@ -29,7 +29,8 @@ const BrandList = (props) => {
     //     })
     // }
 
-
+    //const timestamp = Date.now() + Math.random()
+//console.log(timestamp)
     useEffect(() => {
         getBrands()
     },[])
