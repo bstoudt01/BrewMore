@@ -129,37 +129,12 @@ const handleKnownIngredients = (evt, idx) => {
             BrandManager.update(editedBrand)
             .then((response) => { 
                 console.log("edited Brand after put", response);
-                // for( let i=0;i<completeIngredient.length; i++) {
-                //     editedIngredient = {
-                //         id: completeIngredient.id,
-                //         brandId: completeIngredient.brandId,
-                //         grainId: completeIngredient.grainId,
-                //         weight: completeIngredient.weight
-                //     }
-                //     console.log(editedIngredient)
-                //     IngredientManager.update(editedIngredient).then(() => {
-
-                //     })
-                // }
-                // setCompleteIngredient(grainFieldsArray)
-                // console.log("ci",completeIngredient)
-                // console.log("gf",grainFieldsArray)
-                if (completeIngredient !== "") {completeIngredient.map(editedIngredient => IngredientManager.update(editedIngredient))}
-                // completeIngredient.map(editedIngredient =>
-                //    editedIngredient = {
-                //         id: props.match.params.completeIngredientId,
-                //         brandId: props.match.params.brandId,
-                //         grainId: completeIngredient.grainId,
-                //         weight: completeIngredient.weight
-                //     },
-                //      IngredientManager.update(editedIngredient))
-                // .then((editedIngredient) => {
-                //     console.log("edited ingred put",editedIngredient)
+                completeIngredient.map(editedIngredient => IngredientManager.update(editedIngredient))
+            }).then(() => { if (grainFieldsArray !== "") {
+                grainFieldsArray.map(singleIngredientRelationship => IngredientManager.post(singleIngredientRelationship))
+//have not redirected from page yet, nor have i reset the input fields(if i need to...)
+                }})
         
-//                 grainFieldsArray.map(singleIngredientRelationship => IngredientManager.post(singleIngredientRelationship))
-// //have not redirected from page yet, nor have i reset the input fields(if i need to...)
-                // })
-        })
         }
     }
     
