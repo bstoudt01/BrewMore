@@ -51,13 +51,20 @@ getRandomId() {
 //not being used yet
 getWithStyleStatus() {
     return fetch(`${remoteURL}/brands/?_expand=style&_expand=status`)
-            .then(result => result.json())
+      .then(result => result.json())
   },
+
   
 //not being used yet
 getSingleWithStyleStatus(id) {
   return fetch(`${remoteURL}/brands/${id}?_expand=style&_expand=status`)
-          .then(result => result.json())
+    .then(result => result.json())
+},
+
+//creates list of brands based on statusId
+getByStatusIdWithStyle(statusId) { 
+  return fetch(`${remoteURL}/brands/?statusId=${statusId}&_expand=style&_expand=status`)
+    .then(result => result.json())
 }
 
 }

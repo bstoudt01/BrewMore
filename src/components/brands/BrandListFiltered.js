@@ -4,15 +4,19 @@ import ListGroup from 'react-bootstrap/ListGroup';
 
 import BrandManager from '../../modules/BrandManager'
 
-const BrandList = (props) => {
+const BrandListFiltered = (props) => {
     const [brands, setBrands]=useState([]);
+    console.log("props.location.pathname",props.location.pathname)
     
-
+        const pathname = props.location.pathname
+        const statusId=pathname.split("/")[2]
+        console.log("statusId",statusId)
+    
     const getBrands = () => {
         
-        return BrandManager.getWithStyleStatus().then((allBrands) =>{
-            console.log(allBrands)
-            setBrands(allBrands)
+        return BrandManager.getByStatusIdWithStyle(statusId).then((filteredBrands) =>{
+            console.log(filteredBrands)
+            setBrands(filteredBrands)
           
         })
     }
@@ -31,4 +35,4 @@ const BrandList = (props) => {
     )
 }
 
-export default BrandList
+export default BrandListFiltered

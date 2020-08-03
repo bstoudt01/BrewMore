@@ -182,7 +182,7 @@ const NewBrand = () => {
                         <InputGroup.Prepend>
                             <InputGroup.Text id="basic-newBrandForm">Grain:</InputGroup.Text>
                         </InputGroup.Prepend>
-                        <Form.Control as="select" id={`grainId-${idx}`} name="grainId" key={idx} onChange={handleIngredients}>
+                        <Form.Control as="select" key={idx} id={`grainId-${idx}`} name="grainId" onChange={handleIngredients}>
                         <option> Choose grain</option>
                         {grainSelects.map(grain => 
                             <option key={grain.id} value={grain.id} id={grain.id}>{grain.maltster} - {grain.name}</option>

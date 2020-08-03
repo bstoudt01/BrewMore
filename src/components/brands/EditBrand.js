@@ -16,21 +16,22 @@ import StyleManager from '../../modules/StyleManager';
 const EditBrand = (props) => {
 
 
-    //holds brand key : values as an object, set by handleFieldChange
+    //holds brand key : values as an object, set during useEffect render and watched by handleFieldChange
     const [brand, setBrand] = useState({name: "", batchSize: "", yeast: "", hop: "", ibu: "", tastingNote: "", styleId: "", statusId: ""})
     
-    //holds brand ingredients previously created
-    const [knownIngredients, setKnownIngredients]=useState([])
-    console.log("knownIngredient state",knownIngredients)
-    //holds all the grains from database as array, used to place each grain into an option of a select element, set during useEffect
+    //holds ingredients from database for this brand and includes expand on grainId, used to create dropdowns for ingredients from database, set during useEffect
+    
+
+    //holds all the grain types from database, used to place each grain into an option of a select element, set during useEffect
     const [grainSelects, setGrainSelects] = useState([])
 
-    //holds an array of grain (select) & weight (txt input) objects, inputsset by handleAddGrainElement & controlled by handleIngredients
+    //holds Newly created grain (select) & weight (txt input) as an object, inputs set by handleAddGrainElement & watched by handleIngredients
     const [grainFieldsArray, setGrainFieldsArray] = useState([])
 
-    //holds the ingredients objects from the database
-    const [completeIngredient, setCompleteIngredient] = useState([])
-    console.log("completeIngredient state",completeIngredient)
+    //holds the ingredients objects from the database without the expand on grain types, set during useEffect and watched by handleCompleteIngredients
+    const [completeIngredients, setCompleteIngredients] = useState([])
+    console.log("completeIngredient state",completeIngredients)
+
     //holds all the styles from database as array, used to place each style into an option of a select element, set during useEffect
     const [styleSelects, setStyleSelects] = useState([])
     
@@ -40,6 +41,7 @@ const EditBrand = (props) => {
     //declares loading state to keep buttons from working during load time set by functions and button
     const [isLoading, setIsLoading] = useState(false);
     
+
     //Listens for click on "add more grain" button and creates a new instance of grain selection options and a weight input
     const handleAddGrainElements = () => {
         const values = [...grainFieldsArray ];
@@ -48,66 +50,53 @@ const EditBrand = (props) => {
         console.log("grainFieldsArray",grainFieldsArray)
       }
 
-      //Removes grain / weight instance from brand form
+      //Removes grain / weight elements created on the edit form
       //should not be using index number, I need to create a unique variable to set as a key for each object made, maybe a timestamp? or i++?
+      //use filter() instead?
       const handleRemoveNewGrain = idx => {
           console.log(idx)
         const list = [...grainFieldsArray];
         list.splice(idx, 1);
         setGrainFieldsArray(list);
+        refreshForm()
       };
       
+      //Removes grain/weight objects from the ingredients table 
       const handleRemoveEditGrain = (id) => {
-        // console.log("Remove edit Grain index",  idx)
-    //     console.log("Remove edit Grain id",  id)
-    //   const knownIngredientsList = [...knownIngredients];
-    //   const completeIngredientList = [...completeIngredient];
-
-    //   knownIngredientsList.splice((idx), 1 );
-    //   completeIngredientList.splice((idx), 1 );
-
-    //   console.log("setCompleteIngredient", completeIngredientList)
-    //   console.log("setKnownIngredients", knownIngredientsList)
-
-
-    //   setCompleteIngredient(completeIngredientList)
-    //   setKnownIngredients(knownIngredientsList)
-      
-      IngredientManager.delete(id).then(() => refreshForm() 
-      )};
+      IngredientManager.delete(id).then(() => refreshForm() )};
 
    
- //Handle User Inputs on Form FOR GRAIN AND WEIGHT ONLY sets into state to hold 1 object....
- const handleIngredients = evt => {
-    const value = evt.target.value;
-    const idx= evt.target.id
-    const splitIdx=idx.split("-")[1]
-    const splitName=idx.split("-")[0]
-    const singleIngredient = {
-        [splitName]: value
-    };
-    console.log("whats singleIngredient",singleIngredient)
-    const add = [...grainFieldsArray ];
-        add[splitIdx]={...add[splitIdx],...singleIngredient};
-        console.log("whats add",add)
-    setGrainFieldsArray(add)
-}
+    //Handle New Inputs for grain and weight contained in GrainFieldsArray
+    const handleIngredients = evt => {
+        const value = evt.target.value;
+        const idx= evt.target.id
+        const splitIdx=idx.split("-")[1]
+        const splitName=idx.split("-")[0]
+        const singleIngredient = {
+            [splitName]: value
+        };
+        console.log("whats singleIngredient",singleIngredient)
+        const add = [...grainFieldsArray ];
+            add[splitIdx]={...add[splitIdx],...singleIngredient};
+            console.log("whats add",add)
+        setGrainFieldsArray(add)
+    }
 
-const handleKnownIngredients = (evt, idx) => {
-    console.log("handleIngredient event value",evt.target.value)
-    const completeArray = [...completeIngredient]
-    const singleObject ={ ...completeIngredient[idx]}
-    const stateToChange = { ...singleObject };
-    console.log("first stateToChange completeIng", stateToChange);
-    stateToChange[evt.target.id] = parseInt(evt.target.value);
-    console.log("comp. ingrd. statetochange",stateToChange)
-    completeArray.splice([idx], 1, stateToChange)
+    //Handle ingredients Table objects that were placed in Inputs for grain and weight in GrainFieldsArray
+    const handleCompleteIngredients = (evt, idx) => {
+        console.log("handleIngredient event value",evt.target.value)
+        const completeArray = [...completeIngredients]
+        const singleObject ={ ...completeIngredients[idx]}
+        const stateToChange = { ...singleObject };
+        console.log("first stateToChange completeIng", stateToChange);
+        stateToChange[evt.target.id] = evt.target.value;
+        console.log("comp. ingrd. statetochange",stateToChange)
+        completeArray.splice([idx], 1, stateToChange)
 
-    setCompleteIngredient(completeArray);
- 
+        setCompleteIngredients(completeArray);
+    }
 
-}
-    //Handle Change of Inputs on Form EXCEPT GRAIN AND WEIGHT ONLY
+    //Handle Change of Inputs for Brand (...all EXCEPT GRAIN AND WEIGHT)
     const handleBrandFieldChange = evt => {
         console.log("what is the evt", evt)
         //anytime you have an event all of the stuff is passed along 
@@ -118,11 +107,11 @@ const handleKnownIngredients = (evt, idx) => {
         console.log("stateToChange brand", stateToChange);
         stateToChange[evt.target.id] = evt.target.value;
         setBrand(stateToChange);
-    //}
+    
 };
   
     //updates object in brand table from all element except grain and weight
-    //updates object(s) in ingredients table after the response is returned from brand.post using the brand.id , grain, and weight
+    //updates object(s) in ingredients table and post's new ingredient objects created
     const editBrand = (event, props ) => {
         event.preventDefault();
         setIsLoading(true);
@@ -150,21 +139,20 @@ const handleKnownIngredients = (evt, idx) => {
             BrandManager.update(editedBrand)
             .then((response) => { 
                 console.log("edited Brand after put", response);
-                completeIngredient.map(editedIngredient => IngredientManager.update(editedIngredient))
+                completeIngredients.map(editedIngredient => IngredientManager.update(editedIngredient))
             }).then(() => { 
                 grainFieldsArray.map(singleIngredientRelationship => IngredientManager.post(singleIngredientRelationship))
-               
 //have not redirected from page yet, nor have i reset the input fields(if i need to...)
                 })
-        
+                .then(() => {
+                    props.props.history.push(`/brandlist`)
+                   })
         }
     }
     const refreshForm = () => {
         BrandManager.getSingleWithStyleStatus(props.match.params.brandId).then((brand) =>{
             IngredientManager.get(brand.id)
             .then(IngredientsByBrand => {
-                IngredientManager.getIngredientsData(brand.id)
-                .then(ingredientsWithGrain => {
                     GrainManager.getAll()
                     .then(grains => {
                         StyleManager.getAll()
@@ -175,9 +163,9 @@ const handleKnownIngredients = (evt, idx) => {
                                 setStatusSelects(statuses)
                                 setStyleSelects(styles)
                                 setBrand(brand)
-                                setKnownIngredients(ingredientsWithGrain)
-                                setCompleteIngredient(IngredientsByBrand)
-                            })
+                                
+                                setCompleteIngredients(IngredientsByBrand)
+                            
                         })
                     })
                 })
@@ -240,25 +228,23 @@ const handleKnownIngredients = (evt, idx) => {
                 </Col>
 
                     {/* GRAIN INPUTS BROUGHT IN FROM DATABASE FOR EDIT */}
-                    {knownIngredients.map((knownIngredient, idx) => {
+                    {completeIngredients.map((knownIngredient, idx) => {
                 return (
-                <Col key={knownIngredient.id}>
+                <Col key={idx}>
                     <InputGroup className="mb-3" >
                         <InputGroup.Prepend>
                             <InputGroup.Text id="basic-newBrandForm">Grain:</InputGroup.Text>
                         </InputGroup.Prepend>
-                        <Form.Control as="select" id={knownIngredient.id} name="knownGrainId" defaultValue={knownIngredient.grainId}  onChange={ e => handleKnownIngredients(e)}>
+                        <Form.Control key={knownIngredient.id} as="select" id="grainId" name="grainId" defaultValue={knownIngredient.grainId} onChange={ e => handleCompleteIngredients(e,idx)}>
                         <option> Choose grain</option>
-                        {grainSelects.map(grain => 
-                            <option key={grain.id} value={grain.id} id={grain.id}>{grain.maltster} - {grain.name}</option>
-                        )}
+                        {grainSelects.map(grain => { return (<option key={grain.id} value={grain.id} id={grain.id} name="grainId">{grain.maltster} - {grain.name}</option>)})}
                         </Form.Control>
                     </InputGroup>
                     <InputGroup className="mb-3">
                         <InputGroup.Prepend>
                             <InputGroup.Text id="basic-newBrandForm">Weight:</InputGroup.Text>
                         </InputGroup.Prepend>
-                        <Form.Control type="text" name="weight" placeholder="Numbers Only" id="weight"  key={idx} defaultValue={knownIngredient.weight} onChange={e => handleKnownIngredients(e,idx)}/>
+                        <Form.Control type="text" name="weight" placeholder="Numbers Only" id="weight"   defaultValue={knownIngredient.weight} onChange={e => handleCompleteIngredients(e,idx)}/>
                     </InputGroup>
                     <button type="button" onClick={() => handleRemoveEditGrain(knownIngredient.id)}>X</button>
                 </Col>
