@@ -28,7 +28,6 @@ const BrandCard = (props) => {
     }
 
     //Delete All ingredient objects and brand object when button is clicked
-    let i = 1;
     const handleDelete = () => {
         // for(let i=0;i<ingredients.length; i++) {
         //     IngredientManager.delete(ingredients.id).then(() => {
@@ -42,7 +41,7 @@ const BrandCard = (props) => {
     }
     useEffect(() => {
         getIngredients(brandId)
-    }, []);
+    }, [brandId]);
     return (
         <Card style={{ width: '20rem' }}>
             <Card.Img variant="top" src="holder.js/100px180" />
@@ -54,8 +53,10 @@ const BrandCard = (props) => {
                 <Card.Text>Batch Size: {brand.batchSize}</Card.Text>
                 <Card.Text>Rotation Status: {brand.status.status}</Card.Text>
                 <Card.Text>{brand.tastingNote}</Card.Text>
-                {ingredients.map(ingredient => <><Card.Text key={ingredient.id++}> Grain:{i++} {ingredient.grain.name}</Card.Text><Card.Text>Weight:{ingredient.weight}</Card.Text></>)}
-                <Button variant="primary"  onClick={() => handleDelete(props.brand.id)}>Delete</Button>
+                <Card.Text >Create Grains and weights UI TABLE</Card.Text>
+                {ingredients.map(ingredient => <><Card.Text key={`Ingredient-${ingredient.id}`}> {ingredient.grain.name}</Card.Text><Card.Text>Weight:{ingredient.weight}</Card.Text></>)}
+                <Button variant="primary"  onClick={() => handleDelete(props.brand.id)} >Delete</Button>
+                <Button variant="secondary" onClick={() => props.history.push(`/brands/${brand.id}/edit`)}>Edit</Button>
             </Card.Body>
         </Card>
     )

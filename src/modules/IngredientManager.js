@@ -7,7 +7,7 @@ export default {
     return fetch(`${remoteURL}/ingredients`).then(result => result.json())
   },
   get(brandId) {
-    return fetch(`${remoteURL}/ingredients/${brandId}`).then(result => result.json())
+    return fetch(`${remoteURL}/ingredients/?brandId=${brandId}`).then(result => result.json())
   },
   delete(id) {
     return fetch(`${remoteURL}/ingredients/${id}`, {
@@ -27,6 +27,15 @@ export default {
   return fetch(`${remoteURL}/ingredients?brandId=${currentBrandId}&_expand=grain`)
       .then(response => response.json())
   },
+  update(editedIngredient) {
+    return fetch(`${remoteURL}/ingredients/${editedIngredient.id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(editedIngredient)
+    }).then(data => data.json());
+}
   
 
 }
