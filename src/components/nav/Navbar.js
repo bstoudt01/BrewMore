@@ -5,7 +5,8 @@ import Nav from 'react-bootstrap/Nav'
 import NavDropdown from 'react-bootstrap/NavDropdown'
 import { withRouter } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
-const Navigationbar = () => {
+import Link from "react-bootstrap/NavLink"
+const Navigationbar = (props) => {
       // function that resets the user session storage and invokes setHasUser to update the state
   const clearUser = () => {
     sessionStorage.clear();
@@ -30,13 +31,13 @@ const Navigationbar = () => {
                         <NavDropdown.Divider />
                         <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
                     </NavDropdown>
-                    
+            {props.hasUser ?        
             <Button 
             href="/login"
               className="nav-link" 
               onClick={clearUser}> 
               Logout </Button>
-          
+            :null }
                 </Nav>
             </Navbar.Collapse>
         </Navbar>

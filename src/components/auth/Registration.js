@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import UserManager from "../../modules/UserManager";
 
 //props coming from parent component (.. react router dom)
-const Login = (props) => {
+const Login = (setUser, props) => {
   const [credentials, setCredentials] = useState({ email: "", password: "" });
-  const [usersList, setUsersList] = useState([])
+  const [allUsersList, setAllUsersList] = useState([])
 
   const getUsers = () => {
     return UserManager.getAll().then((response) => {
-      setUsersList(response)
+      setAllUsersList(response)
     })
   } 
   getUsers()
@@ -22,32 +22,32 @@ const Login = (props) => {
     setCredentials(stateToChange);
   };
 
-  const verifyCredentials = (e) => {
-    e.preventDefault();
-
-    usersList.map((singleUser) => {
-      console.log("singleUser",singleUser)
-      console.log("credentials",credentials)
-      if (credentials.email === singleUser.email) {
-
-        props.setUser(singleUser);
-        props.history.push("/brandList");
-      }
-    })
-  }
   // function to handle login invoked by button
   const handleLogin = (e) => {
       // prevent default, keeps the page from refreshing and loosing credentials entered
     e.preventDefault();
+    allUsersList.map(singleUser => {
+      console.log("singleUser",singleUser)
+      console.log("credEmail",credentials.email)
+      if (singleUser.email !== credentials.email) {
+        window.alert("Email not registered")
+        
     
-    props.setUser(credentials);
-    props.history.push("/");
-
+    //removed the sesionStorage b.c we grab that in the parent, and pass it along using setUser and invoke it with the credentials
+   
+  } else {
+    console.log("singleUser",singleUser) 
+    console.log("credentials",credentials) 
+    setCredentials(singleUser);
+    console.log("credentials after setting w. singleUser",credentials)
+    //props.history.push("/");
+  }
+  })  
   }
 
   return (
       //onSubmit = when i click the button, start this function
-    <form onSubmit={verifyCredentials}>
+    <form onSubmit={handleLogin}>
       <fieldset>
         <h3>Please sign in</h3>
         <div className="formgrid">

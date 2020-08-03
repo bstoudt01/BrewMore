@@ -4,7 +4,7 @@ import BrandList from './brands/BrandList'
 import BrandListFiltered from './brands/BrandListFiltered'
 import NewBrand from './brands/NewBrand'
 import EditBrand from './brands/EditBrand'
-import Home from '../home/Home'
+import Home from './home/Home'
 import Login from './auth/Login'
 const ApplicationViews = (props) => {
 	// Check if credentials are in session storage returns true/false (credentials are there or its not) based on the props. hasUser & setUser from Application Views (parent component)
@@ -27,7 +27,7 @@ const ApplicationViews = (props) => {
 				exact
 				path="/"
 				render={props => {
-					return <Home />;
+					return <Home {...props} />;
 				}}
 			/>
 			{/* Make sure you add the `exact` attribute here  and pass through ...props so animal list can accept a paramater of props to use later in the code (for adding a new animal) */}
@@ -49,7 +49,7 @@ const ApplicationViews = (props) => {
 				path="/BrandList"
 				render={props => {
 					if (hasUser) {
-						return <BrandList {...props} />
+						return <BrandList {...props} hasUser={hasUser} />
 					} else {
 						return <Redirect to="/login" />
 					}
