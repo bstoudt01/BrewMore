@@ -21,28 +21,20 @@ const Login = (props) => {
     stateToChange[evt.target.id] = evt.target.value;
     setCredentials(stateToChange);
   };
-
+  // function to handle login invoked by button
   const verifyCredentials = (e) => {
+    // prevent default, keeps the page from refreshing and loosing credentials entered
+
     e.preventDefault();
 
     usersList.map((singleUser) => {
       console.log("singleUser",singleUser)
       console.log("credentials",credentials)
-      if (credentials.email === singleUser.email) {
-
+      if (credentials.email === singleUser.email) { 
         props.setUser(singleUser);
         props.history.push("/brandList");
-      }
+      } 
     })
-  }
-  // function to handle login invoked by button
-  const handleLogin = (e) => {
-      // prevent default, keeps the page from refreshing and loosing credentials entered
-    e.preventDefault();
-    
-    props.setUser(credentials);
-    props.history.push("/");
-
   }
 
   return (

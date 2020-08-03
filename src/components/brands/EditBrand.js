@@ -17,7 +17,7 @@ const EditBrand = (props) => {
 
 
     //holds brand key : values as an object, set during useEffect render and watched by handleFieldChange
-    const [brand, setBrand] = useState({name: "", batchSize: "", yeast: "", hop: "", ibu: "", tastingNote: "", styleId: "", statusId: ""})
+    const [brand, setBrand] = useState({name: "", batchSize: "", yeast: "", hop: "", ibu: "", tastingNote: "", styleId: "", statusId: "", userId: ""})
     
     //holds ingredients from database for this brand and includes expand on grainId, used to create dropdowns for ingredients from database, set during useEffect
     
@@ -120,6 +120,7 @@ const EditBrand = (props) => {
         } else {
             const editedBrand = {
                 id: brand.id,
+                userId: brand.userId,
                 name: brand.name,
                 yeast: brand.yeast,
                 hop: brand.hop,

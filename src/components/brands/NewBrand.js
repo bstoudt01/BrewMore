@@ -16,8 +16,14 @@ import StyleManager from '../../modules/StyleManager';
 const NewBrand = () => {
 
 
+    const sessionData = sessionStorage.getItem('credentials')
+    console.log("sessionStorage.getItem", sessionData)
+    const sessionId = sessionData.split(":")[1]
+    const sessionUserId = sessionId.split(",")[0]
+    console.log("sessionId",sessionId)
+    console.log("sessionUserId",sessionUserId)
     //holds brand key : values as an object, set by handleFieldChange
-    const [brand, setBrand] = useState({name: ""})
+    const [brand, setBrand] = useState({name: "", userId:sessionUserId })
 
     //declares loading state to keep buttons from working during load time set by functions and button
     const [isLoading, setIsLoading] = useState(false);
@@ -36,6 +42,7 @@ const NewBrand = () => {
     
     //holds all the statuses from database as array, used to place each status into an option of a select element, set during useEffect
     const [statusSelects, setStatusSelects] = useState([])
+
 
     //Listens for click on "add more grain" button and creates a new instance of grain selection options and a weight input
     const handleAddGrainElements = () => {
@@ -101,7 +108,7 @@ const NewBrand = () => {
             .then((brand) => { 
                 console.log(brand)
                 let completeIngredient = [...grainFieldsArray]
-                const BI = { brandId:`${brand.id}` }
+               // const BI = { brandId:`${brand.id}` }
                 let i= 0
                 for(i=0;i<grainFieldsArray.length; i++) {
                     grainFieldsArray[i].brandId = brand.id
