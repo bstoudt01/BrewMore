@@ -11,10 +11,17 @@ const BrandListFiltered = (props) => {
         const pathname = props.location.pathname
         const statusId=pathname.split("/")[2]
         console.log("statusId",statusId)
+
+        const sessionData = sessionStorage.getItem('credentials')
+        console.log("sessionStorage.getItem", sessionData)
+        const sessionId = sessionData.split(":")[1]
+        const sessionUserId = sessionId.split(",")[0]
+        console.log("sessionId",sessionId)
+        console.log("sessionUserId",sessionUserId)
     
     const getBrands = () => {
         
-        return BrandManager.getByStatusIdWithStyle(statusId).then((filteredBrands) =>{
+        return BrandManager.getSingleUserByStatusIdWithStyle(sessionUserId,statusId).then((filteredBrands) =>{
             console.log(filteredBrands)
             setBrands(filteredBrands)
           

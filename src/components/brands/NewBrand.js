@@ -13,11 +13,17 @@ import StatusManager from '../../modules/StatusManager';
 import StyleManager from '../../modules/StyleManager';
   
 //Creates a new brand to be stored in the database (brand table & ingredients table)
-const NewBrand = () => {
+const NewBrand = (props) => {
 
 
+    const sessionData = sessionStorage.getItem('credentials')
+    console.log("sessionStorage.getItem", sessionData)
+    const sessionId = sessionData.split(":")[1]
+    const sessionUserId = sessionId.split(",")[0]
+    console.log("sessionId",sessionId)
+    console.log("sessionUserId",sessionUserId)
     //holds brand key : values as an object, set by handleFieldChange
-    const [brand, setBrand] = useState({name: ""})
+    const [brand, setBrand] = useState({name: "", userId:sessionUserId })
 
     //declares loading state to keep buttons from working during load time set by functions and button
     const [isLoading, setIsLoading] = useState(false);
@@ -27,15 +33,13 @@ const NewBrand = () => {
 
     //holds an array of grain (select) & weight (txt input) objects, inputsset by handleAddGrainElement & controlled by handleIngredients
     const [grainFieldsArray, setGrainFieldsArray] = useState([])
-
-    //holds the ingredients objects after the brandId has been added, set & used inside createNewBrand
-    const [completeIngredient, setCompleteIngredient] = useState([])
-
+    console.log("grainFieldsArray", grainFieldsArray)
     //holds all the styles from database as array, used to place each style into an option of a select element, set during useEffect
     const [styleSelects, setStyleSelects] = useState([])
     
     //holds all the statuses from database as array, used to place each status into an option of a select element, set during useEffect
     const [statusSelects, setStatusSelects] = useState([])
+
 
     //Listens for click on "add more grain" button and creates a new instance of grain selection options and a weight input
     const handleAddGrainElements = () => {
@@ -47,16 +51,18 @@ const NewBrand = () => {
       //Removes grain / weight instance from brand form
       //should not be using index number, I need to create a unique variable to set as a key for each object made, maybe a timestamp? or i++?
       const handleRemove = idx => {
-          console.log(idx)
+          console.log("idx",idx)
         const list = [...grainFieldsArray];
         list.splice(idx, 1);
+        console.log("list",list)
         setGrainFieldsArray(list);
       };
    
  //Handle User Inputs on Form FOR GRAIN AND WEIGHT ONLY sets into state to hold 1 object....
  const handleIngredients = evt => {
-    const value = evt.target.value;
+    const value = parseInt(evt.target.value);
     const idx= evt.target.id
+    console.log("eventTargetId", idx)
     const splitIdx=idx.split("-")[1]
     const splitName=idx.split("-")[0]
     const singleIngredient = {
@@ -97,21 +103,21 @@ const NewBrand = () => {
             setIsLoading(true);
             // Create the brand and then grabs the id from the response 
             //and adds that to each object as they are redeclared within another set state
+            
             BrandManager.post(brand)
             .then((brand) => { 
                 console.log(brand)
-                let completeIngredient = [...grainFieldsArray]
-                const BI = { brandId:`${brand.id}` }
+                let ingredientWithBrandId = [...grainFieldsArray]
                 let i= 0
-                for(i=0;i<grainFieldsArray.length; i++) {
-                    grainFieldsArray[i].brandId = brand.id
+                for(i=0;i<ingredientWithBrandId.length; i++) {
+                    ingredientWithBrandId[i].brandId = brand.id
                 }
-                setCompleteIngredient(grainFieldsArray)
-                console.log("ci",completeIngredient)
+                
+                console.log("ci",ingredientWithBrandId)
                 console.log("gf",grainFieldsArray)
-                completeIngredient.map(singleIngredientRelationship => IngredientManager.post(singleIngredientRelationship))
-//have not redirected from page yet, nor have i reset the input fields(if i need to...)
-            }).then(() => setBrand(""))
+                ingredientWithBrandId.map(singleIngredientRelationship => IngredientManager.post(singleIngredientRelationship))
+            //have not redirected from page yet, nor have i reset the input fields(if i need to...)
+            }).then(() => props.history.push("/BrandList"))
         }
     }
     
@@ -195,7 +201,7 @@ const NewBrand = () => {
                         </InputGroup.Prepend>
                         <Form.Control type="text" name="weight" placeholder="Numbers Only" id={`weight-${idx}`}  key={idx} onChange={handleIngredients}/>
                     </InputGroup>
-                    <button type="button" onClick={() => handleRemove(idx)}>X</button>
+                    {/* <button type="button" onClick={() => handleRemove(idx)}>X</button> */}
                 </Col>
                 )
                 })}

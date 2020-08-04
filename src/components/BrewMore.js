@@ -15,12 +15,7 @@ const BrewMore = () => {
     setHasUser(isAuthenticated());
   };
 
-  // function that resets the user session storage and invokes setHasUser to update the state
-  const clearUser = () => {
-		sessionStorage.clear();
-		setHasUser(isAuthenticated());
-	  }
-	
+
     return (
         <>
         <Navbar hasUser={hasUser}/>

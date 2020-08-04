@@ -17,7 +17,7 @@ const EditBrand = (props) => {
 
 
     //holds brand key : values as an object, set during useEffect render and watched by handleFieldChange
-    const [brand, setBrand] = useState({name: "", batchSize: "", yeast: "", hop: "", ibu: "", tastingNote: "", styleId: "", statusId: ""})
+    const [brand, setBrand] = useState({name: "", batchSize: "", yeast: "", hop: "", ibu: "", tastingNote: "", styleId: "", statusId: "", userId: ""})
     
     //holds ingredients from database for this brand and includes expand on grainId, used to create dropdowns for ingredients from database, set during useEffect
     
@@ -68,7 +68,7 @@ const EditBrand = (props) => {
    
     //Handle New Inputs for grain and weight contained in GrainFieldsArray
     const handleIngredients = evt => {
-        const value = evt.target.value;
+        const value = parseInt(evt.target.value);
         const idx= evt.target.id
         const splitIdx=idx.split("-")[1]
         const splitName=idx.split("-")[0]
@@ -112,7 +112,7 @@ const EditBrand = (props) => {
   
     //updates object in brand table from all element except grain and weight
     //updates object(s) in ingredients table and post's new ingredient objects created
-    const editBrand = (event, props ) => {
+    const editBrand = (event ) => {
         event.preventDefault();
         setIsLoading(true);
         if (brand.name === "") {
@@ -120,6 +120,7 @@ const EditBrand = (props) => {
         } else {
             const editedBrand = {
                 id: brand.id,
+                userId: brand.userId,
                 name: brand.name,
                 yeast: brand.yeast,
                 hop: brand.hop,
@@ -129,24 +130,20 @@ const EditBrand = (props) => {
                 styleId: brand.styleId,
                 statusId: brand.statusId
             }
-            // const editedIngredient = {
-            //     id: completeIngredient.id,
-            //     brandId: completeIngredient.brandId,
-            //     grainId: completeIngredient.grainId,
-            //     weight: completeIngredient.weight
-            // }
             console.log("edited Brand b4put", editedBrand)
             BrandManager.update(editedBrand)
             .then((response) => { 
                 console.log("edited Brand after put", response);
                 completeIngredients.map(editedIngredient => IngredientManager.update(editedIngredient))
+
             }).then(() => { 
+                console.log("completeIngredient after put");
                 grainFieldsArray.map(singleIngredientRelationship => IngredientManager.post(singleIngredientRelationship))
 //have not redirected from page yet, nor have i reset the input fields(if i need to...)
                 })
-                .then(() => {
-                    props.props.history.push(`/brandlist`)
-                   })
+                .then(() => {console.log("3rd console log in then",props)
+                props.history.push("/BrandList")})
+                
         }
     }
     const refreshForm = () => {
@@ -230,12 +227,12 @@ const EditBrand = (props) => {
                     {/* GRAIN INPUTS BROUGHT IN FROM DATABASE FOR EDIT */}
                     {completeIngredients.map((knownIngredient, idx) => {
                 return (
-                <Col key={idx}>
+                <Col key={knownIngredient.id}  >
                     <InputGroup className="mb-3" >
                         <InputGroup.Prepend>
                             <InputGroup.Text id="basic-newBrandForm">Grain:</InputGroup.Text>
                         </InputGroup.Prepend>
-                        <Form.Control key={knownIngredient.id} as="select" id="grainId" name="grainId" defaultValue={knownIngredient.grainId} onChange={ e => handleCompleteIngredients(e,idx)}>
+                        <Form.Control as="select" id="grainId" name="grainId" defaultValue={knownIngredient.grainId} onChange={ e => handleCompleteIngredients(e,idx)}>
                         <option> Choose grain</option>
                         {grainSelects.map(grain => { return (<option key={grain.id} value={grain.id} id={grain.id} name="grainId">{grain.maltster} - {grain.name}</option>)})}
                         </Form.Control>
@@ -272,7 +269,7 @@ const EditBrand = (props) => {
                         </InputGroup.Prepend>
                         <Form.Control type="text" name="weight" placeholder="Numbers Only" id={`weight-${idx}`}  key={idx} onChange={handleIngredients}/>
                     </InputGroup>
-                    <button type="button" onClick={() => handleRemoveNewGrain(grainFields.id)}>X</button>
+                    {/* <button type="button" onClick={() => handleRemoveNewGrain(grainFields.id)}>X</button> */}
                 </Col>
                 )
                 })}

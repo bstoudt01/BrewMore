@@ -1,8 +1,17 @@
-import React, { useState } from "react"
+import React, { useState } from "react";
+import UserManager from "../../modules/UserManager";
 
 //props coming from parent component (.. react router dom)
-const Login = props => {
+const Login = (props) => {
   const [credentials, setCredentials] = useState({ email: "", password: "" });
+  const [usersList, setUsersList] = useState([])
+
+  const getUsers = () => {
+    return UserManager.getAll().then((response) => {
+      setUsersList(response)
+    })
+  } 
+  getUsers()
 
   // Update state whenever an input field is edited
   //as we hear those changes, state changes and makes those updates (evey key)
@@ -12,20 +21,27 @@ const Login = props => {
     stateToChange[evt.target.id] = evt.target.value;
     setCredentials(stateToChange);
   };
-
   // function to handle login invoked by button
-  const handleLogin = (e) => {
-      // prevent default, keeps the page from refreshing and loosing credentials entered
+  const verifyCredentials = (e) => {
+    // prevent default, keeps the page from refreshing and loosing credentials entered
+
     e.preventDefault();
-    
-    //removed the sesionStorage b.c we grab that in the parent, and pass it along using setUser and invoke it with the credentials
-    props.setUser(credentials);
-    props.history.push("/");
+
+    usersList.map((singleUser) => {
+      console.log("singleUser",singleUser)
+      console.log("credentials",credentials)
+      if (singleUser.email === credentials.email) { 
+        props.setUser(singleUser);
+      }
+      return (
+        props.history.push("/brandList")
+      )
+    })
   }
 
   return (
       //onSubmit = when i click the button, start this function
-    <form onSubmit={handleLogin}>
+    <form onSubmit={verifyCredentials}>
       <fieldset>
         <h3>Please sign in</h3>
         <div className="formgrid">

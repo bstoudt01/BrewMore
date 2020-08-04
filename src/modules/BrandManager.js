@@ -65,6 +65,15 @@ getSingleWithStyleStatus(id) {
 getByStatusIdWithStyle(statusId) { 
   return fetch(`${remoteURL}/brands/?statusId=${statusId}&_expand=style&_expand=status`)
     .then(result => result.json())
-}
+},
+getSingleUserByStatusIdWithStyle(userId,statusId) { 
+  return fetch(`${remoteURL}/brands/?userId=${userId}&statusId=${statusId}&_expand=style&_expand=status`)
+    .then(result => result.json())
+},
+getSingleUserWithStatusStyle(userId) { 
+  return fetch(`${remoteURL}/brands/?userId=${userId}&_expand=style&_expand=status`)
+    .then(result => result.json())
+},
+
 
 }
