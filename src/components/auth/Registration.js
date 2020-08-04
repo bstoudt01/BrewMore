@@ -5,7 +5,8 @@ import InputGroup from "react-bootstrap/InputGroup"
 import Button from "react-bootstrap/Button"
 import UserManager from "../../modules/UserManager";
 
-const RegistrationForm = () => {
+
+const RegistrationForm = (props) => {
   const [validated, setValidated] = useState(false);
   const [userDetails, setUserDetails] = useState([])
 console.log(validated)
@@ -17,9 +18,8 @@ console.log(validated)
       event.stopPropagation();
     }
     setValidated(true);
-    UserManager.post(userDetails).then((userObject) =>
-    console.log(userObject))
-  };
+    UserManager.post(userDetails).then(() => {props.history.push("/")})
+  }
   const handleFieldChange = (evt) => {
     const stateToChange = { ...userDetails };
     stateToChange[evt.target.id] = evt.target.value;
