@@ -201,7 +201,7 @@ const NewBrand = (props) => {
                         </InputGroup.Prepend>
                         <Form.Control type="text" name="weight" placeholder="Numbers Only" id={`weight-${idx}`}  key={idx} onChange={handleIngredients}/>
                     </InputGroup>
-                    <button type="button" onClick={() => handleRemove(idx)}>X</button>
+                    {/* <button type="button" onClick={() => handleRemove(idx)}>X</button> */}
                 </Col>
                 )
                 })}
