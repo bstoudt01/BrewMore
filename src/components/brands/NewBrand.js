@@ -13,7 +13,7 @@ import StatusManager from '../../modules/StatusManager';
 import StyleManager from '../../modules/StyleManager';
   
 //Creates a new brand to be stored in the database (brand table & ingredients table)
-const NewBrand = () => {
+const NewBrand = (props) => {
 
 
     const sessionData = sessionStorage.getItem('credentials')
@@ -33,7 +33,7 @@ const NewBrand = () => {
 
     //holds an array of grain (select) & weight (txt input) objects, inputsset by handleAddGrainElement & controlled by handleIngredients
     const [grainFieldsArray, setGrainFieldsArray] = useState([])
-
+    console.log("grainFieldsArray", grainFieldsArray)
     //holds all the styles from database as array, used to place each style into an option of a select element, set during useEffect
     const [styleSelects, setStyleSelects] = useState([])
     
@@ -51,16 +51,18 @@ const NewBrand = () => {
       //Removes grain / weight instance from brand form
       //should not be using index number, I need to create a unique variable to set as a key for each object made, maybe a timestamp? or i++?
       const handleRemove = idx => {
-          console.log(idx)
+          console.log("idx",idx)
         const list = [...grainFieldsArray];
         list.splice(idx, 1);
+        console.log("list",list)
         setGrainFieldsArray(list);
       };
    
  //Handle User Inputs on Form FOR GRAIN AND WEIGHT ONLY sets into state to hold 1 object....
  const handleIngredients = evt => {
-    const value = evt.target.value;
+    const value = parseInt(evt.target.value);
     const idx= evt.target.id
+    console.log("eventTargetId", idx)
     const splitIdx=idx.split("-")[1]
     const splitName=idx.split("-")[0]
     const singleIngredient = {
@@ -115,7 +117,7 @@ const NewBrand = () => {
                 console.log("gf",grainFieldsArray)
                 ingredientWithBrandId.map(singleIngredientRelationship => IngredientManager.post(singleIngredientRelationship))
             //have not redirected from page yet, nor have i reset the input fields(if i need to...)
-            }).then(() => setBrand(""))
+            }).then(() => props.history.push("/BrandList"))
         }
     }
     

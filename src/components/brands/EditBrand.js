@@ -68,7 +68,7 @@ const EditBrand = (props) => {
    
     //Handle New Inputs for grain and weight contained in GrainFieldsArray
     const handleIngredients = evt => {
-        const value = evt.target.value;
+        const value = parseInt(evt.target.value);
         const idx= evt.target.id
         const splitIdx=idx.split("-")[1]
         const splitName=idx.split("-")[0]
@@ -269,7 +269,7 @@ const EditBrand = (props) => {
                         </InputGroup.Prepend>
                         <Form.Control type="text" name="weight" placeholder="Numbers Only" id={`weight-${idx}`}  key={idx} onChange={handleIngredients}/>
                     </InputGroup>
-                    <button type="button" onClick={() => handleRemoveNewGrain(grainFields.id)}>X</button>
+                    {/* <button type="button" onClick={() => handleRemoveNewGrain(grainFields.id)}>X</button> */}
                 </Col>
                 )
                 })}

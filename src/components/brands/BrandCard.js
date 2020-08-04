@@ -34,7 +34,7 @@ const BrandCard = (props) => {
         })
     }
     useEffect(() => {
-        getIngredients(brandId)
+        getIngredients()
     }, [brandId]);
     return (
         <Card style={{ width: '20rem' }}>

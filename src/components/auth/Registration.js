@@ -35,7 +35,6 @@ console.log(validated)
             onChange={handleFieldChange}
             type="email"
             //id="email"
-            placeholder="Email address"
             required autoFocus="" 
             placeholder="Brewery@Brewey.com"
           />

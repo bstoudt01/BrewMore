@@ -30,10 +30,12 @@ const Login = (props) => {
     usersList.map((singleUser) => {
       console.log("singleUser",singleUser)
       console.log("credentials",credentials)
-      if (credentials.email === singleUser.email) { 
+      if (singleUser.email === credentials.email) { 
         props.setUser(singleUser);
-        props.history.push("/brandList");
       }
+      return (
+        props.history.push("/brandList")
+      )
     })
   }
 
