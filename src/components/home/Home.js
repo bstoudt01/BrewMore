@@ -1,5 +1,5 @@
 import React from "react";
-import Login from "../auth/Login"
+
 import H1 from "react-bootstrap/FormText"
 const Home = () => {
 

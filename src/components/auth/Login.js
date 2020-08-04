@@ -33,7 +33,7 @@ const Login = (props) => {
       if (credentials.email === singleUser.email) { 
         props.setUser(singleUser);
         props.history.push("/brandList");
-      } 
+      }
     })
   }
 

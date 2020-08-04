@@ -3,7 +3,7 @@ import Row from 'react-bootstrap/Row';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav'
 import NavDropdown from 'react-bootstrap/NavDropdown'
-import { withRouter } from 'react-router-dom'
+//import { withRouter } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
 
 const Navigationbar = (props) => {
@@ -18,7 +18,7 @@ const Navigationbar = (props) => {
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">
-                    <Nav.Link exact href="/">Home</Nav.Link>
+                    <Nav.Link  href="/">Home</Nav.Link>
                     <Nav.Link href="../NewBrand"> Design a Beer</Nav.Link>
                     <NavDropdown title="Wall of Beers" id="basic-nav-dropdown" >
                         <NavDropdown.Item exact href="../BrandList">All the Beers</NavDropdown.Item>

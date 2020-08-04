@@ -1,75 +1,94 @@
 import React, { useState } from "react";
+import Form from "react-bootstrap/Form"
+import Col from "react-bootstrap/Col"
+import InputGroup from "react-bootstrap/InputGroup"
+import Button from "react-bootstrap/Button"
 import UserManager from "../../modules/UserManager";
 
-//props coming from parent component (.. react router dom)
-const Login = (setUser, props) => {
-  const [credentials, setCredentials] = useState({ email: "", password: "" });
-  const [allUsersList, setAllUsersList] = useState([])
+const RegistrationForm = () => {
+  const [validated, setValidated] = useState(false);
+  const [userDetails, setUserDetails] = useState([])
+console.log(validated)
 
-  const getUsers = () => {
-    return UserManager.getAll().then((response) => {
-      setAllUsersList(response)
-    })
-  } 
-  getUsers()
-
-  // Update state whenever an input field is edited
-  //as we hear those changes, state changes and makes those updates (evey key)
-  // matches value in input field with a value in state
+  const handleSubmit = (event) => {
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    setValidated(true);
+    UserManager.post(userDetails).then((userObject) =>
+    console.log(userObject))
+  };
   const handleFieldChange = (evt) => {
-    const stateToChange = { ...credentials };
+    const stateToChange = { ...userDetails };
     stateToChange[evt.target.id] = evt.target.value;
-    setCredentials(stateToChange);
+    setUserDetails(stateToChange);
   };
 
-  // function to handle login invoked by button
-  const handleLogin = (e) => {
-      // prevent default, keeps the page from refreshing and loosing credentials entered
-    e.preventDefault();
-    allUsersList.map(singleUser => {
-      console.log("singleUser",singleUser)
-      console.log("credEmail",credentials.email)
-      if (singleUser.email !== credentials.email) {
-        window.alert("Email not registered")
-        
-    
-    //removed the sesionStorage b.c we grab that in the parent, and pass it along using setUser and invoke it with the credentials
-   
-  } else {
-    console.log("singleUser",singleUser) 
-    console.log("credentials",credentials) 
-    setCredentials(singleUser);
-    console.log("credentials after setting w. singleUser",credentials)
-    //props.history.push("/");
-  }
-  })  
-  }
-
   return (
-      //onSubmit = when i click the button, start this function
-    <form onSubmit={handleLogin}>
-      <fieldset>
-        <h3>Please sign in</h3>
-        <div className="formgrid">
-          <input onChange={handleFieldChange} type="email"
-          //id="email" directly relates to email "" of state
-            id="email"
+    <Form noValidate validated={validated} onSubmit={handleSubmit}>
+      <Form.Row>
+        <Form.Group as={Col} md="4" controlId="email">
+          <Form.Label>Email</Form.Label>
+          <Form.Control
+            onChange={handleFieldChange}
+            type="email"
+            //id="email"
             placeholder="Email address"
-            required="" autoFocus="" />
-          <label htmlFor="inputEmail">Email address</label>
-
-          <input onChange={handleFieldChange} type="password"
-            //id="password" directly relates to password "" of state setCredentials
+            required autoFocus="" 
+            placeholder="Brewery@Brewey.com"
+          />
+          <Form.Control.Feedback type="invalid">Uh oh! Looks like there is an issue with your email. Please input a correct email.</Form.Control.Feedback>
+        </Form.Group>
+      
+        <Form.Group as={Col} md="4" controlId="username">
+          <Form.Label>Username</Form.Label>
+          <InputGroup>
+            <InputGroup.Prepend>
+              <InputGroup.Text id="inputGroupPrepend">@</InputGroup.Text>
+            </InputGroup.Prepend>
+            <Form.Control
+              onChange={handleFieldChange}
+              type="text"
+              //id="username"
+              placeholder="Username"
+              aria-describedby="inputGroupPrepend"
+              required
+            />
+            <Form.Control.Feedback type="invalid">
+              Please choose a username.
+            </Form.Control.Feedback>
+          </InputGroup>
+        </Form.Group>
+        <Form.Group>
+          <Form.Label htmlFor="inputPassword6">Password</Form.Label>
+          <Form.Control
+            onChange={handleFieldChange}
+            type="password"
+            className="mx-sm-3"
             id="password"
-            placeholder="Password"
-            // required forces to be be a given value, the  empty string 
-            required="" />
-          <label htmlFor="inputPassword">Password</label>
-        </div>
-        <button type="submit">Sign in</button>
-      </fieldset>
-    </form>
+            aria-describedby="passwordHelpInline"
+          />
+          <Form.Control.Feedback type="invalid">
+              Please choose a password.
+            </Form.Control.Feedback>
+          <Form.Text id="passwordHelpBlock" muted>
+            Must be 8-20 characters long.
+          </Form.Text>
+          
+        </Form.Group>
+      </Form.Row>
+      <Form.Group>
+        <Form.Check
+          required
+          label="Agree to terms and conditions"
+          feedback="You must agree before submitting."
+        />
+      </Form.Group>
+      <Button type="submit">Submit form</Button>
+    </Form>
   );
-};
+}
 
-export default Login;
+export default RegistrationForm
