@@ -11,6 +11,7 @@ import BrandManager from '../../modules/BrandManager';
 import IngredientManager from '../../modules/IngredientManager';
 import StatusManager from '../../modules/StatusManager';
 import StyleManager from '../../modules/StyleManager';
+import {withRouter} from 'react-router'
   
 //Creates a new brand to be stored in the database (brand table & ingredients table)
 const EditBrand = (props) => {
@@ -145,9 +146,7 @@ const EditBrand = (props) => {
                 grainFieldsArray.map(singleIngredientRelationship => IngredientManager.post(singleIngredientRelationship))
 //have not redirected from page yet, nor have i reset the input fields(if i need to...)
                 })
-                .then(() => {
-                    props.props.history.push(`/brandlist`)
-                   })
+                .then(() => props.history.push("/BrandList"))
         }
     }
     const refreshForm = () => {
@@ -231,12 +230,12 @@ const EditBrand = (props) => {
                     {/* GRAIN INPUTS BROUGHT IN FROM DATABASE FOR EDIT */}
                     {completeIngredients.map((knownIngredient, idx) => {
                 return (
-                <Col key={idx}>
+                <Col key={knownIngredient.id}  >
                     <InputGroup className="mb-3" >
                         <InputGroup.Prepend>
                             <InputGroup.Text id="basic-newBrandForm">Grain:</InputGroup.Text>
                         </InputGroup.Prepend>
-                        <Form.Control key={knownIngredient.id} as="select" id="grainId" name="grainId" defaultValue={knownIngredient.grainId} onChange={ e => handleCompleteIngredients(e,idx)}>
+                        <Form.Control as="select" id="grainId" name="grainId" defaultValue={knownIngredient.grainId} onChange={ e => handleCompleteIngredients(e,idx)}>
                         <option> Choose grain</option>
                         {grainSelects.map(grain => { return (<option key={grain.id} value={grain.id} id={grain.id} name="grainId">{grain.maltster} - {grain.name}</option>)})}
                         </Form.Control>
@@ -320,4 +319,4 @@ const EditBrand = (props) => {
    )
 }
 
-export default EditBrand
+export default withRouter(EditBrand)

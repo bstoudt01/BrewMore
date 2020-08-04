@@ -34,9 +34,6 @@ const NewBrand = () => {
     //holds an array of grain (select) & weight (txt input) objects, inputsset by handleAddGrainElement & controlled by handleIngredients
     const [grainFieldsArray, setGrainFieldsArray] = useState([])
 
-    //holds the ingredients objects after the brandId has been added, set & used inside createNewBrand
-    const [completeIngredient, setCompleteIngredient] = useState([])
-
     //holds all the styles from database as array, used to place each style into an option of a select element, set during useEffect
     const [styleSelects, setStyleSelects] = useState([])
     
@@ -104,20 +101,20 @@ const NewBrand = () => {
             setIsLoading(true);
             // Create the brand and then grabs the id from the response 
             //and adds that to each object as they are redeclared within another set state
+            
             BrandManager.post(brand)
             .then((brand) => { 
                 console.log(brand)
-                let completeIngredient = [...grainFieldsArray]
-               // const BI = { brandId:`${brand.id}` }
+                let ingredientWithBrandId = [...grainFieldsArray]
                 let i= 0
-                for(i=0;i<grainFieldsArray.length; i++) {
-                    grainFieldsArray[i].brandId = brand.id
+                for(i=0;i<ingredientWithBrandId.length; i++) {
+                    ingredientWithBrandId[i].brandId = brand.id
                 }
-                setCompleteIngredient(grainFieldsArray)
-                console.log("ci",completeIngredient)
+                
+                console.log("ci",ingredientWithBrandId)
                 console.log("gf",grainFieldsArray)
-                completeIngredient.map(singleIngredientRelationship => IngredientManager.post(singleIngredientRelationship))
-//have not redirected from page yet, nor have i reset the input fields(if i need to...)
+                ingredientWithBrandId.map(singleIngredientRelationship => IngredientManager.post(singleIngredientRelationship))
+            //have not redirected from page yet, nor have i reset the input fields(if i need to...)
             }).then(() => setBrand(""))
         }
     }

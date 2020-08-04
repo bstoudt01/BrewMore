@@ -26,9 +26,6 @@ const Navigationbar = (props) => {
                         <NavDropdown.Item exact href="../BrandList/2">Seasonal Beers</NavDropdown.Item>
                         <NavDropdown.Item exact href="../BrandList/3">Experimental Beers</NavDropdown.Item>
                         <NavDropdown.Item exact href="../BrandList/4">Dead Beers</NavDropdown.Item>
-                        
-                        <NavDropdown.Divider />
-                        <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
                     </NavDropdown>
             {props.hasUser ?        
             <Button 
