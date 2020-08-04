@@ -11,7 +11,6 @@ import BrandManager from '../../modules/BrandManager';
 import IngredientManager from '../../modules/IngredientManager';
 import StatusManager from '../../modules/StatusManager';
 import StyleManager from '../../modules/StyleManager';
-import {withRouter} from 'react-router'
   
 //Creates a new brand to be stored in the database (brand table & ingredients table)
 const EditBrand = (props) => {
@@ -113,7 +112,7 @@ const EditBrand = (props) => {
   
     //updates object in brand table from all element except grain and weight
     //updates object(s) in ingredients table and post's new ingredient objects created
-    const editBrand = (event, props ) => {
+    const editBrand = (event ) => {
         event.preventDefault();
         setIsLoading(true);
         if (brand.name === "") {
@@ -131,22 +130,20 @@ const EditBrand = (props) => {
                 styleId: brand.styleId,
                 statusId: brand.statusId
             }
-            // const editedIngredient = {
-            //     id: completeIngredient.id,
-            //     brandId: completeIngredient.brandId,
-            //     grainId: completeIngredient.grainId,
-            //     weight: completeIngredient.weight
-            // }
             console.log("edited Brand b4put", editedBrand)
             BrandManager.update(editedBrand)
             .then((response) => { 
                 console.log("edited Brand after put", response);
                 completeIngredients.map(editedIngredient => IngredientManager.update(editedIngredient))
+
             }).then(() => { 
+                console.log("completeIngredient after put");
                 grainFieldsArray.map(singleIngredientRelationship => IngredientManager.post(singleIngredientRelationship))
 //have not redirected from page yet, nor have i reset the input fields(if i need to...)
                 })
-                .then(() => props.history.push("/BrandList"))
+                .then(() => {console.log("3rd console log in then",props)
+                props.history.push("/BrandList")})
+                
         }
     }
     const refreshForm = () => {
@@ -319,4 +316,4 @@ const EditBrand = (props) => {
    )
 }
 
-export default withRouter(EditBrand)
+export default EditBrand

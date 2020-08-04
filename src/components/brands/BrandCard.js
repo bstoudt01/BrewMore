@@ -50,7 +50,7 @@ const BrandCard = (props) => {
                 <Card.Text >Create Grains and weights UI TABLE</Card.Text>
                 {ingredients.map(ingredient => <div key={`Ingredient-${ingredient.id}`}><Card.Text > {ingredient.grain.name}</Card.Text><Card.Text>Weight:{ingredient.weight}</Card.Text></div>)}
                 <Button variant="primary"  onClick={() => handleDelete(props.brand.id)} >Delete</Button>
-                <Button variant="secondary" onClick={() => props.history.push(`/brands/${brand.id}/edit`)}>Edit</Button>
+                <Button variant="secondary" onClick={() => props.history.push(`/brands/${brand.id}/edit`) }>Edit</Button>
             </Card.Body>
         </Card>
     )

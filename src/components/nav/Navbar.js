@@ -19,13 +19,13 @@ const Navigationbar = (props) => {
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">
                     <Nav.Link  href="/">Home</Nav.Link>
-                    <Nav.Link href="../NewBrand"> Design a Beer</Nav.Link>
+                    <Nav.Link href="/NewBrand"> Design a Beer</Nav.Link>
                     <NavDropdown title="Wall of Beers" id="basic-nav-dropdown" >
-                        <NavDropdown.Item exact href="../BrandList">All the Beers</NavDropdown.Item>
-                        <NavDropdown.Item exact href="../BrandList/1" >Staple Beers</NavDropdown.Item>
-                        <NavDropdown.Item exact href="../BrandList/2">Seasonal Beers</NavDropdown.Item>
-                        <NavDropdown.Item exact href="../BrandList/3">Experimental Beers</NavDropdown.Item>
-                        <NavDropdown.Item exact href="../BrandList/4">Dead Beers</NavDropdown.Item>
+                        <NavDropdown.Item  href="/BrandList">All the Beers</NavDropdown.Item>
+                        <NavDropdown.Item  href="/BrandList/1" >Staple Beers</NavDropdown.Item>
+                        <NavDropdown.Item  href="/BrandList/2">Seasonal Beers</NavDropdown.Item>
+                        <NavDropdown.Item  href="/BrandList/3">Experimental Beers</NavDropdown.Item>
+                        <NavDropdown.Item  href="/BrandList/4">Dead Beers</NavDropdown.Item>
                     </NavDropdown>
             {props.hasUser ?        
             <Button 
