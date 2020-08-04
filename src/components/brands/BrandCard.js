@@ -1,7 +1,7 @@
 import React, { useState, useEffect }from 'react';
 //import Container from 'react-bootstrap/Container';
 //import Row from 'react-bootstrap/Row';
-//import Col from 'react-bootstrap/CardColumns';
+import Col from 'react-bootstrap/CardColumns';
 //import Navbar from 'react-bootstrap/Navbar';
 //import Nav from 'react-bootstrap/Nav'
 //import NavDropdown from 'react-bootstrap/NavDropdown'
@@ -37,7 +37,8 @@ const BrandCard = (props) => {
         getIngredients()
     }, [brandId]);
     return (
-        <Card style={{ width: '20rem' }}>
+        <Col md={12}>
+        <Card style={{ width: '22rem' }}>
             <Card.Img variant="top" src="holder.js/100px180" />
             <Card.Body>
                 <Card.Title>{brand.name}</Card.Title>
@@ -53,6 +54,7 @@ const BrandCard = (props) => {
                 <Button variant="secondary" onClick={() => props.history.push(`/brands/${brand.id}/edit`) }>Edit</Button>
             </Card.Body>
         </Card>
+        </Col>
     )
 }
 

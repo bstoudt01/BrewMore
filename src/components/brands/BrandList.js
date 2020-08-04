@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import BrandCard from './BrandCard';
 import ListGroup from 'react-bootstrap/ListGroup';
-
+import Container from 'react-bootstrap/Container'
+import Col from 'react-bootstrap/Col'
+import Row from 'react-bootstrap/Row'
 import BrandManager from '../../modules/BrandManager'
-
+import './BrandList.css'
 const BrandList = (props) => {
     const [brands, setBrands]=useState([]);
 
@@ -29,11 +31,11 @@ const BrandList = (props) => {
         getBrands()
     },[])
     return (
-        
-        <ListGroup horizontal>
-        {brands.map(brand => <BrandCard key={brand.id} id={brand.id} brand={brand} getBrands={getBrands}{...props} statusId={parseInt(brand.statusId)} styleId={parseInt(brand.styleId)} />)}
+        <ListGroup  >
+            <Row md={3}>
+                {brands.map(brand => <BrandCard key={brand.id} id={brand.id} brand={brand} getBrands={getBrands}{...props} statusId={parseInt(brand.statusId)} styleId={parseInt(brand.styleId)} />)}
+            </Row>
         </ListGroup>
-        
     )
 }
 
