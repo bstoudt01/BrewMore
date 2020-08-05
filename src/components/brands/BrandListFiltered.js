@@ -36,7 +36,7 @@ const BrandListFiltered = (props) => {
     },[])
     return (
         <Container>
-            <ListGroup  >
+            <ListGroup>
                 <Row md={2} xl={3} >
                     {brands.map(brand => <BrandCard key={brand.id} brand={brand} {...props} statusId={parseInt(brand.statusId)} styleId={parseInt(brand.styleId)} />)}
                 </Row>

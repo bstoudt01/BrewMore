@@ -8,11 +8,13 @@ import Col from 'react-bootstrap/CardColumns';
 import Button from 'react-bootstrap/Button'
 //import Media from 'react-bootstrap/Media'
 import Card from 'react-bootstrap/Card'
+import Accordion from 'react-bootstrap/Accordion'
 //import InputGroup from 'react-bootstrap/InputGroup'
 //import { Form } from 'react-bootstrap';
 import IngredientManager from '../../modules/IngredientManager';
 import BrandManager from '../../modules/BrandManager'
-
+import IngredientsAccordion from './BrandCardAccordion'
+import { ToggleButton } from 'react-bootstrap';
 const BrandCard = (props) => {
     const [ingredients, setIngredients]=useState([])
     const brand= props.brand;
@@ -33,23 +35,45 @@ const BrandCard = (props) => {
             props.getBrands()
         })
     }
+    // let rows=[];
+    // for(let i=0; i<ingredients.length; i++) {
+    //     let ingredient=ingredients[i];
+    //     rows.push(<Card.Body eventKey={brand.id} key={ingredient.id}>Grain: {ingredient.grain.name} Weight: {ingredient.weight}</Card.Body>)
+    //     console.log("rows",rows)
+    //}
+//     let toggle=""
+//     let ingredientsToggle = () => {
+//         props.isToggled===false ? 
+//             toggle="1" : toggle="0";
+       
+//    }
+//    console.log("toggle",toggle)
     useEffect(() => {
         getIngredients()
-    }, [brandId]);
+    }, [BrandCard]);
     return (
         <Col>
         <Card style={{ width: '22rem' }}>
             <Card.Img variant="top" src="holder.js/100px180" />
             <Card.Body>
                 <Card.Title>{brand.name}</Card.Title>
-                <Card.Subtitle className="mb-2 text-muted">Style: {brand.style.style} </Card.Subtitle>
-                <Card.Subtitle className="mb-2 text-muted">Yeast: {brand.yeast}</Card.Subtitle>
-                <Card.Text>Hops: {brand.hop} with {brand.ibu} IBU's</Card.Text>
-                <Card.Text>Batch Size: {brand.batchSize}</Card.Text>
-                <Card.Text>Rotation Status: {brand.status.status}</Card.Text>
-                <Card.Text>{brand.tastingNote}</Card.Text>
-                <Card.Text >Create Grains and weights UI TABLE</Card.Text>
-                {ingredients.map(ingredient => <div key={`Ingredient-${ingredient.id}`}><Card.Text > {ingredient.grain.name}</Card.Text><Card.Text>Weight:{ingredient.weight}</Card.Text></div>)}
+                <Card.Subtitle className="text-muted"> {brand.style.style} </Card.Subtitle>
+                <Card.Text><strong>Yeast:</strong> {brand.yeast}</Card.Text>
+                {/* <Card.Subtitle className="mb-2 text-muted"><strong>Yeast:</strong> {brand.yeast}</Card.Subtitle> */}
+                <Card.Text><strong>Hops: </strong> {brand.hop}</Card.Text>
+                <Card.Text><strong>IBU's</strong> {brand.ibu} </Card.Text>
+                <Card.Text><strong>Batch Size:</strong> {brand.batchSize}</Card.Text>
+                <Card.Text><strong>Rotation Status:</strong> {brand.status.status}</Card.Text>
+                <Card.Text><strong>Tasting Notes:</strong> {brand.tastingNote}</Card.Text>
+                <Accordion defaultActiveKey="">
+                    <Card>
+                        <Accordion.Toggle as={Card.Header} eventKey="0">
+                            Grains & Weights
+                        </Accordion.Toggle>
+                        {ingredients.map(ingredient => <IngredientsAccordion key={ingredient.id} ingredient={ingredient}/>)}
+                    </Card>
+                </Accordion>
+                {/* {ingredients.map(ingredient => <div key={`Ingredient-${ingredient.id}`}><Card.Text > {ingredient.grain.name}</Card.Text><Card.Text>Weight:{ingredient.weight}</Card.Text></div>)} */}
                 <Button variant="primary"  onClick={() => handleDelete(props.brand.id)} >Delete</Button>
                 <Button variant="secondary" onClick={() => props.history.push(`/brands/${brand.id}/edit`) }>Edit</Button>
             </Card.Body>
