@@ -5,7 +5,7 @@ import Container from 'react-bootstrap/Container'
 import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
 import BrandManager from '../../modules/BrandManager'
-import './BrandList.css'
+//import './BrandList.css'
 const BrandList = (props) => {
     const [brands, setBrands]=useState([]);
 

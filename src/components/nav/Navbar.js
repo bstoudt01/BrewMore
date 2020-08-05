@@ -1,16 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Row from 'react-bootstrap/Row';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav'
 import NavDropdown from 'react-bootstrap/NavDropdown'
-//import { withRouter } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
-
+import StatusManager from "../../modules/StatusManager"
 const Navigationbar = (props) => {
-      // function that resets the user session storage and invokes setHasUser to update the state
-  const clearUser = () => {
-    sessionStorage.clear();
-  }
+    const [statuses, setStatuses] = useState([])
+    // function that resets the user session storage and invokes setHasUser to update the state
+    const clearUser = () => {sessionStorage.clear()}
+
+   StatusManager.getAll().then((allStatuses) => setStatuses(allStatuses))
+    
+
     return (
         <Row>
         <Navbar bg="light" expand="lg">
@@ -22,10 +24,7 @@ const Navigationbar = (props) => {
                     <Nav.Link href="/NewBrand"> Design a Beer</Nav.Link>
                     <NavDropdown title="Wall of Beers" id="basic-nav-dropdown" >
                         <NavDropdown.Item  href="/BrandList">All the Beers</NavDropdown.Item>
-                        <NavDropdown.Item  href="/BrandList/1" >Staple Beers</NavDropdown.Item>
-                        <NavDropdown.Item  href="/BrandList/2">Seasonal Beers</NavDropdown.Item>
-                        <NavDropdown.Item  href="/BrandList/3">Experimental Beers</NavDropdown.Item>
-                        <NavDropdown.Item  href="/BrandList/4">Dead Beers</NavDropdown.Item>
+                        {statuses.map(status => (<NavDropdown.Item key={status.id} href={`/BrandList/${status.id}`}>{status.status}</NavDropdown.Item>))}
                     </NavDropdown>
             {props.hasUser ?        
             <Button 

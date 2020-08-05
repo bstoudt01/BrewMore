@@ -37,7 +37,7 @@ const BrandCard = (props) => {
         getIngredients()
     }, [brandId]);
     return (
-        <Col md={12}>
+        <Col >
         <Card style={{ width: '22rem' }}>
             <Card.Img variant="top" src="holder.js/100px180" />
             <Card.Body>
