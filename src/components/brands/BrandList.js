@@ -31,11 +31,13 @@ const BrandList = (props) => {
         getBrands()
     },[])
     return (
-        <ListGroup  >
-            <Row md={3}>
-                {brands.map(brand => <BrandCard key={brand.id} id={brand.id} brand={brand} getBrands={getBrands}{...props} statusId={parseInt(brand.statusId)} styleId={parseInt(brand.styleId)} />)}
-            </Row>
-        </ListGroup>
+        <Container>
+            <ListGroup  >
+                <Row md={2} xl={3} >
+                    {brands.map(brand => <BrandCard key={brand.id} id={brand.id} brand={brand} getBrands={getBrands}{...props} statusId={parseInt(brand.statusId)} styleId={parseInt(brand.styleId)} />)}
+                </Row>
+            </ListGroup>
+        </Container>
     )
 }
 

@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import Row from 'react-bootstrap/Row';
+import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav'
 import NavDropdown from 'react-bootstrap/NavDropdown'
@@ -14,6 +15,7 @@ const Navigationbar = (props) => {
     
 
     return (
+        <Container>
         <Row>
         <Navbar bg="light" expand="lg">
             <Navbar.Brand>BrewMore - Innovating Craft Beer Tools for Everyone</Navbar.Brand>
@@ -37,6 +39,7 @@ const Navigationbar = (props) => {
             </Navbar.Collapse>
         </Navbar>
     </Row>
+    </Container>
     )
 }
 

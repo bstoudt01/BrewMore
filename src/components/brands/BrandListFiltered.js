@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import BrandCard from './BrandCard';
 import ListGroup from 'react-bootstrap/ListGroup';
-
-import BrandManager from '../../modules/BrandManager'
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import BrandManager from '../../modules/BrandManager';
 
 const BrandListFiltered = (props) => {
     const [brands, setBrands]=useState([]);
@@ -34,10 +35,13 @@ const BrandListFiltered = (props) => {
         getBrands()
     },[])
     return (
-        
-        <ListGroup horizontal>
-        {brands.map(brand => <BrandCard key={brand.id} brand={brand} {...props} statusId={parseInt(brand.statusId)} styleId={parseInt(brand.styleId)} />)}
-        </ListGroup>
+        <Container>
+            <ListGroup  >
+                <Row md={2} xl={3} >
+                    {brands.map(brand => <BrandCard key={brand.id} brand={brand} {...props} statusId={parseInt(brand.statusId)} styleId={parseInt(brand.styleId)} />)}
+                </Row>
+            </ListGroup>
+        </Container>
         
     )
 }
