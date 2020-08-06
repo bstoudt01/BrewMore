@@ -67,7 +67,7 @@ const BrandCard = (props) => {
                 <Card.Text><strong>Batch Size:</strong> {brand.batchSize}</Card.Text>
                 <Card.Text><strong>Rotation Status:</strong> {brand.status.status}</Card.Text>
                 <Card.Text><strong>Tasting Notes:</strong> {brand.tastingNote}</Card.Text>
-                <Accordion defaultActiveKey="">
+                <Accordion defaultActiveKey="0">
                     <Card>
                         <Accordion.Toggle as={Card.Header} eventKey="0">
                             Grains & Weights
