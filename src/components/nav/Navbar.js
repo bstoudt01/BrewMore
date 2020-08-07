@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import Row from 'react-bootstrap/Row';
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
@@ -11,9 +11,13 @@ const Navigationbar = (props) => {
     // function that resets the user session storage and invokes setHasUser to update the state
     const clearUser = () => {sessionStorage.clear()}
 
-   StatusManager.getAll().then((allStatuses) => setStatuses(allStatuses))
-    
 
+    const getStatuses = () => {
+        StatusManager.getAll().then((allStatuses) => setStatuses(allStatuses))
+    } 
+    useEffect(() => {
+        getStatuses()
+    }, []);
     return (
         <Container>
         <Row>

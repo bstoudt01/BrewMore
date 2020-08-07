@@ -1,20 +1,15 @@
 import React, { useState, useEffect }from 'react';
-//import Container from 'react-bootstrap/Container';
-//import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/CardColumns';
-//import Navbar from 'react-bootstrap/Navbar';
-//import Nav from 'react-bootstrap/Nav'
-//import NavDropdown from 'react-bootstrap/NavDropdown'
 import Button from 'react-bootstrap/Button'
-//import Media from 'react-bootstrap/Media'
 import Card from 'react-bootstrap/Card'
 import Accordion from 'react-bootstrap/Accordion'
-//import InputGroup from 'react-bootstrap/InputGroup'
-//import { Form } from 'react-bootstrap';
-import IngredientManager from '../../modules/IngredientManager';
+import Image from 'react-bootstrap/Image'
 import BrandManager from '../../modules/BrandManager'
+import IngredientManager from '../../modules/IngredientManager';
 import IngredientsAccordion from './BrandCardAccordion'
-import { ToggleButton } from 'react-bootstrap';
+import BeerThumbnail from '../../images/BeerThumbnail100.png'
+import "../BrewMore.css"
+
 const BrandCard = (props) => {
     const [ingredients, setIngredients]=useState([])
     const brand= props.brand;
@@ -35,28 +30,15 @@ const BrandCard = (props) => {
             props.getBrands()
         })
     }
-    // let rows=[];
-    // for(let i=0; i<ingredients.length; i++) {
-    //     let ingredient=ingredients[i];
-    //     rows.push(<Card.Body eventKey={brand.id} key={ingredient.id}>Grain: {ingredient.grain.name} Weight: {ingredient.weight}</Card.Body>)
-    //     console.log("rows",rows)
-    //}
-//     let toggle=""
-//     let ingredientsToggle = () => {
-//         props.isToggled===false ? 
-//             toggle="1" : toggle="0";
-       
-//    }
-//    console.log("toggle",toggle)
 
 
     useEffect(() => {
         getIngredients()
-    }, [BrandCard]);
+    }, []);
     return (
         <Col>
         <Card style={{ width: '22rem' }}>
-            <Card.Img variant="top" src="holder.js/100px180" />
+            <Image variant="top" className="thumbnail" src={BeerThumbnail} roundedCircle/>
             <Card.Body>
                 <Card.Title>{brand.name}</Card.Title>
                 <Card.Subtitle className="text-muted"> {brand.style.style} </Card.Subtitle>
@@ -75,21 +57,6 @@ const BrandCard = (props) => {
                         {ingredients.map(ingredient => <IngredientsAccordion key={ingredient.id} ingredient={ingredient}/>)}
                     </Card>
                 </Accordion>
-               {/* {props.isToggled !== true ? <Accordion defaultActiveKey="">
-                    <Card>
-                        <Accordion.Toggle as={Card.Header} eventKey="0">
-                            Grains & Weights
-                        </Accordion.Toggle>
-                        {ingredients.map(ingredient => <IngredientsAccordion key={ingredient.id} ingredient={ingredient}/>)}
-                    </Card>
-                </Accordion>:<Accordion defaultActiveKey="0">
-                    <Card>
-                        <Accordion.Toggle as={Card.Header} eventKey="0">
-                            Grains & Weights
-                        </Accordion.Toggle>
-                        {ingredients.map(ingredient => <IngredientsAccordion key={ingredient.id} ingredient={ingredient}/>)}
-                    </Card>
-                </Accordion>} */}
                 {/* {ingredients.map(ingredient => <div key={`Ingredient-${ingredient.id}`}><Card.Text > {ingredient.grain.name}</Card.Text><Card.Text>Weight:{ingredient.weight}</Card.Text></div>)} */}
                 <Button variant="primary"  onClick={() => handleDelete(props.brand.id)} >Delete</Button>
                 <Button variant="secondary" onClick={() => props.history.push(`/brands/${brand.id}/edit`) }>Edit</Button>

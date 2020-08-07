@@ -85,12 +85,7 @@ const NewBrand = (props) => {
         const stateToChange = { ...brand };
         console.log("stateToChange brand", stateToChange);
         stateToChange[evt.target.id] = evt.target.value;
-        // if (Number(stateToChange) === stateToChange ) {
-        //     Number(stateToChange)
-        //     setBrand(stateToChange)
-        // } else {
         setBrand(stateToChange);
-    //}
 };
 
     //creates new object in brand table from all element except grain and weight

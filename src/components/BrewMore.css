@@ -12,3 +12,73 @@
     padding: .5em;
     
   }
+
+  .thumbnail { 
+    display: block;
+    padding: 4px;
+    margin-bottom: -10px;
+    line-height: 1.42857;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    -webkit-transition: border 0.2s ease-in-out;
+    -o-transition: border 0.2s ease-in-out;
+    transition: border 0.2s ease-in-out;
+    width: fit-content;
+}
+
+/* .homeBody {
+  background-image: url("../images/HomeBackground.jpg");
+  background-color: #cccccc;
+  height: 100vh;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: bottom center;
+
+ } */
+ 
+.App {
+  height: 100vh;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: bottom center;
+}
+
+.App-content {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 40px;
+}
+
+@media (min-width: 650px ) {
+  .App {
+      background-position: bottom center;
+
+
+  }
+
+  html,body {
+    height: 300px;
+  }
+  .App-content {
+      align-items: flex-end;
+      justify-content: center;
+  }
+}
+
+
+
+.mid-left { 
+  top: 50%; 
+  left: 50%; 
+  transform: translateX(-50%) translateY(-50%); 
+} 
+
+.mid-right { 
+  top: 50%; 
+  right: 50%; 
+  transform: translateX(-50%) translateY(-50%); 
+} 

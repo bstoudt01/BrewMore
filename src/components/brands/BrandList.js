@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import BrandCard from './BrandCard';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
-import BrandManager from '../../modules/BrandManager'
 import Button from 'react-bootstrap/Button'
-//import './BrandList.css'
+import BrandManager from '../../modules/BrandManager'
+import BrandCard from './BrandCard';
 import BrandCardIsOpen from './BrandCardIsOpen'
+//import './BrandList.css'
+
 const BrandList = (props) => {
     const [brands, setBrands]=useState([]);
+    const [activeId, setActiveId] = useState('null');
 
 
             const sessionData = sessionStorage.getItem('credentials')
@@ -26,14 +28,8 @@ const BrandList = (props) => {
           
         })
     }
-
-    // const [isToggled, setToggled] = useState(false);
-    // const toggleTrueFalse = () => setToggled(!isToggled);
-    // console.log(isToggled)
-
  
-  const [activeId, setActiveId] = useState('0');
-  function toggleActive(id) {
+  const toggleActive = (id) => {
     if (activeId === id) {
       setActiveId(null);
     } else {
@@ -42,12 +38,9 @@ const BrandList = (props) => {
   }
   console.log("activeId",activeId)
 
-    //const timestamp = Date.now() + Math.random()
-//console.log(timestamp)
     useEffect(() => {
       getBrands()
-      toggleActive(activeId)
-    },[BrandList])
+    },[])
     return (
         <Container>
             <Button variant="primary" onClick={() => toggleActive('0')}>Toogle Grain View</Button>

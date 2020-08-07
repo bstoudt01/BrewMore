@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import BrandCard from './BrandCard';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
+import Button from 'react-bootstrap/Button'
 import BrandManager from '../../modules/BrandManager';
+import BrandCard from './BrandCard';
+import BrandCardIsOpen from './BrandCardIsOpen'
+//import './BrandList.css'
 
 const BrandListFiltered = (props) => {
     const [brands, setBrands]=useState([]);
-    console.log("props.location.pathname",props.location.pathname)
-    
+    const [activeId, setActiveId] = useState('null');
+
         const pathname = props.location.pathname
         const statusId=pathname.split("/")[2]
         console.log("statusId",statusId)
@@ -28,19 +31,30 @@ const BrandListFiltered = (props) => {
           
         })
     }
+    const toggleActive = (id) => {
+      if (activeId === id) {
+        setActiveId(null);
+      } else {
+        setActiveId(id);
+      }
+    }
 
-    //const timestamp = Date.now() + Math.random()
-//console.log(timestamp)
     useEffect(() => {
         getBrands()
     },[])
     return (
         <Container>
-            <ListGroup>
+            <Button variant="primary" onClick={() => toggleActive('0')}>Toogle Grain View</Button>
+            {activeId !== "0" ?
+            <ListGroup  >
                 <Row md={2} xl={3} >
-                    {brands.map(brand => <BrandCard key={brand.id} brand={brand} {...props} statusId={parseInt(brand.statusId)} styleId={parseInt(brand.styleId)} />)}
+                    {brands.map(brand => <BrandCard key={brand.id} id={brand.id} brand={brand} activeId="0" getBrands={getBrands}{...props} statusId={parseInt(brand.statusId)} styleId={parseInt(brand.styleId)} />)}
                 </Row>
-            </ListGroup>
+            </ListGroup>: <ListGroup  >
+                <Row md={2} xl={3} >
+                    {brands.map(brand => <BrandCardIsOpen key={brand.id} id={brand.id} brand={brand} activeId="null" getBrands={getBrands}{...props} statusId={parseInt(brand.statusId)} styleId={parseInt(brand.styleId)} />)}
+                </Row>
+            </ListGroup>}
         </Container>
         
     )
