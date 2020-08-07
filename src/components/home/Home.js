@@ -10,21 +10,18 @@ const Home = (props) => {
   const imageUrl = useWindowWidth() >= 650 ? desktopImage : mobileImage;
     return (
         <>
-        <Container className="App" style={{backgroundImage: `url(${imageUrl})` }} fluid>
-        <div className="container h-100"> 
-        <div className="position-relative vh-100"> 
+        <Container className="App homebg" style={{backgroundImage: `url(${imageUrl})` }} fluid>
           <Row>
-           <Col className="position-absolute mid-right" >
-      <Button variant="secondary"  onClick={() => props.history.push(`/Login`) }>Current User Login</Button>    
+           <Col className="App-content" >
+      <Button variant="secondary"  id="registrationButton" onClick={() => props.history.push(`/Registration`) }>Register New User</Button>
            </Col> 
-          </Row>
-          <Row>
-           <Col className="position-absolute mid-left" >
-      <Button variant="secondary"  onClick={() => props.history.push(`/Registration`) }>Register New User</Button>
+           
+
+           <Col className="App-content" >
+      <Button variant="primary" id="loginButton" size="lg" onClick={() => props.history.push(`/Login`) }>Login</Button>
            </Col> 
-          </Row>
-          </div>
-          </div>
+             </Row>
+           
           </Container>
   {/* <Container className="homeBody" fluid>
     <Row>

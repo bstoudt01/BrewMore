@@ -14,13 +14,13 @@ console.log(validated)
   const handleSubmit = (event) => {
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
-    {window.alert("stay away")}
-  } else {   event.preventDefault();
-    event.stopPropagation();
-     setValidated(true);
+      window.alert("stay away")
+    } else {event.preventDefault();
+      event.stopPropagation();
+      setValidated(true);
       UserManager.post(userDetails)
       props.history.push(`/Login`)
-}
+    }
   }
 
   const handleFieldChange = (evt) => {

@@ -6,11 +6,13 @@ import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card'
 import InputGroup from 'react-bootstrap/InputGroup'
 import { Form } from 'react-bootstrap';
+import Image from 'react-bootstrap/Image'
 import GrainManager from '../../modules/GrainManager';
 import BrandManager from '../../modules/BrandManager';
 import IngredientManager from '../../modules/IngredientManager';
 import StatusManager from '../../modules/StatusManager';
 import StyleManager from '../../modules/StyleManager';
+import NewBrandBackground from '../../images/NewBrandBackground.png'
   
 //Creates a new brand to be stored in the database (brand table & ingredients table)
 const NewBrand = (props) => {
@@ -129,14 +131,15 @@ const NewBrand = (props) => {
     },[])
 
     return (
-<Container fluid >
+<Container className="App" fluid >
     <Card>
         <Card.Body>
             <Row>
                 <h2>NEW BRAND FROM THE BREW MEISTER</h2>
             </Row>
             <Row>
-            <Form>
+            <Form className="NewBrand NewBrand-Image" style={{backgroundImage: `url(${NewBrandBackground})` }} >
+            {/* <Image variant="tp" className="" src={NewBrandBackground} roundedCircle/> */}
                 <Col>
                     <InputGroup className="mb-3">
                         <InputGroup.Prepend>
@@ -200,7 +203,7 @@ const NewBrand = (props) => {
                 </Col>
                 )
                 })}
-                <Button variant="outline-primary"  id="addGrainButton" onClick={handleAddGrainElements}>Add Another Grain</Button>
+                <Button variant="outline-primary" className="text-left button" id="addGrainButton" onClick={handleAddGrainElements}>Add Another Grain</Button>
                 <Col>
                     <InputGroup className="mb-3">
                         <InputGroup.Prepend>

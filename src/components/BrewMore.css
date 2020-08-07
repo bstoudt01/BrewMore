@@ -3,7 +3,7 @@
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
     border-radius: 5px; /* 5px rounded corners */
-    background: aliceblue;
+    background-color: rgb(163, 96, 96);
     margin-bottom: 2em;
     flex: 0 1 24%;
   }
@@ -52,22 +52,52 @@
   align-items: center;
   padding: 40px;
 }
+.NewBrand {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: left;
+  padding: 60px;
+}
+.NewBrand-Image {
+  /* background-size: cover; */
+  /* height: 100%; */
 
-@media (min-width: 650px ) {
+  background-repeat: no-repeat;
+  background-position: top 10% right;
+  margin: 2em
+}
+.EditBrand {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: left;
+  padding: 40px;
+  background-color:#8bcdcd;
+}
+.EditBrand-Image {
+  background-size: 60rem;
+  /* height: 100%; */
+
+  background-repeat: no-repeat;
+  background-position: bottom  right;
+  margin: 2em
+}
+/* @media (min-width: 650px ) {
   .App {
       background-position: bottom center;
 
 
   }
 
-  html,body {
-    height: 300px;
-  }
+ 
   .App-content {
       align-items: flex-end;
       justify-content: center;
   }
-}
+} */
 
 
 
@@ -80,5 +110,23 @@
 .mid-right { 
   top: 50%; 
   right: 50%; 
-  transform: translateX(-50%) translateY(-50%); 
 } 
+body, html {
+  height: 100%;
+
+}
+.homebg {
+  /* The image used */
+  background-image: url("../images/HomeBackground.jpg");
+
+  /* Full height */
+  /* height: 100%; */
+
+  /* Center and scale the image nicely */
+  /* background-position: bottom center;
+  background-repeat: no-repeat;
+  background-size: cover; */
+}
+.button {
+  max-width: 20rem;
+}

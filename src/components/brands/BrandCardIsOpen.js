@@ -37,7 +37,7 @@ const BrandCard = (props) => {
     }, []);
     return (
         <Col>
-        <Card style={{ width: '22rem' }}>
+        <Card className="brewCard" style={{ width: '22rem' }}>
         <Image variant="top" className="thumbnail" src={BeerThumbnail} roundedCircle/>
             <Card.Body>
                 <Card.Title>{brand.name}</Card.Title>

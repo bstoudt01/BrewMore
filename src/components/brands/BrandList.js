@@ -6,7 +6,6 @@ import Button from 'react-bootstrap/Button'
 import BrandManager from '../../modules/BrandManager'
 import BrandCard from './BrandCard';
 import BrandCardIsOpen from './BrandCardIsOpen'
-//import './BrandList.css'
 
 const BrandList = (props) => {
     const [brands, setBrands]=useState([]);

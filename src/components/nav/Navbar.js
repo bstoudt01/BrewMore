@@ -6,6 +6,7 @@ import Nav from 'react-bootstrap/Nav'
 import NavDropdown from 'react-bootstrap/NavDropdown'
 import Button from 'react-bootstrap/Button'
 import StatusManager from "../../modules/StatusManager"
+import BrewMachine from "../../images/BrewMachine.jpg"
 const Navigationbar = (props) => {
     const [statuses, setStatuses] = useState([])
     // function that resets the user session storage and invokes setHasUser to update the state
@@ -21,8 +22,19 @@ const Navigationbar = (props) => {
     return (
         <Container>
         <Row>
-        <Navbar bg="light" expand="lg">
-            <Navbar.Brand>BrewMore - Innovating Craft Beer Tools for Everyone</Navbar.Brand>
+        <Navbar bg="transparent" expand="xl">       
+    <Navbar.Brand>
+      <img
+        alt=""
+        src={BrewMachine}
+        width= "20%"
+        height="100%"
+        className="d-inline-block align-center"
+      />{' '}
+      BrewMore - Innovating Craft Beer Tools for Everyone
+    </Navbar.Brand>
+ 
+            {/* <Navbar.Brand>BrewMore - Innovating Craft Beer Tools for Everyone</Navbar.Brand> */}
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">

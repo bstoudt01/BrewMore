@@ -11,7 +11,7 @@ import BrandManager from '../../modules/BrandManager';
 import IngredientManager from '../../modules/IngredientManager';
 import StatusManager from '../../modules/StatusManager';
 import StyleManager from '../../modules/StyleManager';
-  
+import EditBrandBackground from '../../images/EditBrandBackground.png';
 //Creates a new brand to be stored in the database (brand table & ingredients table)
 const EditBrand = (props) => {
 
@@ -177,14 +177,14 @@ const EditBrand = (props) => {
     },[])
 
     return (
-<Container fluid >
+<Container className="App" fluid >
     <Card>
         <Card.Body>
             <Row>
                 <h2>Make Adjustments</h2>
             </Row>
             <Row>
-            <Form>
+            <Form className="EditBrand EditBrand-Image" style={{backgroundImage: `url(${EditBrandBackground})` }} >
                 <Col>
                     <InputGroup className="mb-3">
                         <InputGroup.Prepend>
@@ -273,7 +273,7 @@ const EditBrand = (props) => {
                 </Col>
                 )
                 })}
-                <Button variant="outline-primary"  id="addGrainButton" onClick={handleAddGrainElements}>Add Another Grain</Button>
+                <Button variant="primary"  className="button" id="addGrainButton" onClick={handleAddGrainElements}>Add Another Grain</Button>
                 <Col>
                     <InputGroup className="mb-3">
                         <InputGroup.Prepend>
