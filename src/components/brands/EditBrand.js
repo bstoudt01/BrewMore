@@ -17,7 +17,7 @@ const EditBrand = (props) => {
 
 
     //holds brand key : values as an object, set during useEffect render and watched by handleFieldChange
-    const [brand, setBrand] = useState({name: "", batchSize: "", yeast: "", hop: "", ibu: "", tastingNote: "", styleId: "", statusId: "", userId: ""})
+    const [brand, setBrand] = useState({name: "", batchSize: "", yeast: "", hop: "", ibu: "", abv:"", tastingNote: "", styleId: "", statusId: "", userId: ""})
     
     //holds ingredients from database for this brand and includes expand on grainId, used to create dropdowns for ingredients from database, set during useEffect
     
@@ -125,6 +125,7 @@ const EditBrand = (props) => {
                 yeast: brand.yeast,
                 hop: brand.hop,
                 ibu: brand.ibu,
+                abv: brand.abv,
                 tastingNote: brand.tastingNote,
                 batchSize: brand.batchSize,
                 styleId: brand.styleId,
@@ -179,9 +180,9 @@ const EditBrand = (props) => {
     return (
 <Container className="App" fluid >
     <Card>
-        <Card.Body>
+        <Card.Body className="EditBrandBg">
             <Row>
-                <h2>Make Adjustments</h2>
+                <h2>Make Adjustments to  <em>{brand.name}</em></h2>
             </Row>
             <Row>
             <Form className="EditBrand EditBrand-Image" style={{backgroundImage: `url(${EditBrandBackground})` }} >
@@ -198,7 +199,7 @@ const EditBrand = (props) => {
                         <InputGroup.Prepend>
                             <InputGroup.Text id="basic-newBrandForm">Batch Size:</InputGroup.Text>
                         </InputGroup.Prepend>
-                        <Form.Control type="text" id="batchSize" placeholder="BBL or Gallons" value={brand.batchSize} onChange={handleBrandFieldChange}/>
+                        <Form.Control type="text" id="batchSize" placeholder="volume in bbl" value={brand.batchSize} onChange={handleBrandFieldChange}/>
                     </InputGroup>
                 </Col>
                 <Col>
@@ -206,7 +207,7 @@ const EditBrand = (props) => {
                         <InputGroup.Prepend>
                             <InputGroup.Text id="basic-newBrandForm">Style:</InputGroup.Text>
                         </InputGroup.Prepend>
-                            <Form.Control as="select" id="brand.styleId" value={brand.styleId} onChange={handleBrandFieldChange}>
+                            <Form.Control as="select" id="styleId" value={brand.styleId} onChange={handleBrandFieldChange}>
                         <option> Choose style</option>
                         {styleSelects.map(style => 
                             <option key={style.id} id={style.id} value={style.id} >{style.style}</option>
@@ -281,6 +282,14 @@ const EditBrand = (props) => {
                         </InputGroup.Prepend>
                         <Form.Control type="text" id="hop" placeholder="Hop Schedule" value={brand.hop} onChange={handleBrandFieldChange} />
                         <Form.Control type="text" id="ibu" placeholder="IBU's" value={brand.ibu} onChange={handleBrandFieldChange} />
+                    </InputGroup>
+                </Col>
+                <Col>
+                    <InputGroup className="mb-3">
+                        <InputGroup.Prepend>
+                            <InputGroup.Text id="basic-newBrandForm">ABV:</InputGroup.Text>
+                        </InputGroup.Prepend>
+                        <Form.Control type="text" id="abv" placeholder="Estimated ABV" value={brand.abv} onChange={handleBrandFieldChange} />
                     </InputGroup>
                 </Col>
                 <Col>

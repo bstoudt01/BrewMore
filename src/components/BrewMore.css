@@ -75,6 +75,9 @@
   justify-content: flex-start;
   align-items: left;
   padding: 40px;
+  background-color: transparent;
+}
+.EditBrandBg {
   background-color:#8bcdcd;
 }
 .EditBrand-Image {

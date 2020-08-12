@@ -20,8 +20,8 @@ const NewBrand = (props) => {
 
     const sessionData = sessionStorage.getItem('credentials')
     console.log("sessionStorage.getItem", sessionData)
-    const sessionId = sessionData.split(":")[1]
-    const sessionUserId = sessionId.split(",")[0]
+    const sessionId = sessionData.split(":")[4]
+    const sessionUserId = sessionId.split("}")[0]
     console.log("sessionId",sessionId)
     console.log("sessionUserId",sessionUserId)
     //holds brand key : values as an object, set by handleFieldChange
@@ -135,7 +135,7 @@ const NewBrand = (props) => {
     <Card>
         <Card.Body>
             <Row>
-                <h2>NEW BRAND FROM THE BREW MEISTER</h2>
+                <h2>NEW BRAND FROM THE BREWMEISTER</h2>
             </Row>
             <Row>
             <Form className="NewBrand NewBrand-Image" style={{backgroundImage: `url(${NewBrandBackground})` }} >
@@ -153,7 +153,7 @@ const NewBrand = (props) => {
                         <InputGroup.Prepend>
                             <InputGroup.Text id="basic-newBrandForm">Batch Size:</InputGroup.Text>
                         </InputGroup.Prepend>
-                        <Form.Control type="text" id="batchSize" placeholder="BBL or Gallons" onChange={handleFieldChange}/>
+                        <Form.Control type="text" id="batchSize" placeholder="Volume in bbl" onChange={handleFieldChange}/>
                     </InputGroup>
                 </Col>
                 <Col>
@@ -211,6 +211,14 @@ const NewBrand = (props) => {
                         </InputGroup.Prepend>
                         <Form.Control type="text" id="hop" placeholder="Hop Schedule" onChange={handleFieldChange} />
                         <Form.Control type="text" id="ibu" placeholder="IBU's" onChange={handleFieldChange} />
+                    </InputGroup>
+                </Col>
+                <Col>
+                    <InputGroup className="mb-3">
+                        <InputGroup.Prepend>
+                            <InputGroup.Text id="basic-newBrandForm">ABV:</InputGroup.Text>
+                        </InputGroup.Prepend>
+                        <Form.Control type="text" id="abv" placeholder="Estimated ABV" onChange={handleFieldChange} />
                     </InputGroup>
                 </Col>
                 <Col>

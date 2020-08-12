@@ -32,7 +32,7 @@ const Login = (props) => {
         props.setUser(singleUser);
       }
       return (
-        props.history.push("/BrandList")
+        props.history.push("/NewBrand")
       )
     })
   }

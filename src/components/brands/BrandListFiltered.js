@@ -15,11 +15,11 @@ const BrandListFiltered = (props) => {
         const pathname = props.location.pathname
         const statusId=pathname.split("/")[2]
         console.log("statusId",statusId)
-
+        
         const sessionData = sessionStorage.getItem('credentials')
         console.log("sessionStorage.getItem", sessionData)
-        const sessionId = sessionData.split(":")[1]
-        const sessionUserId = sessionId.split(",")[0]
+        const sessionId = sessionData.split(":")[4]
+        const sessionUserId = sessionId.split("}")[0]
         console.log("sessionId",sessionId)
         console.log("sessionUserId",sessionUserId)
     

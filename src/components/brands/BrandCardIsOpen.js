@@ -45,7 +45,8 @@ const BrandCard = (props) => {
                 <Card.Text><strong>Yeast:</strong> {brand.yeast}</Card.Text>
                 {/* <Card.Subtitle className="mb-2 text-muted"><strong>Yeast:</strong> {brand.yeast}</Card.Subtitle> */}
                 <Card.Text><strong>Hops: </strong> {brand.hop}</Card.Text>
-                <Card.Text><strong>IBU's</strong> {brand.ibu} </Card.Text>
+                <Card.Text><strong>IBU's:</strong> {brand.ibu} </Card.Text>
+                <Card.Text><strong>ABV:</strong> {brand.abv}% </Card.Text>
                 <Card.Text><strong>Batch Size:</strong> {brand.batchSize}</Card.Text>
                 <Card.Text><strong>Rotation Status:</strong> {brand.status.status}</Card.Text>
                 <Card.Text><strong>Tasting Notes:</strong> {brand.tastingNote}</Card.Text>

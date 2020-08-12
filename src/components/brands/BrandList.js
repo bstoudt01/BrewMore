@@ -12,12 +12,12 @@ const BrandList = (props) => {
     const [activeId, setActiveId] = useState('null');
 
 
-            const sessionData = sessionStorage.getItem('credentials')
-            console.log("sessionStorage.getItem", sessionData)
-            const sessionId = sessionData.split(":")[1]
-            const sessionUserId = sessionId.split(",")[0]
-            console.log("sessionId",sessionId)
-            console.log("sessionUserId",sessionUserId)
+    const sessionData = sessionStorage.getItem('credentials')
+    console.log("sessionStorage.getItem", sessionData)
+    const sessionId = sessionData.split(":")[4]
+    const sessionUserId = sessionId.split("}")[0]
+    console.log("sessionId",sessionId)
+    console.log("sessionUserId",sessionUserId)
 
     const getBrands = () => {
         
