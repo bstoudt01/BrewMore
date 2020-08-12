@@ -3,13 +3,14 @@ import Col from 'react-bootstrap/CardColumns';
 import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card'
 import Accordion from 'react-bootstrap/Accordion'
-import Image from 'react-bootstrap/Image'
+import Image  from 'react-bootstrap/Image';
 import BrandManager from '../../modules/BrandManager'
 import IngredientManager from '../../modules/IngredientManager';
 import IngredientsAccordion from './BrandCardAccordion'
 import BeerThumbnail from '../../images/BeerThumbnail100.png'
-import "../BrewMore.css"
 
+//Accordion Open, defaultActiveKey="0"
+    //Displays all ingredients on cards
 const BrandCard = (props) => {
     const [ingredients, setIngredients]=useState([])
     const brand= props.brand;
@@ -31,14 +32,13 @@ const BrandCard = (props) => {
         })
     }
 
-
     useEffect(() => {
         getIngredients()
     }, []);
     return (
         <Col>
-        <Card className="brewCard" style={{ width: '22rem'}}>
-            <Image variant="top" className="thumbnail" src={BeerThumbnail} roundedCircle/>
+        <Card className="brewCard" style={{ width: '22rem' }}>
+        <Image variant="top" className="thumbnail" src={BeerThumbnail} roundedCircle/>
             <Card.Body>
                 <Card.Title>{brand.name}</Card.Title>
                 <Card.Subtitle className="text-muted"> {brand.style.style} </Card.Subtitle>
@@ -50,7 +50,7 @@ const BrandCard = (props) => {
                 <Card.Text><strong>Batch Size:</strong> {brand.batchSize}</Card.Text>
                 <Card.Text><strong>Rotation Status:</strong> {brand.status.status}</Card.Text>
                 <Card.Text><strong>Tasting Notes:</strong> {brand.tastingNote}</Card.Text>
-                <Accordion defaultActiveKey="">
+                <Accordion defaultActiveKey="0">
                     <Card>
                         <Accordion.Toggle as={Card.Header} eventKey="0">
                             Grains & Weights
@@ -58,7 +58,6 @@ const BrandCard = (props) => {
                         {ingredients.map(ingredient => <IngredientsAccordion key={ingredient.id} ingredient={ingredient}/>)}
                     </Card>
                 </Accordion>
-                {/* {ingredients.map(ingredient => <div key={`Ingredient-${ingredient.id}`}><Card.Text > {ingredient.grain.name}</Card.Text><Card.Text>Weight:{ingredient.weight}</Card.Text></div>)} */}
                 <Button variant="primary"  onClick={() => handleDelete(props.brand.id)} >Delete</Button>
                 <Button variant="secondary" onClick={() => props.history.push(`/brands/${brand.id}/edit`) }>Edit</Button>
             </Card.Body>

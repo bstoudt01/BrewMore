@@ -18,7 +18,8 @@ const ApplicationViews = (props) => {
 			{/* pass the `setUser` function was Login component (no properties), but now we want to pass in props it needs to be render (something other than component) */}
 				{/* Remember to update the handleLogin() function in the <Login> component to use the setUser() function. */}
 			<Route 
-				path="/login" 
+				exact
+				path="/Login" 
 				render={props => {
     				return <Login setUser={setUser} {...props} />
   				}}
@@ -26,7 +27,8 @@ const ApplicationViews = (props) => {
 			{/* pass the `setUser` function was Login component (no properties), but now we want to pass in props it needs to be render (something other than component) */}
 				{/* Remember to update the handleLogin() function in the <Login> component to use the setUser() function. */}
 				<Route 
-				path="/registration" 
+				exact
+				path="/Registration" 
 				render={props => {
     				return <Registration setUser={setUser} {...props} />
   				}}
@@ -48,7 +50,7 @@ const ApplicationViews = (props) => {
 					if (hasUser) {
 						return <NewBrand {...props} />
 					} else {
-						return <Redirect to="/login" />
+						return <Redirect to="/Login" />
 					}
 				}}
 			/>
@@ -60,7 +62,7 @@ const ApplicationViews = (props) => {
 					if (hasUser) {
 						return <BrandList {...props} hasUser={hasUser} />
 					} else {
-						return <Redirect to="/login" />
+						return <Redirect to="/Login" />
 					}
 				}}
 			/>
@@ -73,7 +75,7 @@ const ApplicationViews = (props) => {
 					if (hasUser) {
 						return <BrandListFiltered {...props} />
 					} else {
-						return <Redirect to="/login" />
+						return <Redirect to="/Login" />
 					}	
 				}}
 			/>
@@ -85,7 +87,7 @@ const ApplicationViews = (props) => {
 					if (hasUser) {
 						return <EditBrand {...props} />
 					} else {
-						return <Redirect to="/login" />
+						return <Redirect to="/Login" />
 					}
 				}} 
 			/>

@@ -14,12 +14,15 @@ console.log(validated)
   const handleSubmit = (event) => {
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
-      event.preventDefault();
+      window.alert("stay away")
+    } else {event.preventDefault();
       event.stopPropagation();
+      setValidated(true);
+      UserManager.post(userDetails)
+      props.history.push(`/Login`)
     }
-    setValidated(true);
-    UserManager.post(userDetails).then(() => {props.history.push("/")})
   }
+
   const handleFieldChange = (evt) => {
     const stateToChange = { ...userDetails };
     stateToChange[evt.target.id] = evt.target.value;

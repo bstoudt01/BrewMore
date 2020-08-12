@@ -6,11 +6,13 @@ import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card'
 import InputGroup from 'react-bootstrap/InputGroup'
 import { Form } from 'react-bootstrap';
+import Image from 'react-bootstrap/Image'
 import GrainManager from '../../modules/GrainManager';
 import BrandManager from '../../modules/BrandManager';
 import IngredientManager from '../../modules/IngredientManager';
 import StatusManager from '../../modules/StatusManager';
 import StyleManager from '../../modules/StyleManager';
+import NewBrandBackground from '../../images/NewBrandBackground.png'
   
 //Creates a new brand to be stored in the database (brand table & ingredients table)
 const NewBrand = (props) => {
@@ -18,8 +20,8 @@ const NewBrand = (props) => {
 
     const sessionData = sessionStorage.getItem('credentials')
     console.log("sessionStorage.getItem", sessionData)
-    const sessionId = sessionData.split(":")[1]
-    const sessionUserId = sessionId.split(",")[0]
+    const sessionId = sessionData.split(":")[4]
+    const sessionUserId = sessionId.split("}")[0]
     console.log("sessionId",sessionId)
     console.log("sessionUserId",sessionUserId)
     //holds brand key : values as an object, set by handleFieldChange
@@ -85,12 +87,7 @@ const NewBrand = (props) => {
         const stateToChange = { ...brand };
         console.log("stateToChange brand", stateToChange);
         stateToChange[evt.target.id] = evt.target.value;
-        // if (Number(stateToChange) === stateToChange ) {
-        //     Number(stateToChange)
-        //     setBrand(stateToChange)
-        // } else {
         setBrand(stateToChange);
-    //}
 };
 
     //creates new object in brand table from all element except grain and weight
@@ -134,14 +131,15 @@ const NewBrand = (props) => {
     },[])
 
     return (
-<Container fluid >
+<Container className="App" fluid >
     <Card>
         <Card.Body>
             <Row>
-                <h2>NEW BRAND FROM THE BREW MEISTER</h2>
+                <h2>NEW BRAND FROM THE BREWMEISTER</h2>
             </Row>
             <Row>
-            <Form>
+            <Form className="NewBrand NewBrand-Image" style={{backgroundImage: `url(${NewBrandBackground})` }} >
+            {/* <Image variant="tp" className="" src={NewBrandBackground} roundedCircle/> */}
                 <Col>
                     <InputGroup className="mb-3">
                         <InputGroup.Prepend>
@@ -155,7 +153,7 @@ const NewBrand = (props) => {
                         <InputGroup.Prepend>
                             <InputGroup.Text id="basic-newBrandForm">Batch Size:</InputGroup.Text>
                         </InputGroup.Prepend>
-                        <Form.Control type="text" id="batchSize" placeholder="BBL or Gallons" onChange={handleFieldChange}/>
+                        <Form.Control type="text" id="batchSize" placeholder="Volume in bbl" onChange={handleFieldChange}/>
                     </InputGroup>
                 </Col>
                 <Col>
@@ -205,7 +203,7 @@ const NewBrand = (props) => {
                 </Col>
                 )
                 })}
-                <Button variant="outline-primary"  id="addGrainButton" onClick={handleAddGrainElements}>Add Another Grain</Button>
+                <Button variant="outline-primary" className="text-left button" id="addGrainButton" onClick={handleAddGrainElements}>Add Another Grain</Button>
                 <Col>
                     <InputGroup className="mb-3">
                         <InputGroup.Prepend>
@@ -213,6 +211,14 @@ const NewBrand = (props) => {
                         </InputGroup.Prepend>
                         <Form.Control type="text" id="hop" placeholder="Hop Schedule" onChange={handleFieldChange} />
                         <Form.Control type="text" id="ibu" placeholder="IBU's" onChange={handleFieldChange} />
+                    </InputGroup>
+                </Col>
+                <Col>
+                    <InputGroup className="mb-3">
+                        <InputGroup.Prepend>
+                            <InputGroup.Text id="basic-newBrandForm">ABV:</InputGroup.Text>
+                        </InputGroup.Prepend>
+                        <Form.Control type="text" id="abv" placeholder="Estimated ABV" onChange={handleFieldChange} />
                     </InputGroup>
                 </Col>
                 <Col>

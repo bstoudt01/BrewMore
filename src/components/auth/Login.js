@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import UserManager from "../../modules/UserManager";
 
 //props coming from parent component (.. react router dom)
@@ -11,7 +11,7 @@ const Login = (props) => {
       setUsersList(response)
     })
   } 
-  getUsers()
+ 
 
   // Update state whenever an input field is edited
   //as we hear those changes, state changes and makes those updates (evey key)
@@ -24,9 +24,7 @@ const Login = (props) => {
   // function to handle login invoked by button
   const verifyCredentials = (e) => {
     // prevent default, keeps the page from refreshing and loosing credentials entered
-
     e.preventDefault();
-
     usersList.map((singleUser) => {
       console.log("singleUser",singleUser)
       console.log("credentials",credentials)
@@ -34,11 +32,14 @@ const Login = (props) => {
         props.setUser(singleUser);
       }
       return (
-        props.history.push("/brandList")
+        props.history.push("/NewBrand")
       )
     })
   }
 
+  useEffect(() => {
+    getUsers()
+}, []);
   return (
       //onSubmit = when i click the button, start this function
     <form onSubmit={verifyCredentials}>

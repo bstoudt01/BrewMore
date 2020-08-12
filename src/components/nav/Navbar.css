@@ -1,0 +1,15 @@
+nav.imageWrapper{
+    position: relative
+}
+
+nav.imageWrapper div.img { position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 0;
+    max-height: 70vh;
+    background-size: cover;
+background: url('../../images/HomeBackground.jpg');
+z-index: -1
+}
