@@ -1,7 +1,7 @@
 # BrewMore - Innovating Craft Beer Tools for Everyone
  <p>  | <p>
 ------------ | -------------
-![Image of Cheers](src/images/BeerThumbnail100.png) | <h3> Created By Brett Stoudt  <br/> <h4>Front End Developemnt Capstone - Cohort 41, Nashville Software School</h4> </h3>
+![Image of Cheers](https://github.com/bstoudt01/BrewMore/blob/demo/src/images/CheersMugs.png) | <h3> Created By Brett Stoudt  <br/> <h4>Front End Developemnt Capstone - Cohort 41, Nashville Software School</h4> </h3>
 
 ## About BrewMore
 Designed as a safe place for breweries to easily store and view receipes for each of the brands of beer they brew.
