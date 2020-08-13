@@ -6,7 +6,6 @@ import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card'
 import InputGroup from 'react-bootstrap/InputGroup'
 import { Form } from 'react-bootstrap';
-import Image from 'react-bootstrap/Image'
 import GrainManager from '../../modules/GrainManager';
 import BrandManager from '../../modules/BrandManager';
 import IngredientManager from '../../modules/IngredientManager';
@@ -17,14 +16,14 @@ import NewBrandBackground from '../../images/NewBrandBackground.png'
 //Creates a new brand to be stored in the database (brand table & ingredients table)
 const NewBrand = (props) => {
 
-
+    //Variables breaking down sessionstorage credentials item to get session storage userIds
     const sessionData = sessionStorage.getItem('credentials')
     console.log("sessionStorage.getItem", sessionData)
     const sessionId = sessionData.split(":")[4]
     const sessionUserId = sessionId.split("}")[0]
     console.log("sessionId",sessionId)
     console.log("sessionUserId",sessionUserId)
-    //holds brand key : values as an object, set by handleFieldChange
+    //holds brand key : values as an object, set by handleFieldChange and adds userId with value of sessionUserId
     const [brand, setBrand] = useState({name: "", userId:sessionUserId })
 
     //declares loading state to keep buttons from working during load time set by functions and button
@@ -60,7 +59,7 @@ const NewBrand = (props) => {
         setGrainFieldsArray(list);
       };
    
- //Handle User Inputs on Form FOR GRAIN AND WEIGHT ONLY sets into state to hold 1 object....
+ //Handle User Inputs on FOR GRAIN AND WEIGHT ONLY sets each grain/weight pair into single object based on eventId
  const handleIngredients = evt => {
     const value = parseInt(evt.target.value);
     const idx= evt.target.id
@@ -91,16 +90,15 @@ const NewBrand = (props) => {
 };
 
     //creates new object in brand table from all element except grain and weight
-    //creates new object(s) in ingredients table after the response is returned from brand.post using the brand.id , grain, and weight
+    //creates new object(s) in ingredients table after the response is returned from brand.post  then the ingredients are sent in using the brand.id , grain, and weight
     const constructNewBrand = (event) => {
         event.preventDefault();
         if (brand.name === "") {
             window.alert("Please input an brand name to continue");
         } else {
             setIsLoading(true);
-            // Create the brand and then grabs the id from the response 
+            //Create the brand and then grabs the id from the response 
             //and adds that to each object as they are redeclared within another set state
-            
             BrandManager.post(brand)
             .then((brand) => { 
                 console.log(brand)
@@ -178,7 +176,7 @@ const NewBrand = (props) => {
                         <Form.Control type="text" id="yeast" placeholder="Yeast Strain" onChange={handleFieldChange}/>
                     </InputGroup>
                 </Col>
-
+                {/* Creates new grain & weight object jsx and empty object every click   */}
                 {grainFieldsArray.map((grainFields, idx) => {
                 return (
                 <Col key={idx}>

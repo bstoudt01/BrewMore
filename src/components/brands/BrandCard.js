@@ -11,12 +11,13 @@ import BeerThumbnail from '../../images/BeerThumbnail100.png'
 import "../BrewMore.css"
 
 const BrandCard = (props) => {
+    //ingredients for this brand
     const [ingredients, setIngredients]=useState([])
     const brand= props.brand;
-    
 
     //Gather all ingredients objects for this brand based on brandId, invoked in useEffect
     const brandId = brand.id
+    //get ingredients by brandId and then map through them and place into BrandCardAccordion.js to be grouped and sent back to accordion header
     const getIngredients = () => {
         IngredientManager.getIngredientsData(brandId)
         .then(allIngredients => {

@@ -9,23 +9,25 @@ import Login from './auth/Login';
 import Registration from './auth/Registration';
 const ApplicationViews = (props) => {
 	// Check if credentials are in session storage returns true/false (credentials are there or its not) based on the props. hasUser & setUser from Application Views (parent component)
-	const hasUser = props.hasUser;
+	//passes user credentials brought in from login into browser session storage
 	const setUser = props.setUser;
-	
+	//state of current user, tell us if someone is logged in or not based on isAuthenticated having a value in browser session storage
+	const hasUser = props.hasUser;
+		
 	return (
 		<React.Fragment>
 
 			{/* pass the `setUser` function was Login component (no properties), but now we want to pass in props it needs to be render (something other than component) */}
 				{/* Remember to update the handleLogin() function in the <Login> component to use the setUser() function. */}
-			<Route 
+			{/* Login */}
+			<Route
 				exact
 				path="/Login" 
 				render={props => {
     				return <Login setUser={setUser} {...props} />
   				}}
 			/>
-			{/* pass the `setUser` function was Login component (no properties), but now we want to pass in props it needs to be render (something other than component) */}
-				{/* Remember to update the handleLogin() function in the <Login> component to use the setUser() function. */}
+			{/* Registration */}
 				<Route 
 				exact
 				path="/Registration" 
@@ -33,7 +35,7 @@ const ApplicationViews = (props) => {
     				return <Registration setUser={setUser} {...props} />
   				}}
 			/>
-
+			{/* Home / Welcome */}
 			<Route
 				exact
 				path="/"
@@ -41,8 +43,7 @@ const ApplicationViews = (props) => {
 					return <Home {...props} />;
 				}}
 			/>
-			{/* Make sure you add the `exact` attribute here  and pass through ...props so animal list can accept a paramater of props to use later in the code (for adding a new animal) */}
-			
+			{/* New Brand Generator, make sure to pass props through so newBrand can accept a paramater of props to use later in the code (for props.history.push) */}
 			<Route
 				exact
 				path="/NewBrand"
@@ -54,7 +55,7 @@ const ApplicationViews = (props) => {
 					}
 				}}
 			/>
-
+			{/* Brand List */}
             <Route
 				exact
 				path="/BrandList"
@@ -67,7 +68,7 @@ const ApplicationViews = (props) => {
 				}}
 			/>
             
-			{/* brand list filtered by statusId */}
+			{/* Brand List filtered by statusId */}
 			<Route
 				
 				path="/BrandList/:statusId(\d+)"
@@ -79,7 +80,7 @@ const ApplicationViews = (props) => {
 					}	
 				}}
 			/>
-
+			{/* Edit Brand already in database */}
 			{/* colon ":" lets route know its a dynamic path and (\d+) lets it know to only look at integer of id passed in */}
 			<Route 
 				path="/brands/:brandId(\d+)/edit" 

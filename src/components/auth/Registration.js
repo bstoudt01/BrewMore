@@ -7,10 +7,14 @@ import UserManager from "../../modules/UserManager";
 
 
 const RegistrationForm = (props) => {
+  //confirms all fields have been applied
   const [validated, setValidated] = useState(false);
-  const [userDetails, setUserDetails] = useState([])
-console.log(validated)
+  
+  //user registration details
+  const [userDetails, setUserDetails] = useState([]);
+  console.log(validated)
 
+  //Upon Submit, verify form is completed and place user details into users table, redirect to login
   const handleSubmit = (event) => {
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
@@ -23,6 +27,7 @@ console.log(validated)
     }
   }
 
+  //holds onto user registration from input fields
   const handleFieldChange = (evt) => {
     const stateToChange = { ...userDetails };
     stateToChange[evt.target.id] = evt.target.value;
@@ -30,6 +35,7 @@ console.log(validated)
   };
 
   return (
+    //sets form as not validated and adds submit listener to form button
     <Form noValidate validated={validated} onSubmit={handleSubmit}>
       <Form.Row>
         <Form.Group as={Col} md="4" controlId="email">
