@@ -1,22 +1,24 @@
 # BrewMore - Innovating Craft Beer Tools for Everyone
-### Created By Brett Stoudt
-### Front End Capstone - Cohort 41, Nashville Software School
+## Created By Brett Stoudt
+## Front End Capstone - Cohort 41, Nashville Software School
 
 ## About BrewMore
 Designed as a safe place for breweries to easily store and view receipes for each of the brands of beer they brew.
 Breweries can view all brands, or throguh a filtered view based on pre defined production statuses.
 
-Heres Why </br>
-[x] Digitize paper records to create instant access for mulitple viewers
-[x] Easier to look at compared to 1 sheet of paper for each brand
-[x] Filtering Brands based on Production Status allows a focused view of brand options
+### Heres Why
+-  Digitize paper records to create instant access for mulitple viewers
+-  Easier to look at compared to 1 sheet of paper for each brand
+-  Filtering Brands based on Production Status allows a focused view of brand options
 
 ### Built With
-[GitHub](http://github.com)
-[Create-React-App](https://create-react-app.dev/)
-[React Bootstrap](https://react-bootstrap.netlify.app/)
+- [GitHub](http://github.com)</br>
+- [Create-React-App](https://create-react-app.dev/)</br>
+- [React Bootstrap](https://react-bootstrap.netlify.app/)</br>
 
 ## Getting Started
+
+### Setup
 1. Clone and enter the project directory
 2. SampleJSON database information available below
 3. npm required JSON.package dependancies
@@ -131,10 +133,10 @@ Brett Stoudt - BStoudt01@Gmail.com</br>
 Project Link: [BrewMore](https://github.com/bstoudt01/BrewMore)
 
 ## Sources
-[Brewers Supply Group](www.BSGcraft.com)[Grids, Rows, And Columns](https://medium.com/@julianajlk/grids-rows-and-columns-in-react-bootstrap-c36a703c3c45)
-[Country Malt Group](www.CountryMaltGroup.com)
-[Great American Beer Festival](https://www.greatamericanbeerfestival.com/brewers/beer-styles/)
-[Grids, Rows, And Columns](https://medium.com/@julianajlk/grids-rows-and-columns-in-react-bootstrap-c36a703c3c45)
+- [Brewers Supply Group](www.BSGcraft.com)
+- [Country Malt Group](www.CountryMaltGroup.com)
+- [Great American Beer Festival](https://www.greatamericanbeerfestival.com/brewers/beer-styles/)
+- [Grids, Rows, And Columns](https://medium.com/@julianajlk/grids-rows-and-columns-in-react-bootstrap-c36a703c3c45)
 ## Acknowledgements
 Big Thanks to my instructor Brenda and TA's Rose, Sage, Maddie, and Audry 
 ...I feel that learning increases in group projects with the added benifit of bouncing around ideas and talk through logic. Cohort 41 has been an amazing group of people that I am luck to call Classmates, Cheers to Cohort 41!
