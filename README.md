@@ -1,10 +1,11 @@
 # BrewMore - Innovating Craft Beer Tools for Everyone
-## Created By Brett Stoudt
-## Front End Capstone - Cohort 41, Nashville Software School
+ <p>  | <p>
+------------ | -------------
+![Image of Cheers](./src/images/BeerThumbnail100.png) | <h3> Created By Brett Stoudt  <br/> <h4>Front End Developemnt Capstone - Cohort 41, Nashville Software School</h4> </h3>
 
 ## About BrewMore
 Designed as a safe place for breweries to easily store and view receipes for each of the brands of beer they brew.
-Breweries can view all brands, or throguh a filtered view based on pre defined production statuses.
+Breweries can view all brands, or through a filtered view based on pre defined production statuses.
 
 ### Heres Why
 -  Digitize paper records to create instant access for mulitple viewers
