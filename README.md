@@ -58,7 +58,7 @@ To start you off, here's an example of what the resources in your API should loo
 ### users
 
 ```json
-{ "id": 1, "email": "me@me.com", "username": "Steve", "password": "xxxxxxxxxxxxxxxxxxxxx" }
+{ "id": 1, "email": "me@me.com", "username": "Steve", "password": "x" }
 ```
 ### brands
 
@@ -72,7 +72,7 @@ To start you off, here's an example of what the resources in your API should loo
       "ibu": "25",
       "abv": "6.5",
       "tastingNote": "lots grapefruit in the nose, with additional orange flavor. body is to thin try higher mash temp",
-      "batchSize": 4,
+      "batchSize": "4",
       "styleId": 1,
       "statusId": 2
     }
@@ -88,29 +88,62 @@ To start you off, here's an example of what the resources in your API should loo
       "type": "base",
       "InventoryWeight": 0
     },
+    {
+      "id": 2,
+      "name": "Kilned Caramel 30L",
+      "maltster": "Rahr",
+      "origin": "North America",
+      "type": "specialty",
+      "InventoryWeight": 0
+    }
 ```
 ### ingredients
 
 ```json
-{
-      "brandId": 6,
-      "grainId": 5,
-      "weight": 10,
-      "id": 42
+"Ingredients":
+    {
+      "brandId": 1,
+      "grainId": 1,
+      "weight": 300,
+      "id": 1
+    },
+    {
+      "brandId": 1,
+      "grainId": 2,
+      "weight": 30,
+      "id": 2
     }
 ```
 
 ### styles
 
 ```json
+"styles":
 {
       "id": 1,
-      "style": "American Pale Ale"
+      "style": "American Pale Ale",
+    {
+      "id": 2,
+      "style": "American India Pale Ale"
+    },
+    {
+      "id": 3,
+      "style": "English Stout"
+    },
+    {
+      "id": 4,
+      "style": "English Porter"
+    },
+    {
+      "id": 5,
+      "style": "American Lager"
+    }
     }
 ```
 ### statuses - used to filter view... use these exactly
 
 ```json
+"statuses":
     {
       "id": 1,
       "status": "Staple"
