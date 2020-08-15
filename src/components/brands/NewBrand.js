@@ -24,7 +24,7 @@ const NewBrand = (props) => {
     console.log("sessionId",sessionId)
     console.log("sessionUserId",sessionUserId)
     //holds brand key : values as an object, set by handleFieldChange and adds userId with value of sessionUserId
-    const [brand, setBrand] = useState({name: "", userId:sessionUserId })
+    const [brand, setBrand] = useState({name: "", userId:sessionUserId})
 
     //declares loading state to keep buttons from working during load time set by functions and button
     const [isLoading, setIsLoading] = useState(false);
@@ -86,7 +86,7 @@ const NewBrand = (props) => {
         const stateToChange = { ...brand };
         console.log("stateToChange brand", stateToChange);
         stateToChange[evt.target.id] = evt.target.value;
-        setBrand(stateToChange);
+        setBrand(stateToChange)
 };
 
     //creates new object in brand table from all element except grain and weight
@@ -96,10 +96,22 @@ const NewBrand = (props) => {
         if (brand.name === "") {
             window.alert("Please input an brand name to continue");
         } else {
+            const NewBrand={
+                name:brand.name,
+                userId:parseInt(brand.userId),
+                batchSize:brand.batchSize,
+                styleId:parseInt(brand.styleId),
+                yeast:brand.yeast,
+                hop:brand.hop,
+                ibu:brand.ibu,
+                abv:brand.abv,
+                tastingNote:brand.tastingNote,
+                statusId:parseInt(brand.statusId)
+            }
             setIsLoading(true);
             //Create the brand and then grabs the id from the response 
             //and adds that to each object as they are redeclared within another set state
-            BrandManager.post(brand)
+            BrandManager.post(NewBrand)
             .then((brand) => { 
                 console.log(brand)
                 let ingredientWithBrandId = [...grainFieldsArray]

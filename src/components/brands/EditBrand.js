@@ -120,16 +120,16 @@ const EditBrand = (props) => {
             // All key : value pairs for the brand, to replace previous brand object in table
             const editedBrand = {
                 id: brand.id,
-                userId: brand.userId,
-                name: brand.name,
-                yeast: brand.yeast,
-                hop: brand.hop,
-                ibu: brand.ibu,
-                abv: brand.abv,
-                tastingNote: brand.tastingNote,
-                batchSize: brand.batchSize,
-                styleId: brand.styleId,
-                statusId: brand.statusId
+                name:brand.name,
+                userId:parseInt(brand.userId),
+                batchSize:brand.batchSize,
+                styleId:parseInt(brand.styleId),
+                yeast:brand.yeast,
+                hop:brand.hop,
+                ibu:brand.ibu,
+                abv:brand.abv,
+                tastingNote:brand.tastingNote,
+                statusId:parseInt(brand.statusId)
             }
             console.log("edited Brand b4put", editedBrand)
             BrandManager.update(editedBrand)
