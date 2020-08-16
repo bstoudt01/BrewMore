@@ -32,7 +32,7 @@ const Brewhouse = (props) => {
     //API call to get all brands of user
     const getBrands = () => {
         return BrandManager.getSingleUserWithStatusStyle(sessionUserId).then((allBrands) =>{
-            console.log(allBrands)
+            console.log(allBrands,"allBrands")
             setBrands(allBrands)
         })
     }
@@ -70,20 +70,6 @@ const Brewhouse = (props) => {
 
     }
 
-    const handleBrewCount = () => {
-    //     let brewId= evt.target.id
-    //     let brewCount= parseInt(evt.count + 1)
-    //     // let brewIdx=
-       
-    //     // setCount(brewCount)
-
-    //     const add = [...brews ];
-    //     add[brewId]={...add[brewId],...brewCount};
-    //     console.log(add)
-    // setCount(add)
-    }
-
-
     useEffect(() => {
         getBrands()
       },[])
@@ -97,14 +83,14 @@ const Brewhouse = (props) => {
                 </Col>
                 <Col lg={9}>
                 {/* Brands selected to Brew from Brand List */}
-                    <BrewList brews={brews} count={count} setCount={setCount} handleAddBrew={handleAddBrew} handleBrewCount={handleBrewCount} {...props} />
+                    <BrewList brews={brews} count={count} setCount={setCount} handleAddBrew={handleAddBrew} {...props} />
                     Brew Schedule area
                     ...Ideally its a calender
                 </Col>
             </Row>
             <Row>
                 <Col>
-                <BrewhouseIngredientes {...props} ingredients={ingredients}/>
+                <BrewhouseIngredientes {...props} count={count} setCount={setCount} ingredients={ingredients}/>
                     Brew Window grain totaler
                 </Col>
             </Row>

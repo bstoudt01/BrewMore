@@ -16,7 +16,7 @@ const BrewCard = (props) => {
      //API call to get all Ingredients by brand
     const getIngredientsbyBrand = () => {
         return IngredientManager.getIngredientsData(brew.id).then((brandIngredients) =>{
-            console.log(brandIngredients)
+            console.log(brandIngredients, "brandIngredients")
             const addIngredients = [...ingredients]
             addIngredients[brew.id] = {...ingredients[brew.id],...brandIngredients}
             setIngredients(addIngredients)
@@ -89,7 +89,7 @@ useEffect(() => {
         <Button size="sm" onClick={() =>handleRemoveBrewCount(props.idx)}>- Brew</Button>
 
         {/* <Button size="sm" onClick={() => setCount(parseInt(count) - 1)}>- Brew</Button> */}
-        <p>you have of this brew</p>
+        <p>you have of {count[props.idx].count} this brew</p>
         <Button size="sm">Details</Button>
         </Col>        
         </Row>
