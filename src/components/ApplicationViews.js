@@ -7,6 +7,8 @@ import EditBrand from './brands/EditBrand';
 import Home from './home/Home';
 import Login from './auth/Login';
 import Registration from './auth/Registration';
+import Brewhouse from './brewhouse/Brewhouse';
+
 const ApplicationViews = (props) => {
 	// Check if credentials are in session storage returns true/false (credentials are there or its not) based on the props. hasUser & setUser from Application Views (parent component)
 	//passes user credentials brought in from login into browser session storage
@@ -87,6 +89,17 @@ const ApplicationViews = (props) => {
 				render={props => {
 					if (hasUser) {
 						return <EditBrand {...props} />
+					} else {
+						return <Redirect to="/Login" />
+					}
+				}} 
+			/>
+			{/* Brewhouse to setup production, starting with inventory numbers, moving into tank tracking, */}
+			<Route 
+				path="/brewhouse" 
+				render={props => {
+					if (hasUser) {
+						return <Brewhouse {...props} />
 					} else {
 						return <Redirect to="/Login" />
 					}

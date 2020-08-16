@@ -21,7 +21,7 @@ const BrandList = (props) => {
     console.log("sessionId",sessionId)
     console.log("sessionUserId",sessionUserId)
 
-    //API call to get all brands of user
+    //API call to get all brands of user including style and status information
     const getBrands = () => {
         return BrandManager.getSingleUserWithStatusStyle(sessionUserId).then((allBrands) =>{
             console.log(allBrands)

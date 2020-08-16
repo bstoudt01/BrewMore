@@ -70,7 +70,11 @@ const NewBrand = (props) => {
         [splitName]: value
     };
     console.log(singleIngredient)
+    //state of all grain/weight inputs set to new variable "add"
     const add = [...grainFieldsArray ];
+        // a single object from the previous array (now in a new variable) pointed to by using the event target id,
+        //a singleobject  replaced the previous one in the array at the id / location
+        // set equal to the single object from the new variable that is in the array of objects
         add[splitIdx]={...add[splitIdx],...singleIngredient};
         console.log(add)
     setGrainFieldsArray(add)
