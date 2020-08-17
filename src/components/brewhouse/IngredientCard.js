@@ -48,6 +48,15 @@ const IngredientCard = (props) => {
              ingredientCount = singleBrandCount.count
             }
     })
+
+    
+    //     let theseGrains = [...usedGrains]
+    //     theseGrains.push(ingredientCard.grainId)
+        
+    // useEffect(() => {
+    //     setUsedGrains(theseGrains)
+    // },[])
+
     console.log(ingredientCount, "ingredientCount")
     return (
         <Container fluid>

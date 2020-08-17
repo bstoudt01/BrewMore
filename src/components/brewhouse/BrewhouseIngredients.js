@@ -67,19 +67,22 @@ const BrewhouseIngredients= (props) => {
     const getGrainsInBrews = () => {ingredients.map(brandGrains => {
         console.log(brandGrains, "brandGrains")
         if (brandGrains !== undefined) {
-        const singleIngredient=Object.values(brandGrains)
-        console.log(singleIngredient,"singleIngredient")
-        const brandGrainsArray=[...grainsArray]
-        singleIngredient.forEach(element => {
-            brandGrainsArray.push(element)
-            //brandGrainsArray=[...grainsArray,element]
-        });
-        console.log(brandGrainsArray,"brandGrainsArray")
-        setGrainsArray(brandGrainsArray)
-        console.log(grainsArray,"grainsArray after function")
+            const singleIngredient=Object.values(brandGrains)
+            console.log(singleIngredient,"singleIngredient")
+            const brandGrainsArray=[...grainsArray]
+            singleIngredient.forEach(element => {
+                brandGrainsArray.push(element)
+                //brandGrainsArray=[...grainsArray,element]
+            });
+            console.log(brandGrainsArray,"brandGrainsArray")
+            setGrainsArray(brandGrainsArray)
+            console.log(grainsArray,"grainsArray after function")
     }
     })  
     }
+
+
+    
     useEffect(() => {
         // getIngredients()
         getGrainsInBrews()
@@ -93,9 +96,28 @@ const BrewhouseIngredients= (props) => {
             </Row>
             
             {grainsArray.map(ingredientCard =>  {
+                {/* console.log(ingredientCard.grainId, "ingredientCard")
+                console.log(usedGrains, "usedGrains")
+                const theseGrains = ingredientCard.grainId
+                    console.log(theseGrains,"theseGrains") */}
+
+                   {/* theseGrains.push(ingredientCard.grainId) */}
+                {/* theseGrains=[...theseGrains,ingredientCard.grainId] */}
+                    {/* console.log(theseGrains,"theseGrains after push")
+                    setUsedGrains(theseGrains)  */}
                return (
                     <IngredientCard key={ingredientCard.id} id={ingredientCard.id} ingredientCard={ingredientCard} count={count} usedGrains={usedGrains} setUsedGrains={setUsedGrains} {...props} />
-            )})}
+            )
+                {/* usedGrains.map(usedGrain => {
+                    console.log(usedGrain, "usedGrain")
+                if (usedGrain !== ingredientCard.grainId ) {
+                    var theseGrains = [...usedGrains]
+                    console.log(theseGrains,"theseGrains")
+                    theseGrains.push(ingredientCard.grainId)
+                //theseGrains=[...theseGrains,ingredientCard.grainId]
+                 } 
+                 }) */}
+            })}
             <Row><p>Beer ingredeints go here</p></Row>
         </Container>
     )
