@@ -5,11 +5,11 @@ import Card from 'react-bootstrap/Card'
 import { Container } from 'react-bootstrap';
 
 const IngredientCard = (props) => {
-    const ingredient=props.ingredient;
+    const ingredientCard=props.ingredientCard;
     const usedGrains = props.usedGrains;
     const setUsedGrains= props.setUsedGrains;
     const count=props.count;
-    console.log(ingredient.brandId, "ingredient from ingcard brandId")
+    console.log(ingredientCard.brandId, "ingredient from ingcard brandId")
     console.log(count, " count from ingCard")
 
 
@@ -17,12 +17,12 @@ const IngredientCard = (props) => {
 
     // const newGrain= () => {
     //     usedGrains.map(grain => {
-    //         if (ingredient.id !== grain.id) {
+    //         if (ingredientCard.id !== grain.id) {
     //             return ( 
     //             <Container fluid>
           
     //                 <Row>
-    //                 <p>{ingredient.grain.name} Weight: {ingredient.weight}</p>
+    //                 <p>{ingredientCard.grain.name} Weight: {ingredientCard.weight}</p>
     //                 </Row>
     //             </Container>
     //         )
@@ -34,17 +34,17 @@ const IngredientCard = (props) => {
     //     })
     // }
     // const updateUsedGrains = [...usedGrains]
-    // updateUsedGrains.push(ingredient.grainId)
+    // updateUsedGrains.push(ingredientCard.grainId)
     // setUsedGrains(updateUsedGrains)
     // console.log(usedGrains, "usedGrains from ingcard")      
     // useEffect(() => {
     //     updateUsedGrains()
     // },[])
-    
+
     //fetches count for brandId
     let ingredientCount = ""
     count.map(singleBrandCount => {
-        if (ingredient.brandId === singleBrandCount.brandId) {
+        if (ingredientCard.brandId === singleBrandCount.brandId) {
              ingredientCount = singleBrandCount.count
             }
     })
@@ -53,7 +53,7 @@ const IngredientCard = (props) => {
         <Container fluid>
           
             <Row>
-            <p>{ingredient.grain.name} Weight: {ingredient.weight * ingredientCount}</p>
+            <p>{ingredientCard.grain.name} Weight: {ingredientCard.weight * ingredientCount}</p>
             </Row>
         </Container>
         

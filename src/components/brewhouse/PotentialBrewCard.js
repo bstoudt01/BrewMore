@@ -13,7 +13,7 @@ const PotentialBrewCard = (props) => {
     const handleClick = (handleAddBrew) => setIsLoading(true);
     
     useEffect(() => {
-    },[])
+    },[brand])
 
     return (
         <Container fluid>
@@ -22,7 +22,7 @@ const PotentialBrewCard = (props) => {
         <Col>
         <p>{brand.name}</p>
         <p>{brand.style.style}</p>
-        <Button size="sm" disabled={isLoading} onClick={(evt) => handleAddBrew(evt, brand)} >Add Brew</Button>
+        <Button size="sm" disabled={isLoading} onClick={() => handleAddBrew(brand, handleClick)} >Add Brew</Button>
         <Button size="sm">Details</Button>
         </Col>        
         </Row>

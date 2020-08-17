@@ -25,54 +25,65 @@ const BrewhouseIngredients= (props) => {
         // if(singleBrandId === brewId ) {
 
             // }
-        count.map(singleBrewCount => {
+
+            // const grainId= (props) =>
+            // ingredients.map(element => {
+            //     console.log(element, "grainId element")
+            //     const previousGrains=[...usedGrains]
+            //     previousGrains.push(element)
+            //     setUsedGrains(previousGrains)
+            // }); 
+            // ingredients.grainId;
+            // console.log(grainId, "grainId")
+
+        const getCount =() => {count.map(singleBrewCount => {
             console.log(singleBrewCount, "single brewCount")
             const brewId= singleBrewCount.brandId
             const brewCount=singleBrewCount.count
             console.log(brewId, "single brewId")
             console.log(brewCount, "single brewCount")
-            console.log(usedGrains, "usedGrains from countmap")
         })
+        }
 
         
-    // const grainId= (props) =>
-    // ingredients.map(element => {
-    //     console.log(element, "grainId element")
-    //     const previousGrains=[...usedGrains]
-    //     previousGrains.push(element)
-    //     setUsedGrains(previousGrains)
-    // }); 
-    // ingredients.grainId;
-    // console.log(grainId, "grainId")
 
+        
+            // const getIngredients = () => {
+            //     ingredients.map((filteredIngredients) => {
+            //         console.log(filteredIngredients, "filteredIngredients") 
+            //         let updatedGrains=[...grainsInBrews]
+            //         console.log(updatedGrains,"updatedGrainsAsGrainsInBrews")
+            //         //updatedGrains.push(filteredIngredients)
+            //         updatedGrains=[...updatedGrains,filteredIngredients]
+            //         console.log(updatedGrains,"updatedGrains after push")
+            //         //array of multiple brand objects containing the ingredient objects
+            //         //THIS IS NOT UPDATING CORRECTLY, LAST CONSOLE LOG SHOWS IT EMPTY
+            //         setGrainsInBrews(updatedGrains)
+            //         console.log(grainsInBrews, "grainsInBrews")   
+            //     })
+        
+            // }
 
-
+    const getGrainsInBrews = () => {ingredients.map(brandGrains => {
+        console.log(brandGrains, "brandGrains")
+        if (brandGrains !== undefined) {
+        const singleIngredient=Object.values(brandGrains)
+        console.log(singleIngredient,"singleIngredient")
+        const brandGrainsArray=[...grainsArray]
+        singleIngredient.forEach(element => {
+            brandGrainsArray.push(element)
+            //brandGrainsArray=[...grainsArray,element]
+        });
+        console.log(brandGrainsArray,"brandGrainsArray")
+        setGrainsArray(brandGrainsArray)
+        console.log(grainsArray,"grainsArray after function")
+    }
+    })  
+    }
     useEffect(() => {
-        ingredients.map((filteredIngredients) => {
-            console.log(filteredIngredients, "singleBrand") 
-            const updatedGrains=[...grainsInBrews]
-            updatedGrains.push(filteredIngredients)
-            //array of multiple brand objects containing the ingredient objects
-            setGrainsInBrews(updatedGrains)
-            console.log(grainsInBrews, "grainsInBrews")   
-            grainsInBrews.map(brandGrains => {
-                // for (const single of brandGrains) {
-                //     const singleIngredient=single.grainId
-                    
-                //     console.log(singleIngredient, "singleIngredient")
-                // }
-                console.log(brandGrains, "brandGrains")
-                const singleIngredient=Object.values(brandGrains)
-                console.log(singleIngredient,"singleIngredient")
-                const brandGrainsArray=[...grainsArray]
-                singleIngredient.forEach(element => {
-                    
-                    brandGrainsArray.push(element)
-                });
-                console.log(brandGrainsArray,"brandGrainsArray")
-                setGrainsArray(brandGrainsArray)
-            })  
-        })
+        // getIngredients()
+        getGrainsInBrews()
+        getCount()
     }, [ingredients]);
 
     return (
@@ -81,10 +92,9 @@ const BrewhouseIngredients= (props) => {
                <h1>Total Grain Required</h1> 
             </Row>
             
-            {grainsArray.map(ingredient =>  {
-                console.log(usedGrains,"usedGrains from grainsArrayMap")
+            {grainsArray.map(ingredientCard =>  {
                return (
-                    <IngredientCard key={ingredient.id} id={ingredient.id} ingredient={ingredient} count={count} usedGrains={usedGrains} setUsedGrains={setUsedGrains} {...props} />
+                    <IngredientCard key={ingredientCard.id} id={ingredientCard.id} ingredientCard={ingredientCard} count={count} usedGrains={usedGrains} setUsedGrains={setUsedGrains} {...props} />
             )})}
             <Row><p>Beer ingredeints go here</p></Row>
         </Container>

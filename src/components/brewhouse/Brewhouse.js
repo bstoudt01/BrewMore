@@ -5,7 +5,7 @@ import Row from 'react-bootstrap/Row';
 import BrandManager from '../../modules/BrandManager';
 import PotentialBrewList from './PotentialBrewList';
 import BrewList from './BrewList';
-import BrewhouseIngredientes from './BrewhouseIngredients';
+import BrewhouseIngredients from './BrewhouseIngredients';
 import IngredientManager from '../../modules/IngredientManager'
 const Brewhouse = (props) => {
     const [ingredients, setIngredients]=useState([])
@@ -44,17 +44,21 @@ const Brewhouse = (props) => {
             setIngredients(addIngredients)
         })
     }
-    const handleAddBrew = (evt, brand) => {
 
-        console.log(evt,"evt")
+    //Click Event - Adding brand to brew list from possible brew card
+    //sets brand in brews
+    //sets brandid and "1" in counter
+    //sets handleClick to true which calls isLoading to disable button on possible brew
+    const handleAddBrew = (brand, handleClick) => {
         console.log(brand,"Add brew clicked")
+
         //set brand into brew list
-        
         let id=brand.id
         let brewsList = [...brews]
         brewsList = [brand,...brews]
         getIngredientsbyBrand(id)
         setBrews(brewsList)
+        console.log(brews, "brews set in handleAddBrew")
         //place first brand into counter
         let brewsCount = [...count]
         console.log(brewsCount,"brewsCount")
@@ -64,9 +68,11 @@ const Brewhouse = (props) => {
         }
         console.log(brewCounter,"brewCounter")
         brewsCount.push(brewCounter) 
-        // = [{...brewsCount,...brewCounter}]
         setCount(brewsCount)
-        setIsLoading(true);
+        console.log(count,"count set in handleAddBrew")
+        //disable button on possible brew card
+        handleClick(true)   
+        
 
     }
 
@@ -83,14 +89,14 @@ const Brewhouse = (props) => {
                 </Col>
                 <Col lg={9}>
                 {/* Brands selected to Brew from Brand List */}
-                    <BrewList brews={brews} count={count} setCount={setCount} handleAddBrew={handleAddBrew} {...props} />
+                    <BrewList brews={brews} count={count} setCount={setCount} {...props} />
                     Brew Schedule area
                     ...Ideally its a calender
                 </Col>
             </Row>
             <Row>
                 <Col>
-                <BrewhouseIngredientes {...props} count={count} setCount={setCount} ingredients={ingredients}/>
+                <BrewhouseIngredients {...props} brews={brews} count={count} setCount={setCount} ingredients={ingredients} handleAddBrew={handleAddBrew}/>
                     Brew Window grain totaler
                 </Col>
             </Row>
