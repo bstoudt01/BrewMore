@@ -24,44 +24,68 @@ const BrewCard = (props) => {
     }
 
     // Add one Additional brew to counter of single brand
-    const handleAddBrewCount= (idx) => {
+    const handleAddBrewCount= (id, idx) => {
     
         let newCount=[...count]
         console.log(idx, "idx")
+        console.log(id, "id")
+        console.log(newCount, "newCount ")
+
+        newCount.map((anotherCount, index) => {
+            console.log(anotherCount, "anotherCount")
+         if (anotherCount.brandId === id ) {
+            console.log(index, "anotherCount index")
+
+        
         //brand id on brewCard
-        let brandId = newCount[idx].brandId
-        console.log("brandId", brandId)
+        let brandId = anotherCount.brandId
+        console.log("brandId[idx]", brandId)
         //brew count from state plus 1 more
-        let brandCount = newCount[idx].count +1
+        let brandCount = anotherCount.count +1
         console.log("brandCount", brandCount)
-        console.log(newCount[idx], "newCountIDX")
+        console.log(newCount[id], "newCountIDX")
         // new object for Count useState to replace the object at the index number of this card
         const newBrandCount={
             brandId: brandId,
             count: brandCount
         }
-        newCount[idx]=newBrandCount
+        const countIndex=
+//        newCount[id]=newBrandCount
+        newCount.splice([index],1,newBrandCount)
         setCount(newCount)
-    }
+        } 
+    })
+}
     //Remove single instance of a brew from counter of a single brand
-    const handleRemoveBrewCount= (idx) => {
+    const handleRemoveBrewCount= (id,idx) => {
     
         let newCount=[...count]
         console.log(idx, "idx")
-        let brandId = newCount[idx].brandId
+        console.log(id, "id")
+        console.log(newCount, "newCount ")
+
+        newCount.map((anotherCount, index) => {
+            console.log(anotherCount, "anotherCount")
+         if (anotherCount.brandId === id ) {
+            console.log(index, "anotherCount index")
+
+        let brandId = anotherCount.brandId
         console.log("brandId", brandId)
         //brewcount from state minus 1 less
-        let brandCount = newCount[idx].count - 1
+        let brandCount = anotherCount.count - 1
         console.log("brandCount", brandCount)
-        console.log(newCount[idx], "newCountIDX")
+        console.log(newCount[id], "newCountIDX")
      
                 const newBrandCount={
                     brandId: brandId,
                     count: brandCount
                 }
-                newCount[idx]=newBrandCount
+                // newCount[idx]=newBrandCount
+                // setCount(newCount)
+                newCount.splice([index],1,newBrandCount)
                 setCount(newCount)
-        
+                } 
+            })
       
 //    //place first brand into counter
 //    let brewsCount = [...count]
@@ -75,21 +99,22 @@ const BrewCard = (props) => {
 //    // = [{...brewsCount,...brewCounter}]
 //    setCount(brewsCount)        
     }
-
+console.log(brew,"brew for id")
 useEffect(() => {
     getIngredientsbyBrand()
 }, []);
     return (
-        <Container key={props.idx} fluid>
+        <Container key={brew.id} fluid>
         <Card className="brewCard" style={{ width: '22rem'}}>
         <Row>
         <Col>
         <p>{brew.name}</p>
-        <Button size="sm" onClick={() =>handleAddBrewCount(props.idx)}>+ Brew</Button>
-        <Button size="sm" onClick={() =>handleRemoveBrewCount(props.idx)}>- Brew</Button>
+        <Button size="sm" onClick={() =>handleAddBrewCount(brew.id, props.idx)}>+ Brew</Button>
+        <Button size="sm" onClick={() =>handleRemoveBrewCount(brew.id, props.idx)}>- Brew</Button>
 
         {/* <Button size="sm" onClick={() => setCount(parseInt(count) - 1)}>- Brew</Button> */}
-        <p>you have of {count[props.idx].count} this brew</p>
+        {/* <p>you have of {count[props.idx].count} this brew</p> */}
+        {/* <p>you have of {count[props.idx].count} this brew</p> */}
         <Button size="sm">Details</Button>
         </Col>        
         </Row>
