@@ -5,6 +5,9 @@ import Row from 'react-bootstrap/Row';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import IngredientManager from '../../modules/IngredientManager';
+import Popover from 'react-bootstrap/Popover';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+
 const BrewCard = (props) => {
      // Instances of brews by Id
     // const [count, setCount]=useState(1)
@@ -99,23 +102,37 @@ const BrewCard = (props) => {
 //    // = [{...brewsCount,...brewCounter}]
 //    setCount(brewsCount)        
     }
+
+    const popover = (
+        <Popover id="popover-basic">
+          <Popover.Title as="h3">{brew.name}</Popover.Title>
+          <Popover.Content>
+         
+            And here's some <strong>amazing</strong> details....well, soon to come
+          </Popover.Content>
+        </Popover>
+      );
 console.log(brew,"brew for id")
 useEffect(() => {
     getIngredientsbyBrand()
 }, []);
     return (
         <Container key={brew.id} fluid>
-        <Card className="brewCard" style={{ width: '22rem'}}>
+        <Card className="brewCard" style={{ width: '16rem'}}>
         <Row>
         <Col>
         <p>{brew.name}</p>
+        <div className="d-flex justify-content-around">
         <Button size="sm" onClick={() =>handleAddBrewCount(brew.id, props.idx)}>+ Brew</Button>
+        <OverlayTrigger trigger="click" placement="right"   rootClose overlay={popover}>
+            <Button variant="success"  style={{fontSize: "12px", margin: ".1rem", width:"45%"}}>Details</Button>
+        </OverlayTrigger>
         <Button size="sm" onClick={() =>handleRemoveBrewCount(brew.id, props.idx)}>- Brew</Button>
 
         {/* <Button size="sm" onClick={() => setCount(parseInt(count) - 1)}>- Brew</Button> */}
         {/* <p>you have of {count[props.idx].count} this brew</p> */}
         {/* <p>you have of {count[props.idx].count} this brew</p> */}
-        <Button size="sm">Details</Button>
+        </div>
         </Col>        
         </Row>
         </Card>

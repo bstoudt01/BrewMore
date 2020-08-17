@@ -7,6 +7,7 @@ import PotentialBrewList from './PotentialBrewList';
 import BrewList from './BrewList';
 import BrewhouseIngredients from './BrewhouseIngredients';
 import IngredientManager from '../../modules/IngredientManager'
+import { auto } from '@popperjs/core';
 const Brewhouse = (props) => {
     const [ingredients, setIngredients]=useState([])
 
@@ -82,20 +83,20 @@ const Brewhouse = (props) => {
 
     return (
         <Container fluid>
-            <Row>
-                <Col lg={3}>
+            <Row  >
+                <Col lg={3} className="overflow-auto" style={{ height: '20rem'}}>
                 {/* Available Brands to add to BrewList */}
                     <PotentialBrewList brands={brands} count={count} setCount={setCount} handleAddBrew={handleAddBrew} {...props} />
                 </Col>
-                <Col lg={9}>
+                <Col lg={9} className="overflow-auto" style={{ height: '20rem'}}>
                 {/* Brands selected to Brew from Brand List */}
                     <BrewList brews={brews} count={count} setCount={setCount} {...props} />
                     Brew Schedule area
                     ...Ideally its a calender
                 </Col>
             </Row>
-            <Row>
-                <Col>
+            <Row >
+                <Col style={{ height: '20rem'}} >
                 <BrewhouseIngredients {...props} brews={brews} count={count} setCount={setCount} ingredients={ingredients} handleAddBrew={handleAddBrew}/>
                     Brew Window grain totaler
                 </Col>

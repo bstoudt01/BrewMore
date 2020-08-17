@@ -13,7 +13,7 @@ const IngredientsAccordion = (props) => {
 
                         <Accordion.Collapse eventKey="0">    
                             <div key={ingredient.id} id={ingredient.id}>
-                            <Card.Body variant="flush">
+                            <Card.Body variant="flush" className="overflow-auto">
                                 {ingredient.grain.maltster} {ingredient.grain.name}<br/> <strong>Weight:</strong> {ingredient.weight} lb's
                             </Card.Body>                            
                         </div>
