@@ -7,7 +7,7 @@ import { Container } from 'react-bootstrap';
 const IngredientCard = (props) => {
     const ingredientCard=props.ingredientCard;
     const usedGrains = props.usedGrains;
-    const setUsedGrains= props.setUsedGrains;
+    const updateUsedGrains= props.updateUsedGrains;
     const count=props.count;
     console.log(ingredientCard.brandId, "ingredient from ingcard brandId")
     console.log(count, " count from ingCard")
@@ -44,20 +44,23 @@ const IngredientCard = (props) => {
     //fetches count for brandId
     let ingredientCount = ""
     count.map(singleBrandCount => {
+        console.log(singleBrandCount,"singleBrandCount")
         if (ingredientCard.brandId === singleBrandCount.brandId) {
-             ingredientCount = singleBrandCount.count
-            }
+           
+                ingredientCount = singleBrandCount.count
+             console.log(ingredientCount,"ingredientCount")
+             }
     })
-
+    
     
     //     let theseGrains = [...usedGrains]
     //     theseGrains.push(ingredientCard.grainId)
         
-    // useEffect(() => {
-    //     setUsedGrains(theseGrains)
-    // },[])
+    useEffect(() => {
+        updateUsedGrains(ingredientCard.grainId)
+    },[])
 
-    console.log(ingredientCount, "ingredientCount")
+    console.log(ingredientCount, "ingredientCount outta func")
     return (
         <Container fluid>
           

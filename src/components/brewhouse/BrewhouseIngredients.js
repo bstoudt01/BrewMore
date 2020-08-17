@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
-import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import IngredientCard from './IngredientCard';
 const BrewhouseIngredients= (props) => {
@@ -76,14 +75,28 @@ const BrewhouseIngredients= (props) => {
             });
             console.log(brandGrainsArray,"brandGrainsArray")
             setGrainsArray(brandGrainsArray)
+            
             console.log(grainsArray,"grainsArray after function")
     }
     })  
     }
+    //trying to get all grainId's used in brews into 1 array
+    // to map over so i can make a new grain card or add weight to an existing card... and not duplicate grainIds on the dom
+    let handleUsedGrains=[]
+    const updateUsedGrains = (id) => { 
+        if (usedGrains.id !== id && id === Number) {
+            let grainId=id
+        console.log(id,"id")
+        console.log(grainId,"grainId")
+       const tempUsedGrains = [...usedGrains]
+       console.log(usedGrains, "usedGrains from brewhousing")
+        handleUsedGrains = [...tempUsedGrains,...grainId]
+      // tempUsedGrains.push(id)
+    }
+}
 
-
-    
-    useEffect(() => {
+useEffect(() => {
+    setUsedGrains(handleUsedGrains)
         // getIngredients()
         getGrainsInBrews()
         getCount()
@@ -96,8 +109,15 @@ const BrewhouseIngredients= (props) => {
             </Row>
             
             {grainsArray.map(ingredientCard =>  {
-                {/* console.log(ingredientCard.grainId, "ingredientCard")
-                console.log(usedGrains, "usedGrains")
+                {/* const id=ingredientCard.grainId
+                const getUsedGrains=[...usedGrains,id]
+                console.log(ingredientCard, "ingredientCard")
+                setUsedGrains(getUsedGrains) */}
+               return (
+                    <IngredientCard key={ingredientCard.id} id={ingredientCard.id} ingredientCard={ingredientCard} count={count} usedGrains={usedGrains} updateUsedGrains={updateUsedGrains} {...props} />
+            )
+            })}
+                {/* console.log(usedGrains, "usedGrains")
                 const theseGrains = ingredientCard.grainId
                     console.log(theseGrains,"theseGrains") */}
 
@@ -105,9 +125,7 @@ const BrewhouseIngredients= (props) => {
                 {/* theseGrains=[...theseGrains,ingredientCard.grainId] */}
                     {/* console.log(theseGrains,"theseGrains after push")
                     setUsedGrains(theseGrains)  */}
-               return (
-                    <IngredientCard key={ingredientCard.id} id={ingredientCard.id} ingredientCard={ingredientCard} count={count} usedGrains={usedGrains} setUsedGrains={setUsedGrains} {...props} />
-            )
+
                 {/* usedGrains.map(usedGrain => {
                     console.log(usedGrain, "usedGrain")
                 if (usedGrain !== ingredientCard.grainId ) {
@@ -117,7 +135,6 @@ const BrewhouseIngredients= (props) => {
                 //theseGrains=[...theseGrains,ingredientCard.grainId]
                  } 
                  }) */}
-            })}
             <Row><p>Beer ingredeints go here</p></Row>
         </Container>
     )

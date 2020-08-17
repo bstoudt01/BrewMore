@@ -124,13 +124,10 @@ useEffect(() => {
         <p>{brew.name}</p>
         <div className="d-flex justify-content-around">
         <Button size="sm" onClick={() =>handleAddBrewCount(brew.id, props.idx)}>+ Brew</Button>
-        <OverlayTrigger trigger="click" placement="right"   rootClose overlay={popover}>
+        <OverlayTrigger trigger="click" placement="right" rootClose overlay={popover}>
             <Button variant="success"  style={{fontSize: "12px", margin: ".1rem", width:"45%"}}>Details</Button>
         </OverlayTrigger>
         <Button size="sm" onClick={() =>handleRemoveBrewCount(brew.id, props.idx)}>- Brew</Button>
-
-        {/* <Button size="sm" onClick={() => setCount(parseInt(count) - 1)}>- Brew</Button> */}
-        {/* <p>you have of {count[props.idx].count} this brew</p> */}
         {/* <p>you have of {count[props.idx].count} this brew</p> */}
         </div>
         </Col>        

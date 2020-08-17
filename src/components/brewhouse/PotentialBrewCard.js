@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Popover from 'react-bootstrap/Popover';
@@ -29,7 +27,6 @@ const PotentialBrewCard = (props) => {
           <Card.Title>{brand.name}</Card.Title>
                 <Card.Subtitle className="text-muted"> {brand.style.style} </Card.Subtitle>
                 <Card.Text><strong>Yeast:</strong> {brand.yeast}</Card.Text>
-                {/* <Card.Subtitle className="mb-2 text-muted"><strong>Yeast:</strong> {brand.yeast}</Card.Subtitle> */}
                 <Card.Text><strong>Hops: </strong> {brand.hop}</Card.Text>
                 <Card.Text><strong>IBU's:</strong> {brand.ibu} </Card.Text>
                 <Card.Text><strong>ABV:</strong> {brand.abv}% </Card.Text>
