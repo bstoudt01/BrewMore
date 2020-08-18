@@ -57,17 +57,15 @@ const PotentialBrewCard = (props) => {
 
     return (
         <Container fluid >
-        <Card className="brewCard" >
-        
-        <p style={{fontSize: "16px",margin:(0,0,0,0) }} >{brand.name} </p> <a style={{fontSize: "12px"}}> {brand.style.style}</a>
-       <div> <Button style={{fontSize: "12px", margin: ".1rem", width:"45%"}} disabled={isLoading} onClick={() => handleAddBrew(brand, handleClick)} >Add Brew</Button>
-       <OverlayTrigger trigger="click" placement="right"   rootClose overlay={popover}>
-        <Button variant="success"  style={{fontSize: "12px", margin: ".1rem", width:"45%"}}>Details</Button>
-        </OverlayTrigger>
-        {/* <Button style={{fontSize: "12px", width:"45%" }} onClick={BrandDetails}>Details</Button> */}
-        </div>
-        </Card>
-</Container>
+            <Card className="brewCard" >
+                <p style={{fontSize: "16px",margin:(0,0,0,0) }} >{brand.name} </p> <a style={{fontSize: "12px"}}> {brand.style.style}</a>
+                <div> <Button style={{fontSize: "12px", margin: ".1rem", width:"45%"}} disabled={isLoading} onClick={() => handleAddBrew(brand, handleClick)} >Add Brew</Button>
+                    <OverlayTrigger trigger="click" placement="right"   rootClose overlay={popover}>
+                        <Button variant="success"  style={{fontSize: "12px", margin: ".1rem", width:"45%"}}>Details</Button>
+                    </OverlayTrigger>
+                </div>
+            </Card>
+        </Container>    
     )
 }
 

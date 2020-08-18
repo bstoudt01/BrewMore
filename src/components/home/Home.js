@@ -6,32 +6,49 @@ import Button from 'react-bootstrap/Button'
 import desktopImage from '../../images/HomeBackgroundCheers.jpg'
 import mobileImage from '../../images/HomeBackground3.jpg'
 import "../BrewMore.css"
+import Card from 'react-bootstrap/Card'
 
 //Initial View with Login/Logout Buttons
 const Home = (props) => {
     //changes background image based on window with of 650+ and 649-
     //useWindowWith declared below
     const imageUrl = useWindowWidth() >= 650 ? desktopImage : mobileImage;
-    
+    // function for Logout button that resets the user session storage and invokes setHasUser to update the state
+            // logout button not redirecting yet..
+    const clearUser = () => {
+        sessionStorage.clear() 
+        props.history.push(`/Login`)};
+    //is user loged in?
+    const hasUser = props.hasUser
+    console.log(hasUser,"hasUser on home")
+   
     return (
         <>
             <Container className="App homebg" style={{backgroundImage: `url(${imageUrl})` }} fluid>
                 <Row>
+
                 {/* Registration Button */}
-                    <Col className="App-content" >
+                    {!hasUser ? <Col className="App-content" >
                         <h2 style={{textAlign:"center"}}>New to BrewMore?</h2>
                         <Button variant="secondary"  id="registrationButton" onClick={() => props.history.push(`/Registration`) }>Register New User</Button>
-                    </Col> 
+                    </Col> : null }
                     {/* Login Button */}
+                    {!hasUser ? 
                     <Col className="App-content" >
                         <h2 style={{textAlign:"center"}}>Returning Brewer?</h2>
                         <Button variant="primary" id="loginButton" size="lg" onClick={() => props.history.push(`/Login`) }>Login</Button>
-                    </Col> 
+                    </Col> : 
+                    <Col className="App-content " >
+                        <h2 style={{textAlign:"center"}}>Come on Back Now!</h2>
+                        <Button variant="primary" id="loginButton" size="lg" onClick={clearUser}>Logout</Button>
+                    </Col>
+                    }
                 </Row>
                 {/* Welcome Message */}
-                <Row lg={1}>
+                {!hasUser ?
+                <Row lg={1} >
                     <h1 style={{textAlign:"center"}}>Welcome to BrewMore</h1>
-                </Row>
+                </Row> :  <Card className="brewCard" ><h2 style={{textAlign:"center"}}>Dont forget to Checkout our New <br/> <b>Brewhouse Feature!</b></h2><h3 style={{textAlign:"center"}}>See all the grain you need for your upcoming brews Instantly!</h3> <Card.Link style={{textAlign:"center"}} className="text-black-50" href="#"> Contact us: BrewMore@BrewMore.com</Card.Link></Card>} 
             </Container>
         </>
         )
