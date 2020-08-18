@@ -1,30 +1,36 @@
 import React, { useState,useEffect } from "react";
 import UserManager from "../../modules/UserManager";
 
-//props coming from parent component (.. react router dom)
-const Login = (props) => {
-  const [credentials, setCredentials] = useState({ email: "", password: "" });
-  const [usersList, setUsersList] = useState([])
 
+const Login = (props) => {
+
+  //state of input fields for user login
+  const [credentials, setCredentials] = useState({ email: "", password: "" });
+  //userList brought in to compare againsted credentials
+  const [usersList, setUsersList] = useState([]);
+
+  //Get all user data
   const getUsers = () => {
     return UserManager.getAll().then((response) => {
       setUsersList(response)
-    })
-  } 
+    });
+  };
  
 
-  // Update state whenever an input field is edited
-  //as we hear those changes, state changes and makes those updates (evey key)
-  // matches value in input field with a value in state
+  // Update state based on event id.. whenever an input field is edited the value of that id is replaced with the new value and state is set
+  //state is not mutable so an objct must hold all of state , be adjusted and then can set the useState
   const handleFieldChange = (evt) => {
     const stateToChange = { ...credentials };
     stateToChange[evt.target.id] = evt.target.value;
     setCredentials(stateToChange);
   };
-  // function to handle login invoked by button
+
+  //Handle login invoked by button
   const verifyCredentials = (e) => {
     // prevent default, keeps the page from refreshing and loosing credentials entered
     e.preventDefault();
+    //compares each user.email from the database to the credentials.email
+    //if equivilant it sets setUser(credentials for sessionstorage) with the users information from the database
     usersList.map((singleUser) => {
       console.log("singleUser",singleUser)
       console.log("credentials",credentials)
@@ -41,7 +47,7 @@ const Login = (props) => {
     getUsers()
 }, []);
   return (
-      //onSubmit = when i click the button, start this function
+      //onSubmit attribute for when i click the submit button for the form, start the function
     <form onSubmit={verifyCredentials}>
       <fieldset>
         <h3>Please sign in</h3>

@@ -19,9 +19,6 @@ const EditBrand = (props) => {
     //holds brand key : values as an object, set during useEffect render and watched by handleFieldChange
     const [brand, setBrand] = useState({name: "", batchSize: "", yeast: "", hop: "", ibu: "", abv:"", tastingNote: "", styleId: "", statusId: "", userId: ""})
     
-    //holds ingredients from database for this brand and includes expand on grainId, used to create dropdowns for ingredients from database, set during useEffect
-    
-
     //holds all the grain types from database, used to place each grain into an option of a select element, set during useEffect
     const [grainSelects, setGrainSelects] = useState([])
 
@@ -42,7 +39,7 @@ const EditBrand = (props) => {
     const [isLoading, setIsLoading] = useState(false);
     
 
-    //Listens for click on "add more grain" button and creates a new instance of grain selection options and a weight input
+    //Listens for click on "add more grain" button and creates a new instance of grain selection options and a weight input along with an new object containing the brand.id
     const handleAddGrainElements = () => {
         const values = [...grainFieldsArray ];
         values.push({brandId: brand.id});
@@ -61,7 +58,7 @@ const EditBrand = (props) => {
         refreshForm()
       };
       
-      //Removes grain/weight objects from the ingredients table 
+      //Removes grain/weight objects from the ingredients table and invokes to refresh all form elements
       const handleRemoveEditGrain = (id) => {
       IngredientManager.delete(id).then(() => refreshForm() )};
 
@@ -72,17 +69,19 @@ const EditBrand = (props) => {
         const idx= evt.target.id
         const splitIdx=idx.split("-")[1]
         const splitName=idx.split("-")[0]
+        //key value pair for weight OR grainId
         const singleIngredient = {
             [splitName]: value
         };
         console.log("whats singleIngredient",singleIngredient)
         const add = [...grainFieldsArray ];
+        // set the old input index number eqaul to the new input field index which also includes the singleIngredient object of grainId:"" or weight:""
             add[splitIdx]={...add[splitIdx],...singleIngredient};
             console.log("whats add",add)
         setGrainFieldsArray(add)
     }
 
-    //Handle ingredients Table objects that were placed in Inputs for grain and weight in GrainFieldsArray
+    //Handle ingredients Table objects..placed in Inputs for grain and weight, stored in GrainFieldsArray
     const handleCompleteIngredients = (evt, idx) => {
         console.log("handleIngredient event value",evt.target.value)
         const completeArray = [...completeIngredients]
@@ -96,7 +95,7 @@ const EditBrand = (props) => {
         setCompleteIngredients(completeArray);
     }
 
-    //Handle Change of Inputs for Brand (...all EXCEPT GRAIN AND WEIGHT)
+    //Handle Change of Inputs for single Brand object (...all EXCEPT GRAIN AND WEIGHT)
     const handleBrandFieldChange = evt => {
         console.log("what is the evt", evt)
         //anytime you have an event all of the stuff is passed along 
@@ -111,25 +110,26 @@ const EditBrand = (props) => {
 };
   
     //updates object in brand table from all element except grain and weight
-    //updates object(s) in ingredients table and post's new ingredient objects created
+    //updates object(s) in ingredients table and post's new ingredient objects created (grain & weight)
     const editBrand = (event ) => {
         event.preventDefault();
         setIsLoading(true);
         if (brand.name === "") {
             window.alert("Please input an brand name to continue");
         } else {
+            // All key : value pairs for the brand, to replace previous brand object in table
             const editedBrand = {
-                id: brand.id,
-                userId: brand.userId,
-                name: brand.name,
-                yeast: brand.yeast,
-                hop: brand.hop,
-                ibu: brand.ibu,
-                abv: brand.abv,
-                tastingNote: brand.tastingNote,
-                batchSize: brand.batchSize,
-                styleId: brand.styleId,
-                statusId: brand.statusId
+                name:brand.name,
+                userId:parseInt(brand.userId),
+                batchSize:brand.batchSize,
+                styleId:parseInt(brand.styleId),
+                yeast:brand.yeast,
+                hop:brand.hop,
+                ibu:brand.ibu,
+                abv:brand.abv,
+                tastingNote:brand.tastingNote,
+                statusId:parseInt(brand.statusId),
+                id: brand.id
             }
             console.log("edited Brand b4put", editedBrand)
             BrandManager.update(editedBrand)
@@ -140,13 +140,13 @@ const EditBrand = (props) => {
             }).then(() => { 
                 console.log("completeIngredient after put");
                 grainFieldsArray.map(singleIngredientRelationship => IngredientManager.post(singleIngredientRelationship))
-//have not redirected from page yet, nor have i reset the input fields(if i need to...)
                 })
                 .then(() => {console.log("3rd console log in then",props)
                 props.history.push("/BrandList")})
                 
         }
     }
+    //Places data into input forms, invoked in useEffect and on ingredient delete from database
     const refreshForm = () => {
         BrandManager.getSingleWithStyleStatus(props.match.params.brandId).then((brand) =>{
             IngredientManager.get(brand.id)
@@ -161,7 +161,6 @@ const EditBrand = (props) => {
                                 setStatusSelects(statuses)
                                 setStyleSelects(styles)
                                 setBrand(brand)
-                                
                                 setCompleteIngredients(IngredientsByBrand)
                             
                         })
@@ -249,7 +248,7 @@ const EditBrand = (props) => {
                 )
                 })}
 
-                {/* NEW GRAIN INPUTS */}
+                {/* NEW GRAIN INPUTS , jsx elements linked to an object containing brandId*/}
                 {grainFieldsArray.map((grainFields, idx) => {
                 return (
                 <Col key={idx}>
@@ -315,7 +314,6 @@ const EditBrand = (props) => {
                 </Col>
              </Form>
              </Row>
-             
         </Card.Body>
         <Button variant="warning" disabled={isLoading} onClick={editBrand}>Submit New Brew</Button>{' '}
 
