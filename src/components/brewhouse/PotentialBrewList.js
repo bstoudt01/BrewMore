@@ -6,7 +6,7 @@ const PotentialBrewList = (props) => {
 const brands=props.brands
 const handleAddBrew=props.handleAddBrew
     return (
-        <Container fluid>
+        <Container>
             {brands.map(brand => <PotentialBrewCard key={brand.id} id={brand.id} brand={brand} handleAddBrew={handleAddBrew} /> )}
         </Container>
     )

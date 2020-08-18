@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
+import Card from 'react-bootstrap/Card'
 import IngredientCard from './IngredientCard';
 const BrewhouseIngredients= (props) => {
     const [usedGrains, setUsedGrains] = useState([])
@@ -104,19 +105,33 @@ useEffect(() => {
 
     return (
         <Container>
-          <Row>
-               <h1>Total Grain Required</h1> 
-            </Row>
-            
-            {grainsArray.map(ingredientCard =>  {
+        <Card >
+            <Card.Header className="text-center">Grain Totals</Card.Header>
+            <Card.Body>
                 {/* const id=ingredientCard.grainId
                 const getUsedGrains=[...usedGrains,id]
                 console.log(ingredientCard, "ingredientCard")
                 setUsedGrains(getUsedGrains) */}
+            
+            {grainsArray.map(ingredientCard =>  {
+                
+                    let i = ""
+                    for (i=0; i<ingredients.length; i++) {
+                        console.log(ingredients,"ingredients frominside i")
+                        let ingredient=ingredients[i]
+                    console.log(ingredient,"ingredient includes?",ingredientCard.grainId)
+                    if (ingredient !== undefined && ingredient[i].grainId.includes(ingredientCard.grainId)) {
+                        
+                
+               return (
+                    <p>what?</p>            )
+            } else {
+                  
                return (
                     <IngredientCard key={ingredientCard.id} id={ingredientCard.id} ingredientCard={ingredientCard} count={count} usedGrains={usedGrains} updateUsedGrains={updateUsedGrains} {...props} />
             )
-            })}
+            }
+        }        })}
                 {/* console.log(usedGrains, "usedGrains")
                 const theseGrains = ingredientCard.grainId
                     console.log(theseGrains,"theseGrains") */}
@@ -135,7 +150,8 @@ useEffect(() => {
                 //theseGrains=[...theseGrains,ingredientCard.grainId]
                  } 
                  }) */}
-            <Row><p>Beer ingredeints go here</p></Row>
+            </Card.Body>
+            </Card>
         </Container>
     )
 }

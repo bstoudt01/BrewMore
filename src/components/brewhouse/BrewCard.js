@@ -117,16 +117,16 @@ useEffect(() => {
     getIngredientsbyBrand()
 }, []);
     return (
-        <Container key={brew.id} fluid>
-        <Card className="brewCard" style={{ width: '16rem'}}>
+        <Container key={props.idx} fluid>
+        <Card className="brewCard" style={{ width: '12rem'}}>
         <Row>
         <Col>
-        <p>{brew.name}</p>
+        <p className="d-flex justify-content-center">{brew.name}</p>
         <div className="d-flex justify-content-around">
         <Button size="sm" onClick={() =>handleAddBrewCount(brew.id, props.idx)}>+ Brew</Button>
-        <OverlayTrigger trigger="click" placement="right" rootClose overlay={popover}>
+        {/* <OverlayTrigger trigger="click" placement="right" rootClose overlay={popover}>
             <Button variant="success"  style={{fontSize: "12px", margin: ".1rem", width:"45%"}}>Details</Button>
-        </OverlayTrigger>
+        </OverlayTrigger> */}
         <Button size="sm" onClick={() =>handleRemoveBrewCount(brew.id, props.idx)}>- Brew</Button>
         {/* <p>you have of {count[props.idx].count} this brew</p> */}
         </div>

@@ -82,23 +82,20 @@ const Brewhouse = (props) => {
       },[])
 
     return (
-        <Container fluid>
+        <Container fluid >
             <Row  >
-                <Col lg={3} className="overflow-auto" style={{ height: '20rem'}}>
+                <Col lg={3} className="overflow-auto" style={{ height: '26rem'}}   >
                 {/* Available Brands to add to BrewList */}
                     <PotentialBrewList brands={brands} count={count} setCount={setCount} handleAddBrew={handleAddBrew} {...props} />
                 </Col>
                 <Col lg={9} className="overflow-auto" style={{ height: '20rem'}}>
                 {/* Brands selected to Brew from Brand List */}
                     <BrewList brews={brews} count={count} setCount={setCount} {...props} />
-                    Brew Schedule area
-                    ...Ideally its a calender
                 </Col>
             </Row>
             <Row >
-                <Col style={{ height: '20rem'}} >
+                <Col style={{ height: '15rem'}} className="overflow-auto">
                 <BrewhouseIngredients {...props} brews={brews} count={count} setCount={setCount} ingredients={ingredients} handleAddBrew={handleAddBrew}/>
-                    Brew Window grain totaler
                 </Col>
             </Row>
         </Container>

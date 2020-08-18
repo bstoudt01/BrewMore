@@ -42,7 +42,7 @@ const ApplicationViews = (props) => {
 				exact
 				path="/"
 				render={props => {
-					return <Home {...props} />;
+					return <Home {...props} hasUser={hasUser} />;
 				}}
 			/>
 			{/* New Brand Generator, make sure to pass props through so newBrand can accept a paramater of props to use later in the code (for props.history.push) */}

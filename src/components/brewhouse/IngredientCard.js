@@ -64,8 +64,13 @@ const IngredientCard = (props) => {
     return (
         <Container fluid>
           
-            <Row>
-            <p>{ingredientCard.grain.name} Weight: {ingredientCard.weight * ingredientCount}</p>
+            <Row >
+            <Col className="d-flex justify-content-start flex-fill">
+            <p>{ingredientCard.grain.maltster} - {ingredientCard.grain.name} @ {ingredientCard.weight * ingredientCount} lbs</p>
+            </Col>
+            <Col className="d-flex justify-content-end flex-fill">
+            <p>{ingredientCard.grain.maltster} - {ingredientCard.grain.name} @ {Math.round(((ingredientCard.weight * ingredientCount / 55) + Number.EPSILON) * 100) / 100} bags  </p>
+            </Col>
             </Row>
         </Container>
         
