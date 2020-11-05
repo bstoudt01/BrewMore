@@ -24,7 +24,7 @@ if (brews && brews.length) {
         <Row ><h1>Welcome to the Brewhouse</h1></Row>
         <Row ><p>Please pick from your availabe brands</p></Row>
         <Row ><p>Add and Remove brews as needed</p></Row>
-        <Row ><p>The required grain will print to the bottom of your screen</p></Row>
+        <Row ><p>The required grain will print to the bottom of your screen,<br/> The weight of grain in bags, are available on the right ...1 bag=55lbs</p></Row>
         </Container>
             )
 }

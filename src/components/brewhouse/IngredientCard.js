@@ -9,6 +9,7 @@ const IngredientCard = (props) => {
     const usedGrains = props.usedGrains;
     const updateUsedGrains= props.updateUsedGrains;
     const count=props.count;
+    
     console.log(ingredientCard.brandId, "ingredient from ingcard brandId")
     console.log(count, " count from ingCard")
 

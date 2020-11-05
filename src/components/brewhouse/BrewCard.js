@@ -13,6 +13,8 @@ const BrewCard = (props) => {
     // const [count, setCount]=useState(1)
     const [ingredients, setIngredients]=useState([])
      const [allIngredients, setAllIngredients]=useState([])
+     const [brewCount, setBrewCount]=useState(1);
+
      const brew=props.brew;
      const setCount = props.setCount
      const count = props.count
@@ -56,6 +58,7 @@ const BrewCard = (props) => {
 //        newCount[id]=newBrandCount
         newCount.splice([index],1,newBrandCount)
         setCount(newCount)
+        setBrewCount(brewCount+1)
         } 
     })
 }
@@ -87,6 +90,7 @@ const BrewCard = (props) => {
                 // setCount(newCount)
                 newCount.splice([index],1,newBrandCount)
                 setCount(newCount)
+                setBrewCount(brewCount-1)
                 } 
             })
       
@@ -122,13 +126,13 @@ useEffect(() => {
         <Row>
         <Col>
         <p className="d-flex justify-content-center">{brew.name}</p>
+        <a className="d-flex justify-content-center">X {brewCount} </a>
         <div className="d-flex justify-content-around">
         <Button size="sm" onClick={() =>handleAddBrewCount(brew.id, props.idx)}>+ Brew</Button>
         {/* <OverlayTrigger trigger="click" placement="right" rootClose overlay={popover}>
             <Button variant="success"  style={{fontSize: "12px", margin: ".1rem", width:"45%"}}>Details</Button>
         </OverlayTrigger> */}
         <Button size="sm" onClick={() =>handleRemoveBrewCount(brew.id, props.idx)}>- Brew</Button>
-        {/* <p>you have of {count[props.idx].count} this brew</p> */}
         </div>
         </Col>        
         </Row>
