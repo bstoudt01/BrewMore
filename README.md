@@ -1,7 +1,5 @@
 # BrewMore - Innovating Craft Beer Tools for Everyone
- <p>  | <p>
------------- | -------------
-![Image of Cheers](https://github.com/bstoudt01/BrewMore/blob/demo/src/images/BeerThumbnail100.png?raw=true) | <h3> Created By Brett Stoudt  <br/> <h4>Front End Developemnt Capstone - Cohort 41, Nashville Software School</h4> </h3>
+ <h3> Created By Brett Stoudt  </h3><h4>Front End Developemnt Capstone - Cohort 41, Nashville Software School</h4> 
 
 ## About BrewMore
 Designed as a safe place for breweries to easily store and view receipes for each of the brands of beer they brew.
@@ -50,6 +48,15 @@ Breweries can view all brands, or through a filtered view based on pre defined p
     - Remove previous ingredients by clicking the "x" next to the ingredients in the row
     - Create new ingredients or update other input fields
     - Click save to make changes
+
+7. BrewHouse
+Create a Grain Ordering List for brands you plan to brew
+- Select brands you wish to brew on the left side bar
+- Select how many times you plan to brew that brand in the main area
+- view and use the report proivded at the bottom of the screen
+- this report contains grains by weight and include bag count
+- Hand off this report to you grain provider and the work is done.
+
 7. Logout via the navigation bar or the homepage.
 
 ## Sample JSON database
